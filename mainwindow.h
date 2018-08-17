@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-
+#include "refine.h"
 namespace Ui {
 class MainWindow;
 }
@@ -16,10 +16,12 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_clicked();
+
+    void on_Refine_clicked();
 
 private:
     Ui::MainWindow *ui;
+    Refine *refine;
 };
 
 #endif // MAINWINDOW_H
