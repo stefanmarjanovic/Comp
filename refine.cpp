@@ -13,9 +13,3 @@ Refine::~Refine()
 {
     delete ui;
 }
-
-void Refine::on_pushButton_clicked()
-{
-   QWidget main = new Ui::MainWindow;
-   main->label->setText("hello");
-}
