@@ -26,15 +26,24 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    refine.cpp
+    refine.cpp \
+    player.cpp \
+    addplayerdiag.cpp \
+    editplayerdiag.cpp
 
 HEADERS += \
         mainwindow.h \
-    refine.h
+    refine.h \
+    player.h \
+    player.h \
+    addplayerdiag.h \
+    editplayerdiag.h
 
 FORMS += \
         mainwindow.ui \
-    refine.ui
+    refine.ui \
+    addplayerdiag.ui \
+    editplayerdiag.ui
 
 RESOURCES += \
     resources.qrc

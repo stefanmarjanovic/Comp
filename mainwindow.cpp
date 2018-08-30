@@ -1,14 +1,21 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "refine.h"
+#include "player.h"
+#include "addplayerdiag.h"
+#include "editplayerdiag.h"
+#include <list>
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-}
+    import();
 
+    ui->playerTable = viewPlayers(ui->playerTable);
+}
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -18,6 +25,21 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_Refine_clicked()
 {
-    refine = new Refine(this);
-    refine->show();
+    ui->playerTable = viewPlayers(ui->playerTable);
+
+    //refine = new Refine(this);
+    //refine->show();
+}
+
+void MainWindow::on_playeAdButton_clicked()
+{
+    addplayerdiag = new AddPlayerDiag(this);
+    addplayerdiag->show();
+
+}
+
+void MainWindow::on_PlayerEditButton_clicked()
+{
+    editplayerdiag = new EditPlayerDiag(this);
+    editplayerdiag->show();
 }
