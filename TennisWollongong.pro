@@ -29,7 +29,8 @@ SOURCES += \
     refine.cpp \
     player.cpp \
     addplayerdiag.cpp \
-    editplayerdiag.cpp
+    editplayerdiag.cpp \
+    datepick.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -37,13 +38,15 @@ HEADERS += \
     player.h \
     player.h \
     addplayerdiag.h \
-    editplayerdiag.h
+    editplayerdiag.h \
+    datepick.h
 
 FORMS += \
         mainwindow.ui \
     refine.ui \
     addplayerdiag.ui \
-    editplayerdiag.ui
+    editplayerdiag.ui \
+    datepick.ui
 
 RESOURCES += \
     resources.qrc

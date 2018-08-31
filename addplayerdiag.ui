@@ -118,6 +118,9 @@
     <property name="text">
      <string>Female</string>
     </property>
+    <property name="checked">
+     <bool>false</bool>
+    </property>
    </widget>
    <widget class="QRadioButton" name="male">
     <property name="geometry">
@@ -130,6 +133,9 @@
     </property>
     <property name="text">
      <string>Male</string>
+    </property>
+    <property name="checked">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>
@@ -196,7 +202,7 @@
     <rect>
      <x>210</x>
      <y>130</y>
-     <width>171</width>
+     <width>31</width>
      <height>21</height>
     </rect>
    </property>
@@ -219,6 +225,19 @@
      <width>171</width>
      <height>21</height>
     </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="cal">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>130</y>
+     <width>121</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>PushButton</string>
    </property>
   </widget>
  </widget>

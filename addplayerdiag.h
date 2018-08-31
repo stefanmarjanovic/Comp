@@ -2,6 +2,7 @@
 #define ADDPLAYERDIAG_H
 
 #include <QDialog>
+#include "datepick.h"
 
 namespace Ui {
 class AddPlayerDiag;
@@ -20,8 +21,11 @@ private slots:
 
     void on_pushButton_2_clicked();
 
+    void on_cal_clicked();
+
 private:
     Ui::AddPlayerDiag *ui;
+    DatePick * datepick;
 };
 
 #endif // ADDPLAYERDIAG_H
