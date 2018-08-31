@@ -3,6 +3,7 @@
 #include "player.h"
 #include "mainwindow.h"
 #include <QDebug>
+#include <QMessageBox>
 
 AddPlayerDiag::AddPlayerDiag(QWidget *parent) :
     QDialog(parent),
@@ -39,8 +40,29 @@ void AddPlayerDiag::on_pushButton_clicked()
        qDebug() << "all characters";
 
     //TODO proper id
-    addPlayer("-1",fname,lname,dob,mob,email,gender);
-    AddPlayerDiag::close();
+    QMessageBox msgBox;
+    msgBox.setText("Are you sure?");
+    msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Cancel);
+    msgBox.setDefaultButton(QMessageBox::Save);
+    int ret = msgBox.exec();
+
+    switch (ret) {
+      case QMessageBox::Save:
+    {
+        //Save was clicked
+        //TODO proper id
+        addPlayer("-1",fname,lname,dob,mob,email,gender);
+        AddPlayerDiag::close();
+        break;
+    }
+      case QMessageBox::Cancel:
+          // Cancel was clicked
+          break;
+      default:
+          // should never be reached
+          break;
+    }
+
 
 }
 

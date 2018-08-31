@@ -25,7 +25,7 @@ void import();  								//import player csv
 QTableWidget* viewPlayers(QTableWidget* players);					//print entire player list
 bool validEmail(const string& email); 			//regex email validation
 void addPlayer(QString id, QString fName, QString lName, QString dob, QString m, QString e, QString type);								//add new player to the DB
-void deletePlayer();							//delete existing player
+void deletePlayer(QString id);							//delete existing player
 void editPlayer(QString id, QString fName, QString lName, QString dob, QString m, QString e, QString type); 							//edit an exisiting player
 Player getPlayer(QString id);
 

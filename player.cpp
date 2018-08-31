@@ -105,3 +105,21 @@ Player getPlayer(QString id)
     return (*itr);
 }
 
+void deletePlayer(QString id){                                // Delete player function
+    bool found = false;
+
+    for (itr = allPlayers.begin(); itr != allPlayers.end(); itr++)
+    {
+        if((*itr).playerID == id)
+        {
+            itr = allPlayers.erase(itr);
+            found = true;
+            break;
+        }
+    }
+    if(found == false)
+    {
+        //TODO add messageboxes
+    }
+}
+

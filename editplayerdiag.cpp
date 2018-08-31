@@ -2,6 +2,11 @@
 #include "ui_editplayerdiag.h"
 #include "player.h"
 #include <QDebug>
+#include <QMessageBox>
+
+/* GLOBAL VARIABLES */
+
+QString id;
 
 EditPlayerDiag::EditPlayerDiag(QWidget *parent) :
     QDialog(parent),
@@ -18,7 +23,8 @@ EditPlayerDiag::~EditPlayerDiag()
 
 void EditPlayerDiag::on_search_clicked()
 {
-    Player foundPlayer = getPlayer(ui->id->text());
+    id = ui->id->text();
+    Player foundPlayer = getPlayer(id);
     qDebug() << foundPlayer.type;
 
     ui->fName->setText(foundPlayer.firstName);
@@ -42,9 +48,8 @@ void EditPlayerDiag::on_search_clicked()
 void EditPlayerDiag::on_apply_clicked()     //identical to addplayer
 {
     //TODO REGEX
-    QString id, fname, lname, dob, mob, email, gender;
+    QString fname, lname, dob, mob, email, gender;
     bool male;
-    id  = ui->id->text();
     fname = ui->fName->text();
     lname = ui->lName->text();
     dob = ui->dob->text();
@@ -57,8 +62,33 @@ void EditPlayerDiag::on_apply_clicked()     //identical to addplayer
     else
         gender = "0";
 
-    //TODO proper id
-    editPlayer(id,fname,lname,dob,mob,email,gender);
-    EditPlayerDiag::close();
+    QMessageBox msgBox;
+    msgBox.setText("Are you sure?");
+    msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Cancel);
+    msgBox.setDefaultButton(QMessageBox::Save);
+    int ret = msgBox.exec();
 
+    switch (ret) {
+      case QMessageBox::Save:
+    {
+
+        //TODO proper id
+        editPlayer(id,fname,lname,dob,mob,email,gender);
+         // Save was clicked
+        EditPlayerDiag::close();
+        break;
+    }
+      case QMessageBox::Cancel:
+          // Cancel was clicked
+          break;
+      default:
+          // should never be reached
+          break;
+    }
+
+}
+
+void EditPlayerDiag::on_deleteButton_clicked()
+{
+    deletePlayer(id);
 }

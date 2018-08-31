@@ -20,6 +20,8 @@ private slots:
 
     void on_apply_clicked();
 
+    void on_deleteButton_clicked();
+
 private:
     Ui::EditPlayerDiag *ui;
 };
