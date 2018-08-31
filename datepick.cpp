@@ -17,7 +17,7 @@ DatePick::~DatePick()
 void DatePick::on_calendarWidget_selectionChanged()
 {
     QDate dob =  ui->calendarWidget->selectedDate();
-    qDebug() << dob.toString("dd/MM/yyyy");
+    emit sendDate(dob.toString("dd/MM/yyyy"));
 
     DatePick::close();
 }

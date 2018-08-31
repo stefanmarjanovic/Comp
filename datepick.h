@@ -18,6 +18,9 @@ public:
 private slots:
     void on_calendarWidget_selectionChanged();
 
+signals:
+    void sendDate(const QString);
+
 private:
     Ui::DatePick *ui;
 };

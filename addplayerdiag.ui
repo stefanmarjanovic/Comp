@@ -202,7 +202,7 @@
     <rect>
      <x>210</x>
      <y>130</y>
-     <width>31</width>
+     <width>131</width>
      <height>21</height>
     </rect>
    </property>
@@ -230,9 +230,9 @@
   <widget class="QPushButton" name="cal">
    <property name="geometry">
     <rect>
-     <x>260</x>
+     <x>350</x>
      <y>130</y>
-     <width>121</width>
+     <width>31</width>
      <height>21</height>
     </rect>
    </property>

@@ -17,6 +17,7 @@ public:
     ~AddPlayerDiag();
 
 private slots:
+    void getDate(const QString text);
     void on_pushButton_clicked();
 
     void on_pushButton_2_clicked();
