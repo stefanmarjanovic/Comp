@@ -7,6 +7,7 @@
 #include <QDebug>
 #include <QFile>
 #include <QStringList>
+#include <QMessageBox>
 
 using namespace std;
 
@@ -25,6 +26,12 @@ Player::Player(QString id, QString fName, QString lName, QString dob, QString m,
 	type = t; 
 }
 void import(){
+
+    QMessageBox msgBox;
+    msgBox.setText("Are you sure?");
+    msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Cancel);
+    msgBox.setDefaultButton(QMessageBox::Save);
+    int ret = msgBox.exec();
 
     QFile file(":/mockData.csv");
     if (!file.open(QIODevice::ReadOnly))
