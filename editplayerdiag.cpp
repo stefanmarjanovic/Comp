@@ -62,28 +62,32 @@ void EditPlayerDiag::on_apply_clicked()     //identical to addplayer
     else
         gender = "0";
 
-    QMessageBox msgBox;
-    msgBox.setText("Are you sure?");
-    msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Cancel);
-    msgBox.setDefaultButton(QMessageBox::Save);
-    int ret = msgBox.exec();
-
-    switch (ret) {
-      case QMessageBox::Save:
+    Player tempP = Player(id,fname,lname,dob,mob,email,gender);
+    if(verifyPlayer(tempP))
     {
+        QMessageBox msgBox;
+        msgBox.setText("Are you sure?");
+        msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Cancel);
+        msgBox.setDefaultButton(QMessageBox::Save);
+        int ret = msgBox.exec();
 
-        //TODO proper id
-        editPlayer(id,fname,lname,dob,mob,email,gender);
-         // Save was clicked
-        EditPlayerDiag::close();
-        break;
-    }
-      case QMessageBox::Cancel:
-          // Cancel was clicked
-          break;
-      default:
-          // should never be reached
-          break;
+        switch (ret) {
+        case QMessageBox::Save:
+        {
+
+            //TODO proper id
+            editPlayer(tempP, id);
+            // Save was clicked
+            EditPlayerDiag::close();
+            break;
+        }
+        case QMessageBox::Cancel:
+            // Cancel was clicked
+            break;
+        default:
+            // should never be reached
+            break;
+        }
     }
 
 }

@@ -24,10 +24,7 @@ void AddPlayerDiag::on_pushButton_clicked()
     //TODO REGEX
     QString fname, lname, dob, mob, email, gender;
     bool male;
-    bool valid = true;
-    QString errorMessage = "";
 
-    QRegExp emailRX(("(\\w+)(\\.|_)?(\\w*)@(\\w+)(\\.(\\w+))+"));
     fname = ui->fName->text();
     lname = ui->lName->text();
     dob = ui->dob->text();
@@ -40,50 +37,11 @@ void AddPlayerDiag::on_pushButton_clicked()
     else
         gender = "0";
 
-    for (QChar c : fname)        //string validation
-            {
-                if(!c.isLetter())
-                {
-                    valid = false;
-                    errorMessage += "First Name Invalid.\n";
-                    break;
-                }
-            }
-    for (QChar c : lname)        //string validation
-            {
-                if(!c.isLetter())
-                {
-                    valid = false;
-                    errorMessage += "Last Name Invalid.\n";
-                    break;
-                }
-            }
-    if(mob.length() == 10)
-         for (QChar c : mob)        //string validation
-            {
-                if(!c.isNumber())
-                {
-                    valid = false;
-                    errorMessage += "Mobile Invalid Characters.\n";
-                    break;
-                }
-            }
-    else
-    {
-        valid = false;
-        errorMessage += "Mobile Invalid Length.\n";
-    }
+    Player tempP = Player("-1",fname,lname,dob,mob,email,gender);
 
-    if(!emailRX.exactMatch(email))
-    {
-        valid = false;
-        errorMessage += "Email Invalid.\n";
 
-    }
-
-    qDebug() << errorMessage;
     //TODO proper id
-    if(valid)
+    if(verifyPlayer(tempP))
     {
         QMessageBox msgBox;
         msgBox.setText("Are you sure?");
@@ -96,7 +54,7 @@ void AddPlayerDiag::on_pushButton_clicked()
         {
             //Save was clicked
             //TODO proper id
-            addPlayer("-1",fname,lname,dob,mob,email,gender);
+            addPlayer(tempP);
             AddPlayerDiag::close();
             break;
         }
@@ -108,17 +66,6 @@ void AddPlayerDiag::on_pushButton_clicked()
               break;
         }
     }
-    else
-    {
-        QMessageBox msgBox;
-        msgBox.setText("Error");
-        msgBox.setInformativeText(errorMessage);
-        msgBox.setStandardButtons(QMessageBox::Ok);
-        msgBox.setDefaultButton(QMessageBox::Ok);
-        msgBox.exec();
-    }
-
-
 }
 
 void AddPlayerDiag::on_pushButton_2_clicked()

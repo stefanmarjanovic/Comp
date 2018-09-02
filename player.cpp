@@ -17,21 +17,15 @@ list<Player>::iterator itr;
 
 
 Player::Player(QString id, QString fName, QString lName, QString dob, QString m, QString e, QString t){
-	playerID = id;			
-	firstName = fName; 
-	lastName = lName; 
-	DOB = dob;
-	mob = m;
-	email = e; 
-	type = t; 
+    playerID = id;
+    firstName = fName;
+    lastName = lName;
+    DOB = dob;
+    mob = m;
+    email = e;
+    type = t;
 }
 void import(){
-
-    QMessageBox msgBox;
-    msgBox.setText("Are you sure?");
-    msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Cancel);
-    msgBox.setDefaultButton(QMessageBox::Save);
-    int ret = msgBox.exec();
 
     QFile file(":/mockData.csv");
     if (!file.open(QIODevice::ReadOnly))
@@ -62,7 +56,7 @@ QTableWidget* viewPlayers(QTableWidget *players){
 
     //players->setItem(0,1,*new QTableWidgetItem("test3"));
     for (itr = allPlayers.begin(); itr != allPlayers.end();itr++)
-        {
+    {
         rowCount++;
         players->setRowCount(rowCount);
 
@@ -75,27 +69,20 @@ QTableWidget* viewPlayers(QTableWidget *players){
 
 
 
-            //cout << (*itr).playerID  +"\t"+ (*itr).firstName +" \t"+ (*itr).lastName +" \t"+ (*itr).DOB +"\t"+ (*itr).mob +"\t"+ (*itr).email << endl;
-        }
-    return players;
+        //cout << (*itr).playerID  +"\t"+ (*itr).firstName +" \t"+ (*itr).lastName +" \t"+ (*itr).DOB +"\t"+ (*itr).mob +"\t"+ (*itr).email << endl;
     }
-void addPlayer(QString id, QString fName, QString lName, QString dob, QString m, QString e, QString type)								//add new player to the DB
-{
-    Player newPlayer = Player(id, fName,  lName,  dob,  m,  e,  type);
-    allPlayers.push_back(newPlayer);
+    return players;
 }
-void editPlayer(QString id, QString fName, QString lName, QString dob, QString m, QString e, QString type)								//add new player to the DB
+void addPlayer(Player p)								//add new player to the DB
+{
+    allPlayers.push_back(p);
+}
+void editPlayer(Player p, QString id)								//add new player to the DB
 {
     for(itr = allPlayers.begin(); itr != allPlayers.end(); itr++)
     {
         if((*itr).playerID == id){
-            (*itr).firstName = fName;
-            (*itr).lastName = lName;
-            (*itr).DOB = dob;
-            (*itr).mob = m;
-            (*itr).email = e;
-            (*itr).type = type;
-
+            (*itr) = p;
             break;
         }
     }
@@ -128,5 +115,95 @@ void deletePlayer(QString id){                                // Delete player f
     {
         //TODO add messageboxes
     }
+}
+
+bool verifyPlayer(Player p)
+{
+    QString errorMessage = "";
+    QRegExp emailRX(("(\\w+)(\\.|_)?(\\w*)@(\\w+)(\\.(\\w+))+"));
+    bool valid = true;
+
+    if(p.firstName.isEmpty())
+    {
+        valid = false;
+        errorMessage += "First Name Invalid.\n";
+    }
+    else
+        for (QChar c : p.firstName)        //string validation
+        {
+            if(!c.isLetter())
+            {
+                valid = false;
+                errorMessage += "First Name Invalid.\n";
+                break;
+            }
+        }
+
+    if(p.lastName.isEmpty())
+    {
+        valid = false;
+        errorMessage += "Last Name Invalid.\n";
+    }
+    else
+        for (QChar c : p.lastName)        //string validation
+        {
+            if(!c.isLetter())
+            {
+                valid = false;
+                errorMessage += "Last Name Invalid.\n";
+                break;
+            }
+        }
+
+    if(p.DOB.isEmpty())
+    {
+        valid = false;
+        errorMessage += "DOB Invalid.\n";
+    }
+
+    if(p.mob.isEmpty())
+    {
+        valid = false;
+        errorMessage += "Mobile Invalid.\n";
+    }
+    else
+        if(p.mob.length() == 10)
+            for (QChar c : p.mob)        //string validation
+            {
+                if(!c.isNumber())
+                {
+                    valid = false;
+                    errorMessage += "Mobile Invalid Characters.\n";
+                    break;
+                }
+            }
+        else
+        {
+            valid = false;
+            errorMessage += "Mobile Invalid Length.\n";
+        }
+
+    if(p.email.isEmpty())
+    {
+        valid = false;
+        errorMessage += "Email Invalid.\n";
+    }
+    else if(!emailRX.exactMatch(p.email))
+    {
+        valid = false;
+        errorMessage += "Email Invalid.\n";
+    }
+
+
+    if(!valid)
+    {
+        QMessageBox msgBox;
+        msgBox.setText("Error");
+        msgBox.setInformativeText(errorMessage);
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        msgBox.exec();
+    }
+    return valid;
 }
 

@@ -24,10 +24,11 @@ class Player{
 void import();  								//import player csv
 QTableWidget* viewPlayers(QTableWidget* players);					//print entire player list
 bool validEmail(const string& email); 			//regex email validation
-void addPlayer(QString id, QString fName, QString lName, QString dob, QString m, QString e, QString type);								//add new player to the DB
+void addPlayer(Player p);								//add new player to the DB
 void deletePlayer(QString id);							//delete existing player
-void editPlayer(QString id, QString fName, QString lName, QString dob, QString m, QString e, QString type); 							//edit an exisiting player
+void editPlayer(Player p, QString id); 							//edit an exisiting player
 Player getPlayer(QString id);
+bool verifyPlayer(Player p);
 
 
 #endif // PLAYER_H
