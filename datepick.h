@@ -2,6 +2,7 @@
 #define DATEPICK_H
 
 #include <QWidget>
+#include <QDebug>
 
 namespace Ui {
 class DatePick;

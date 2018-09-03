@@ -1,8 +1,6 @@
 #include "editplayerdiag.h"
 #include "ui_editplayerdiag.h"
 #include "player.h"
-#include <QDebug>
-#include <QMessageBox>
 
 /* GLOBAL VARIABLES */
 

@@ -3,6 +3,16 @@
 
 #include <QString>
 #include <QTableWidget>
+#include <QDebug>
+#include <QFile>
+#include <QStringList>
+#include <QMessageBox>
+#include <list>
+#include <QSqlDatabase>
+#include <QSqlQueryModel>
+#include <QSqlQuery>
+#include <QSqlError>
+
 
 using namespace std;
 
@@ -21,9 +31,7 @@ class Player{
 };
 
 //prototype declarations
-void import();  								//import player csv
-QTableWidget* viewPlayers(QTableWidget* players);					//print entire player list
-bool validEmail(const string& email); 			//regex email validation
+QSqlQueryModel*  dbLoad();  								//import players from db
 void addPlayer(Player p);								//add new player to the DB
 void deletePlayer(QString id);							//delete existing player
 void editPlayer(Player p, QString id); 							//edit an exisiting player

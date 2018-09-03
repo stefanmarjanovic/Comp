@@ -4,7 +4,6 @@
 #include "player.h"
 #include "addplayerdiag.h"
 #include "editplayerdiag.h"
-#include <list>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -12,20 +11,18 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    import();
+    ui->playerTable->setModel(dbLoad());
 
-    ui->playerTable = viewPlayers(ui->playerTable);
+   // ui->playerTable = viewPlayers(ui->playerTable);
 }
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
-
-
 void MainWindow::on_Refine_clicked()
 {
-    ui->playerTable = viewPlayers(ui->playerTable);
+    //ui->playerTable = viewPlayers(ui->playerTable);
 
     //refine = new Refine(this);
     //refine->show();

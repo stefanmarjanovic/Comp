@@ -1,6 +1,5 @@
 #include "datepick.h"
 #include "ui_datepick.h"
-#include <QDebug>
 
 DatePick::DatePick(QWidget *parent) :
     QWidget(parent),

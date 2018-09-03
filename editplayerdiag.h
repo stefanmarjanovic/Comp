@@ -2,6 +2,9 @@
 #define EDITPLAYERDIAG_H
 
 #include <QDialog>
+#include <QDebug>
+#include <QMessageBox>
+
 
 namespace Ui {
 class EditPlayerDiag;

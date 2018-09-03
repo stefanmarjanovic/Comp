@@ -151,7 +151,7 @@ background-image: url(:/logo.png);</string>
        <string>Player List</string>
       </property>
      </widget>
-     <widget class="QTableWidget" name="playerTable">
+     <widget class="QTableView" name="playerTable">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -160,36 +160,6 @@ background-image: url(:/logo.png);</string>
         <height>321</height>
        </rect>
       </property>
-      <column>
-       <property name="text">
-        <string>ID</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>First name</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Last name</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>DOB</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Mobile</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Email</string>
-       </property>
-      </column>
      </widget>
      <widget class="QPushButton" name="Refine">
       <property name="geometry">

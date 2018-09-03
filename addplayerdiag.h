@@ -3,6 +3,10 @@
 
 #include <QDialog>
 #include "datepick.h"
+#include <QDebug>
+#include <QMessageBox>
+#include <QDateEdit>
+
 
 namespace Ui {
 class AddPlayerDiag;

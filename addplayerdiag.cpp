@@ -2,9 +2,6 @@
 #include "ui_addplayerdiag.h"
 #include "player.h"
 #include "mainwindow.h"
-#include <QDebug>
-#include <QMessageBox>
-#include <QDateEdit>
 
 AddPlayerDiag::AddPlayerDiag(QWidget *parent) :
     QDialog(parent),

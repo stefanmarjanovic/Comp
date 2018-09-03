@@ -5,6 +5,8 @@
 #include "refine.h"
 #include "addplayerdiag.h"
 #include "editplayerdiag.h"
+#include <list>
+
 namespace Ui {
 class MainWindow;
 }
