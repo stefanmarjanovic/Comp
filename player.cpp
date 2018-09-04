@@ -3,9 +3,27 @@
 
 
 //global variables 
-list<Player> allPlayers;
-list<Player>::iterator itr; 
+QSqlDatabase tennisTestDB = QSqlDatabase::addDatabase("QMYSQL");
 
+void dbOpen()
+{
+    tennisTestDB.setHostName("127.0.0.1");
+    tennisTestDB.setDatabaseName("tennisTestDB");
+    tennisTestDB.setUserName("root");
+    if(tennisTestDB.isValid())
+    {
+        tennisTestDB.open();
+        if(!tennisTestDB.isOpen())
+            qDebug() << "DB not open";
+    }
+    else
+        qDebug() << "DB not valid";
+
+}
+void dbClose()
+{
+    tennisTestDB.close();
+}
 
 Player::Player(QString id, QString fName, QString lName, QString dob, QString m, QString e, QString t){
     playerID = id;
@@ -16,92 +34,146 @@ Player::Player(QString id, QString fName, QString lName, QString dob, QString m,
     email = e;
     type = t;
 }
-QSqlQueryModel* dbLoad(){
 
+QSqlQueryModel* dbLoad()
+{
     QSqlQueryModel *model = new QSqlQueryModel;
-    QSqlDatabase tennisTestDB = QSqlDatabase::addDatabase("QMYSQL");
-    tennisTestDB.setHostName("127.0.0.1");
-    tennisTestDB.setDatabaseName("tennisTestDB");
-    tennisTestDB.setUserName("root");
+    QSqlQuery search(tennisTestDB);
 
-    if(tennisTestDB.isValid())
+    search.prepare("SELECT * FROM players");
+    search.exec();
+
+    if(search.isActive())
     {
-        tennisTestDB.open();
-        if(tennisTestDB.isOpen())
-        {
-            qDebug() << "opened successfully";
-
-            QSqlQuery search(tennisTestDB);
-
-            search.prepare("SELECT * FROM players");
-            search.exec();
-
-            if(search.isActive())
-            {
-                model->setQuery(search);
-                tennisTestDB.close();
-            }
-            else
-                qDebug() << " Query not active: " << search.lastError() << endl;
-        }
-        else
-            qDebug() << "DB not open";
+        model->setQuery(search);
     }
     else
-        qDebug() << "DB not valid";
+        qDebug() << " Query not active: " << search.lastError() << endl;
+
+
 
     return model;
 }
 
 void addPlayer(Player p)								//add new player to the DB
 {
-    allPlayers.push_back(p);
-}
-void editPlayer(Player p, QString id)								//add new player to the DB
-{
-    for(itr = allPlayers.begin(); itr != allPlayers.end(); itr++)
+    QSqlQuery insert(tennisTestDB);
+
+    insert.prepare("INSERT INTO PLAYERS (first_name,last_name,dob,mobile,email,type) VALUES" +toValues(p));
+    insert.exec();
+
+    if(insert.isActive())
     {
-        if((*itr).playerID == id){
-            (*itr) = p;
-            break;
-        }
+        qDebug() << " Player Added successfully";
     }
+    else
+        qDebug() << " Query not active: " << insert.lastError() << endl;
+}
+
+QString toValues(Player p)
+{
+    return
+            "('"+p.firstName+"','" +
+            p.lastName+"','" +
+            p.DOB+"','" +
+            p.mob+"','" +
+            p.email+"','" +
+            p.type+"');";
+}
+void editPlayer(Player p)								//add new player to the DB
+{
+    QSqlQuery update(tennisTestDB);
+    QString query = "UPDATE PLAYERS SET first_name ='"
+            + p.firstName   +"',"+
+            "last_name ='"   + p.lastName    +"',"+
+            "dob ='"         + p.DOB         +"',"+
+            "mobile ='"      + p.mob         +"',"+
+            "email ='"       + p.email       +"',"+
+            "type ='"        + p.type        +"'"+
+            "WHERE id ="    + p.playerID;
+    update.prepare(query);
+    update.exec();
+
+    if(update.isActive())
+    {
+        qDebug() << " Player Edited successfully";
+    }
+    else
+        qDebug() << " Query not active: " << update.lastError() << endl;
+
 }
 
 Player getPlayer(QString id)
 {
-    for(itr = allPlayers.begin(); itr != allPlayers.end(); itr++)
-    {
-        if((*itr).playerID == id){
-            break;
-        }
-    }
-    return (*itr);
-}
+    QSqlQuery get(tennisTestDB);
+    QString query = "SELECT * FROM PLAYERS WHERE id = "+ id;
+    get.prepare(query);
+    get.exec();
 
-void deletePlayer(QString id){                                // Delete player function
-    bool found = false;
-
-    for (itr = allPlayers.begin(); itr != allPlayers.end(); itr++)
+    if(get.isActive())
     {
-        if((*itr).playerID == id)
+        if(get.first())
         {
-            itr = allPlayers.erase(itr);
-            found = true;
-            break;
+            qDebug() << " Player Found successfully size";
+            return Player(get.value(0).toString(),get.value(1).toString(),get.value(2).toString(),get.value(3).toString(),get.value(4).toString(),get.value(5).toString(),get.value(6).toString());
         }
     }
-    if(found == false)
-    {
-        //TODO add messageboxes
-    }
+    else
+        qDebug() << " Query not active: " << get.lastError() << endl;
+    return Player("","","","","","","");
 }
 
-bool verifyPlayer(Player p)
+void deletePlayer(QString id)
+{                                // Delete player function
+    QSqlQuery deleter(tennisTestDB);
+    QString query = "DELETE FROM PLAYERS WHERE id = "+ id;
+    deleter.prepare(query);
+    deleter.exec();
+
+    if(deleter.isActive())
+    {
+
+        qDebug() << " Player deleted successfully";
+        //TODO close the edit window HINT: make bool
+
+    }
+    else
+        qDebug() << " Query not active: " << deleter.lastError() << endl;
+}
+
+bool verifyPlayer(Player p, bool existingPlayerSearch)
 {
+    bool exists=true;
+
+    if(existingPlayerSearch)
+    {
+        QSqlQuery get(tennisTestDB);
+        QString query = "SELECT * FROM PLAYERS WHERE id = "+ p.playerID;
+        get.prepare(query);
+        get.exec();
+        if(get.isActive())
+        {
+            if(!get.first())
+            {
+                exists = false;
+            }
+        }
+        else
+            qDebug() << " Query not active: " << get.lastError() << endl;
+    }
     QString errorMessage = "";
     QRegExp emailRX(("(\\w+)(\\.|_)?(\\w*)@(\\w+)(\\.(\\w+))+"));
     bool valid = true;
+
+    if(p.playerID.isEmpty())
+    {
+        valid = false;
+        errorMessage += "ID cannot be empty.\n";
+    } else if(!exists)
+    {
+        valid = false;
+        errorMessage += "ID not found.\n";
+    }
 
     if(p.firstName.isEmpty())
     {

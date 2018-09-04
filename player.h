@@ -7,7 +7,6 @@
 #include <QFile>
 #include <QStringList>
 #include <QMessageBox>
-#include <list>
 #include <QSqlDatabase>
 #include <QSqlQueryModel>
 #include <QSqlQuery>
@@ -34,9 +33,14 @@ class Player{
 QSqlQueryModel*  dbLoad();  								//import players from db
 void addPlayer(Player p);								//add new player to the DB
 void deletePlayer(QString id);							//delete existing player
-void editPlayer(Player p, QString id); 							//edit an exisiting player
+void editPlayer(Player p); 							//edit an exisiting player
 Player getPlayer(QString id);
-bool verifyPlayer(Player p);
+bool verifyPlayer(Player p, bool existingPlayerSearch);
+void dbOpen();
+void dbClose();
+QString toValues(Player p); //NEEDED? return the values for sql e.g. ("bob","saget",etc..)
+
+
 
 
 #endif // PLAYER_H

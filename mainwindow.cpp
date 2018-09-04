@@ -11,12 +11,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    dbOpen();
     ui->playerTable->setModel(dbLoad());
-
+    getPlayer("-1");
    // ui->playerTable = viewPlayers(ui->playerTable);
 }
 MainWindow::~MainWindow()
 {
+    dbClose();
     delete ui;
 }
 

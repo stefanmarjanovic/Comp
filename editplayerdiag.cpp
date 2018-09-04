@@ -61,7 +61,7 @@ void EditPlayerDiag::on_apply_clicked()     //identical to addplayer
         gender = "0";
 
     Player tempP = Player(id,fname,lname,dob,mob,email,gender);
-    if(verifyPlayer(tempP))
+    if(verifyPlayer(tempP,true))
     {
         QMessageBox msgBox;
         msgBox.setText("Are you sure?");
@@ -74,7 +74,7 @@ void EditPlayerDiag::on_apply_clicked()     //identical to addplayer
         {
 
             //TODO proper id
-            editPlayer(tempP, id);
+            editPlayer(tempP);
             // Save was clicked
             EditPlayerDiag::close();
             break;

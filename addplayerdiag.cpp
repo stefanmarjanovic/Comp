@@ -38,7 +38,7 @@ void AddPlayerDiag::on_pushButton_clicked()
 
 
     //TODO proper id
-    if(verifyPlayer(tempP))
+    if(verifyPlayer(tempP,false))
     {
         QMessageBox msgBox;
         msgBox.setText("Are you sure?");
