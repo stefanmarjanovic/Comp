@@ -72,9 +72,10 @@ void EditPlayerDiag::on_apply_clicked()     //identical to addplayer
         switch (ret) {
         case QMessageBox::Save:
         {
-
             //TODO proper id
             editPlayer(tempP);
+            emit sendRefresh();
+
             // Save was clicked
             EditPlayerDiag::close();
             break;
@@ -93,4 +94,25 @@ void EditPlayerDiag::on_apply_clicked()     //identical to addplayer
 void EditPlayerDiag::on_deleteButton_clicked()
 {
     deletePlayer(id);
+    emit sendRefresh();
+
+}
+
+void EditPlayerDiag::on_cal_clicked()
+{
+    datepick = new DatePick(this);
+    datepick->show();
+
+    QObject::connect(datepick,SIGNAL(sendDate(QString)),this,SLOT(getDate(QString)) );
+}
+
+void EditPlayerDiag::getDate(QString text)
+{
+   ui->dob->setText(text);
+   qDebug() << "test";
+}
+
+void EditPlayerDiag::on_cancel_clicked()
+{
+    EditPlayerDiag::close();
 }

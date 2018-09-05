@@ -43,10 +43,10 @@ HEADERS += \
 
 FORMS += \
         mainwindow.ui \
-    refine.ui \
     addplayerdiag.ui \
     editplayerdiag.ui \
-    datepick.ui
+    datepick.ui \
+    refine.ui
 
 RESOURCES += \
     resources.qrc

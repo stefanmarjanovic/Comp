@@ -68,6 +68,7 @@ void addPlayer(Player p)								//add new player to the DB
     }
     else
         qDebug() << " Query not active: " << insert.lastError() << endl;
+
 }
 
 QString toValues(Player p)

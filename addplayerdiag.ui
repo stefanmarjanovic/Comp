@@ -139,7 +139,7 @@
     </property>
    </widget>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="apply">
    <property name="geometry">
     <rect>
      <x>270</x>
@@ -164,7 +164,7 @@
     <bool>false</bool>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="cancel">
    <property name="geometry">
     <rect>
      <x>150</x>
@@ -250,6 +250,18 @@
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>fName</tabstop>
+  <tabstop>lName</tabstop>
+  <tabstop>dob</tabstop>
+  <tabstop>cal</tabstop>
+  <tabstop>mob</tabstop>
+  <tabstop>email</tabstop>
+  <tabstop>female</tabstop>
+  <tabstop>male</tabstop>
+  <tabstop>cancel</tabstop>
+  <tabstop>apply</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

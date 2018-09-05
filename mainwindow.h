@@ -22,8 +22,9 @@ private slots:
 
     void on_Refine_clicked();
     void on_playeAdButton_clicked();
-
     void on_PlayerEditButton_clicked();
+    void dbRefresh();
+    void getRefresh();
 
 private:
     Ui::MainWindow *ui;

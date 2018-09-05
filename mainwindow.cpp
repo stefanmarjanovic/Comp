@@ -12,9 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     dbOpen();
-    ui->playerTable->setModel(dbLoad());
-    getPlayer("-1");
-   // ui->playerTable = viewPlayers(ui->playerTable);
+    dbRefresh();
 }
 MainWindow::~MainWindow()
 {
@@ -24,10 +22,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_Refine_clicked()
 {
-    //ui->playerTable = viewPlayers(ui->playerTable);
-
-    //refine = new Refine(this);
-    //refine->show();
+    refine = new Refine(this);
+    refine->show();
 }
 
 void MainWindow::on_playeAdButton_clicked()
@@ -35,10 +31,22 @@ void MainWindow::on_playeAdButton_clicked()
     addplayerdiag = new AddPlayerDiag(this);
     addplayerdiag->show();
 
+    QObject::connect(addplayerdiag,SIGNAL(sendRefresh()),this,SLOT(getRefresh()) );
+
 }
 
 void MainWindow::on_PlayerEditButton_clicked()
 {
     editplayerdiag = new EditPlayerDiag(this);
     editplayerdiag->show();
+
+    QObject::connect(editplayerdiag,SIGNAL(sendRefresh()),this,SLOT(getRefresh()) );
+}
+void MainWindow::dbRefresh()
+{
+    ui->playerTable->setModel(dbLoad());
+}
+void MainWindow::getRefresh()
+{
+    dbRefresh();
 }

@@ -2,10 +2,10 @@
 #define ADDPLAYERDIAG_H
 
 #include <QDialog>
-#include "datepick.h"
 #include <QDebug>
 #include <QMessageBox>
-#include <QDateEdit>
+#include "datepick.h"
+
 
 
 namespace Ui {
@@ -22,12 +22,13 @@ public:
 
 private slots:
     void getDate(const QString text);
-    void on_pushButton_clicked();
+    void on_apply_clicked();
 
-    void on_pushButton_2_clicked();
+    void on_cancel_clicked();
 
     void on_cal_clicked();
-
+signals:
+    void sendRefresh();
 private:
     Ui::AddPlayerDiag *ui;
     DatePick * datepick;

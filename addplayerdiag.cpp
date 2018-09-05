@@ -16,7 +16,7 @@ AddPlayerDiag::~AddPlayerDiag()
 }
 
 
-void AddPlayerDiag::on_pushButton_clicked()
+void AddPlayerDiag::on_apply_clicked()
 {
     //TODO REGEX
     QString fname, lname, dob, mob, email, gender;
@@ -63,9 +63,10 @@ void AddPlayerDiag::on_pushButton_clicked()
               break;
         }
     }
+    emit sendRefresh();
 }
 
-void AddPlayerDiag::on_pushButton_2_clicked()
+void AddPlayerDiag::on_cancel_clicked()
 {
 
     AddPlayerDiag::close();
@@ -74,6 +75,7 @@ void AddPlayerDiag::on_pushButton_2_clicked()
 void AddPlayerDiag::on_cal_clicked()
 {
     datepick = new DatePick(this);
+
     datepick->show();
 
     QObject::connect(datepick,SIGNAL(sendDate(QString)),this,SLOT(getDate(QString)) );
@@ -83,4 +85,5 @@ void AddPlayerDiag::getDate(QString text)
    ui->dob->setText(text);
    qDebug() << "test";
 }
+
 
