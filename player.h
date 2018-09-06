@@ -31,6 +31,8 @@ class Player{
 
 //prototype declarations
 QSqlQueryModel*  dbLoad();  								//import players from db
+QSqlQueryModel*  search(QString where);  								//search players from db
+
 void addPlayer(Player p);								//add new player to the DB
 void deletePlayer(QString id);							//delete existing player
 void editPlayer(Player p); 							//edit an exisiting player

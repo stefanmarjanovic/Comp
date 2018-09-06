@@ -5,6 +5,16 @@
 //global variables 
 QSqlDatabase tennisTestDB = QSqlDatabase::addDatabase("QMYSQL");
 
+Player::Player(QString id, QString fName, QString lName, QString dob, QString m, QString e, QString t){
+    playerID = id;
+    firstName = fName;
+    lastName = lName;
+    DOB = dob;
+    mob = m;
+    email = e;
+    type = t;
+}
+
 void dbOpen()
 {
     tennisTestDB.setHostName("127.0.0.1");
@@ -25,15 +35,6 @@ void dbClose()
     tennisTestDB.close();
 }
 
-Player::Player(QString id, QString fName, QString lName, QString dob, QString m, QString e, QString t){
-    playerID = id;
-    firstName = fName;
-    lastName = lName;
-    DOB = dob;
-    mob = m;
-    email = e;
-    type = t;
-}
 
 QSqlQueryModel* dbLoad()
 {
@@ -51,9 +52,28 @@ QSqlQueryModel* dbLoad()
         qDebug() << " Query not active: " << search.lastError() << endl;
 
 
+    return model;
+}
+QSqlQueryModel* search(QString where)
+{
+    QSqlQueryModel *model = new QSqlQueryModel;
+    QSqlQuery search(tennisTestDB);
+
+    search.prepare("SELECT * FROM players " + where);
+    search.exec();
+
+    if(search.isActive())
+    {
+        model->setQuery(search);
+        qDebug() << " Query active: " << search.executedQuery();
+
+    }
+    else
+        qDebug() << " Query not active: " << search.executedQuery();
 
     return model;
 }
+
 
 void addPlayer(Player p)								//add new player to the DB
 {
@@ -61,13 +81,12 @@ void addPlayer(Player p)								//add new player to the DB
 
     insert.prepare("INSERT INTO PLAYERS (first_name,last_name,dob,mobile,email,type) VALUES" +toValues(p));
     insert.exec();
-
     if(insert.isActive())
     {
         qDebug() << " Player Added successfully";
     }
     else
-        qDebug() << " Query not active: " << insert.lastError() << endl;
+        qDebug() << " Query not active: " << insert.executedQuery() << insert.lastError() << endl;
 
 }
 
@@ -75,8 +94,8 @@ QString toValues(Player p)
 {
     return
             "('"+p.firstName+"','" +
-            p.lastName+"','" +
-            p.DOB+"','" +
+            p.lastName+"'," +
+            "STR_TO_DATE('"+p.DOB+"','%d/%m/%Y'),'" +
             p.mob+"','" +
             p.email+"','" +
             p.type+"');";
@@ -87,7 +106,7 @@ void editPlayer(Player p)								//add new player to the DB
     QString query = "UPDATE PLAYERS SET first_name ='"
             + p.firstName   +"',"+
             "last_name ='"   + p.lastName    +"',"+
-            "dob ='"         + p.DOB         +"',"+
+            "dob = STR_TO_DATE('"+p.DOB+"','%d/%m/%Y')," +
             "mobile ='"      + p.mob         +"',"+
             "email ='"       + p.email       +"',"+
             "type ='"        + p.type        +"'"+

@@ -100,25 +100,6 @@ background-image: url(:/logo.png);</string>
        <string>Edit</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label">
-      <property name="geometry">
-       <rect>
-        <x>640</x>
-        <y>10</y>
-        <width>81</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Search Filter</string>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_5">
       <property name="geometry">
        <rect>
@@ -143,10 +124,25 @@ background-image: url(:/logo.png);</string>
        <rect>
         <x>10</x>
         <y>30</y>
-        <width>621</width>
+        <width>771</width>
         <height>321</height>
        </rect>
       </property>
+      <property name="showGrid">
+       <bool>true</bool>
+      </property>
+      <property name="gridStyle">
+       <enum>Qt::SolidLine</enum>
+      </property>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>100</number>
+      </attribute>
+      <attribute name="horizontalHeaderStretchLastSection">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="verticalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
      </widget>
      <widget class="QPushButton" name="Refine">
       <property name="geometry">

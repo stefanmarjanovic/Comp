@@ -23,11 +23,12 @@ void EditPlayerDiag::on_search_clicked()
 {
     id = ui->id->text();
     Player foundPlayer = getPlayer(id);
+    QString dob = QDate::fromString(foundPlayer.DOB,"yyyy-MM-dd").toString("dd/MM/yyyy");
     qDebug() << foundPlayer.type;
 
     ui->fName->setText(foundPlayer.firstName);
     ui->lName->setText(foundPlayer.lastName);
-    ui->dob->setText(foundPlayer.DOB);
+    ui->dob->setText(dob);
     ui->email->setText(foundPlayer.email);
     ui->mob->setText(foundPlayer.mob);
 

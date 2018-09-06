@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QSqlQueryModel>
 #include "refine.h"
 #include "addplayerdiag.h"
 #include "editplayerdiag.h"
@@ -25,6 +26,8 @@ private slots:
     void on_PlayerEditButton_clicked();
     void dbRefresh();
     void getRefresh();
+    void getSearchResult(QSqlQueryModel* searchTable);
+
 
 private:
     Ui::MainWindow *ui;

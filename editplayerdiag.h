@@ -4,6 +4,8 @@
 #include <QDialog>
 #include <QDebug>
 #include <QMessageBox>
+#include <QDate>
+
 #include "datepick.h"
 
 

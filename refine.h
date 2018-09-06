@@ -2,6 +2,7 @@
 #define REFINE_H
 
 #include <QDialog>
+#include <QSqlQueryModel>
 
 namespace Ui {
 class Refine;
@@ -18,6 +19,17 @@ public:
 
 private slots:
 
+    void on_search_clicked();
+    void on_searchByID_clicked();
+
+    void on_custom_clicked();
+
+    void on_clear_clicked();
+
+    void on_cancel_clicked();
+
+signals:
+    void sendSearchResult(QSqlQueryModel*);
 
 private:
     Ui::Refine *ui;
