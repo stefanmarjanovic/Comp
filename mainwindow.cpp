@@ -5,11 +5,14 @@
 #include "addplayerdiag.h"
 #include "editplayerdiag.h"
 
+QString lastQuery;
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    lastQuery = "";
     dbOpen();
     dbRefresh();
     ui->playerTable->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -24,8 +27,11 @@ MainWindow::~MainWindow()
 }
 void MainWindow::dbRefresh()
 {
-    ui->playerTable->setModel(search(""));
+    ui->playerTable->setModel(search(lastQuery));
     ui->playerTable->resizeColumnsToContents();
+
+    ui->playerTable->setSortingEnabled(true);
+    ui->playerTable->sortByColumn(2);
 }
 void MainWindow::getRefresh()
 {
@@ -36,7 +42,7 @@ void MainWindow::on_Refine_clicked()
     refine = new Refine(this);
     refine->show();
 
-    QObject::connect(refine,SIGNAL(sendSearchResult(QSqlQueryModel*)),this,SLOT(getSearchResult(QSqlQueryModel*)) );
+    QObject::connect(refine,SIGNAL(sendWhereQuery(QString)),this,SLOT(getWhereQuery(QString)) );
 }
 
 /*void MainWindow::getLastSearch(QString where)
@@ -91,10 +97,10 @@ void MainWindow::getEditPlayerAction(QString playerID)
     QObject::connect(editplayerdiag,SIGNAL(sendRefresh()),this,SLOT(getRefresh()) );
 }
 
-void MainWindow::getSearchResult(QSqlQueryModel* searchTable)
+void MainWindow::getWhereQuery(QString where)
 {
-
-    ui->playerTable->setModel(searchTable);
+    lastQuery = where;
+    ui->playerTable->setModel(search(where));
     ui->playerTable->resizeColumnsToContents();
 }
 void MainWindow::customMenuRequested(QPoint pos){
@@ -107,4 +113,10 @@ void MainWindow::customMenuRequested(QPoint pos){
     menu->addAction("Edit Player",this, std::bind(&MainWindow::getEditPlayerAction,this, playerID));
 
     menu->popup(ui->playerTable->viewport()->mapToGlobal(pos));
+}
+
+void MainWindow::on_Clear_clicked()
+{
+    lastQuery = "";
+    dbRefresh();
 }

@@ -36,7 +36,7 @@ private slots:
     void getDateTo(QString text);
 
 signals:
-    void sendSearchResult(QSqlQueryModel*);
+    void sendWhereQuery(QString);
 
 private:
     Ui::Refine *ui;

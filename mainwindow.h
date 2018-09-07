@@ -27,9 +27,11 @@ private slots:
     void on_PlayerEditButton_clicked();
     void dbRefresh();
     void getRefresh();
-    void getSearchResult(QSqlQueryModel* searchTable);
+    void getWhereQuery(QString where);
     void getDeletePlayerAction(QString playerID);
     void getEditPlayerAction(QString playerID);
+
+    void on_Clear_clicked();
 
 public slots:
     void customMenuRequested(QPoint pos);

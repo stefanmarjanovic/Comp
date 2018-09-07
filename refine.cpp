@@ -84,7 +84,7 @@ void Refine::on_search_clicked()
         where.prepend(" WHERE (");
         where += ")";
     }
-    emit sendSearchResult(search(where));
+    emit sendWhereQuery(where);
     Refine::close();
 }
 
@@ -93,7 +93,7 @@ void Refine::on_searchByID_clicked()
     QString where = "";
     if(!ui->id->text().isEmpty())
         where = " WHERE (id = " + ui->id->text() + ")";
-    emit sendSearchResult(search(where));
+    emit sendWhereQuery(where);
 
     Refine::close();
 }
@@ -103,7 +103,7 @@ void Refine::on_custom_clicked()
     QString where = "";
     if (!ui->whereStatement->toPlainText().isEmpty())
         where = " WHERE (" + ui->whereStatement->toPlainText() + ")";
-    emit sendSearchResult(search(where));
+    emit sendWhereQuery(where);
     Refine::close();
 }
 
