@@ -31,6 +31,9 @@ private slots:
 
     void on_cancel_clicked();
 
+public slots:
+    void search(QString id);
+
 signals:
     void sendRefresh();
 private:

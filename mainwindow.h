@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QSqlQueryModel>
+#include <QMenu>
 #include "refine.h"
 #include "addplayerdiag.h"
 #include "editplayerdiag.h"
@@ -27,7 +28,11 @@ private slots:
     void dbRefresh();
     void getRefresh();
     void getSearchResult(QSqlQueryModel* searchTable);
+    void getDeletePlayerAction(QString playerID);
+    void getEditPlayerAction(QString playerID);
 
+public slots:
+    void customMenuRequested(QPoint pos);
 
 private:
     Ui::MainWindow *ui;

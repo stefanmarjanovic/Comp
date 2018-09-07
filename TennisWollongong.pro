@@ -30,7 +30,8 @@ SOURCES += \
     player.cpp \
     addplayerdiag.cpp \
     editplayerdiag.cpp \
-    datepick.cpp
+    datepick.cpp \
+    familysearchdiag.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -39,14 +40,16 @@ HEADERS += \
     player.h \
     addplayerdiag.h \
     editplayerdiag.h \
-    datepick.h
+    datepick.h \
+    familysearchdiag.h
 
 FORMS += \
         mainwindow.ui \
     addplayerdiag.ui \
     editplayerdiag.ui \
     datepick.ui \
-    refine.ui
+    refine.ui \
+    familysearchdiag.ui
 
 RESOURCES += \
     resources.qrc

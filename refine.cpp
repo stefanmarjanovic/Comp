@@ -85,6 +85,7 @@ void Refine::on_search_clicked()
         where += ")";
     }
     emit sendSearchResult(search(where));
+    Refine::close();
 }
 
 void Refine::on_searchByID_clicked()
@@ -94,7 +95,7 @@ void Refine::on_searchByID_clicked()
         where = " WHERE (id = " + ui->id->text() + ")";
     emit sendSearchResult(search(where));
 
-
+    Refine::close();
 }
 
 void Refine::on_custom_clicked()
@@ -103,6 +104,7 @@ void Refine::on_custom_clicked()
     if (!ui->whereStatement->toPlainText().isEmpty())
         where = " WHERE (" + ui->whereStatement->toPlainText() + ")";
     emit sendSearchResult(search(where));
+    Refine::close();
 }
 
 void Refine::on_clear_clicked()
@@ -121,8 +123,6 @@ void Refine::on_clear_clicked()
     ui->female->setAutoExclusive(false);
     ui->female->setChecked(false);
     ui->female->setAutoExclusive(true);
-
-
 }
 
 void Refine::on_cancel_clicked()

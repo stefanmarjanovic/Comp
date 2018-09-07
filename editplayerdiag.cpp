@@ -18,6 +18,11 @@ EditPlayerDiag::~EditPlayerDiag()
     delete ui;
 }
 
+void EditPlayerDiag::search(QString playerID)
+{
+    ui->id->setText(playerID);
+    on_search_clicked();
+}
 
 void EditPlayerDiag::on_search_clicked()
 {
