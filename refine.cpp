@@ -40,12 +40,21 @@ void Refine::on_search_clicked()
         where += "last_name = '" + ui->lName->text() + "'";
         emptyQuery = false;
     }
-    /*
+
     if(!ui->dobFrom->text().isEmpty())
-        query += "first_name = '" + ui->fName->text() + "'";
+    {
+        if(!emptyQuery)
+            where += " AND ";
+        where += "dob > STR_TO_DATE('"+ui->dobFrom->text()+"','%d/%m/%Y')";
+        emptyQuery = false;
+    }
     if(!ui->dobTo->text().isEmpty())
-        query += "first_name = '" + ui->fName->text() + "'";
-*/
+    {
+        if(!emptyQuery)
+            where += " AND ";
+        where += "dob < STR_TO_DATE('"+ui->dobTo->text()+"','%d/%m/%Y')";
+        emptyQuery = false;
+    }
 
     if(!ui->mob->text().isEmpty())
     {
@@ -119,4 +128,31 @@ void Refine::on_clear_clicked()
 void Refine::on_cancel_clicked()
 {
     Refine::close();
+}
+
+void Refine::on_cal_clicked()
+{
+    datepick = new DatePick(this);
+    datepick->show();
+
+    QObject::connect(datepick,SIGNAL(sendDate(QString)),this,SLOT(getDateFrom(QString)) );
+}
+
+void Refine::on_cal_2_clicked()
+{
+    datepick = new DatePick(this);
+    datepick->show();
+
+    QObject::connect(datepick,SIGNAL(sendDate(QString)),this,SLOT(getDateTo(QString)) );
+}
+
+void Refine::getDateFrom(QString text)
+{
+    ui->dobFrom->setText(text);
+
+}
+void Refine::getDateTo(QString text)
+{
+    ui->dobTo->setText(text);
+
 }

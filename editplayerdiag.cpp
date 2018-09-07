@@ -110,7 +110,6 @@ void EditPlayerDiag::on_cal_clicked()
 void EditPlayerDiag::getDate(QString text)
 {
    ui->dob->setText(text);
-   qDebug() << "test";
 }
 
 void EditPlayerDiag::on_cancel_clicked()

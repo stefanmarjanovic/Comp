@@ -47,7 +47,6 @@ void MainWindow::dbRefresh()
 {
     ui->playerTable->setModel(dbLoad());
     ui->playerTable->resizeColumnsToContents();
-
 }
 void MainWindow::getRefresh()
 {

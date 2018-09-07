@@ -75,9 +75,7 @@ void AddPlayerDiag::on_cancel_clicked()
 void AddPlayerDiag::on_cal_clicked()
 {
     datepick = new DatePick(this);
-
     datepick->show();
-
     QObject::connect(datepick,SIGNAL(sendDate(QString)),this,SLOT(getDate(QString)) );
 }
 void AddPlayerDiag::getDate(QString text)

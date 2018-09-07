@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QSqlQueryModel>
+#include "datepick.h"
 
 namespace Ui {
 class Refine;
@@ -28,11 +29,18 @@ private slots:
 
     void on_cancel_clicked();
 
+    void on_cal_2_clicked();
+
+    void on_cal_clicked();
+    void getDateFrom(QString text);
+    void getDateTo(QString text);
+
 signals:
     void sendSearchResult(QSqlQueryModel*);
 
 private:
     Ui::Refine *ui;
+    DatePick * datepick;
 };
 
 #endif // REFINE_H
