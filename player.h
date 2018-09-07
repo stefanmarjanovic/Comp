@@ -18,7 +18,7 @@ using namespace std;
 class Player{
         public:
         //player constructor
-        Player(QString id, QString fName, QString lName, QString dob, QString m, QString e, QString type);
+        Player(QString id, QString fName, QString lName, QString dob, QString m, QString e, QString gender_id);
 
         QString playerID;
         QString firstName;
@@ -26,7 +26,7 @@ class Player{
         QString DOB;
         QString mob;
         QString email;
-        QString type;
+        QString gender_id;
 };
 
 //prototype declarations

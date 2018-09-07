@@ -12,7 +12,7 @@ Player::Player(QString id, QString fName, QString lName, QString dob, QString m,
     DOB = dob;
     mob = m;
     email = e;
-    type = t;
+    gender_id = t;
 }
 
 void dbOpen()
@@ -79,7 +79,7 @@ void addPlayer(Player p)								//add new player to the DB
 {
     QSqlQuery insert(tennisTestDB);
 
-    insert.prepare("INSERT INTO PLAYERS (first_name,last_name,dob,mobile,email,type) VALUES" +toValues(p));
+    insert.prepare("INSERT INTO PLAYERS (first_name,last_name,dob,mobile,email,gender_id) VALUES" +toValues(p));
     insert.exec();
     if(insert.isActive())
     {
@@ -98,7 +98,7 @@ QString toValues(Player p)
             "STR_TO_DATE('"+p.DOB+"','%d/%m/%Y'),'" +
             p.mob+"','" +
             p.email+"','" +
-            p.type+"');";
+            p.gender_id+"');";
 }
 void editPlayer(Player p)								//add new player to the DB
 {
@@ -109,7 +109,7 @@ void editPlayer(Player p)								//add new player to the DB
             "dob = STR_TO_DATE('"+p.DOB+"','%d/%m/%Y')," +
             "mobile ='"      + p.mob         +"',"+
             "email ='"       + p.email       +"',"+
-            "type ='"        + p.type        +"'"+
+            "gender_id ='"        + p.gender_id        +"'"+
             "WHERE id ="    + p.playerID;
     update.prepare(query);
     update.exec();

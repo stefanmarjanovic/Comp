@@ -24,7 +24,7 @@ void EditPlayerDiag::on_search_clicked()
     id = ui->id->text();
     Player foundPlayer = getPlayer(id);
     QString dob = QDate::fromString(foundPlayer.DOB,"yyyy-MM-dd").toString("dd/MM/yyyy");
-    qDebug() << foundPlayer.type;
+    qDebug() << foundPlayer.gender_id;
 
     ui->fName->setText(foundPlayer.firstName);
     ui->lName->setText(foundPlayer.lastName);
@@ -32,14 +32,14 @@ void EditPlayerDiag::on_search_clicked()
     ui->email->setText(foundPlayer.email);
     ui->mob->setText(foundPlayer.mob);
 
-    if(foundPlayer.type == "1")
+    if(foundPlayer.gender_id == "1")
         ui->male->setChecked(true);
-    else if(foundPlayer.type == "0")
+    else if(foundPlayer.gender_id == "0")
         ui->female->setChecked(true);
 
 
 
-    //ui->->setText(foundPlayer.type);
+    //ui->->setText(foundPlayer.gender_id);
 
 
 }
@@ -101,6 +101,7 @@ void EditPlayerDiag::on_deleteButton_clicked()
 
 void EditPlayerDiag::on_cal_clicked()
 {
+    ui->search->setEnabled(false);
     datepick = new DatePick(this);
     datepick->show();
 
@@ -109,6 +110,7 @@ void EditPlayerDiag::on_cal_clicked()
 
 void EditPlayerDiag::getDate(QString text)
 {
+   ui->search->setEnabled(true);
    ui->dob->setText(text);
 }
 

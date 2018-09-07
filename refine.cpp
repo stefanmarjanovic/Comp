@@ -75,7 +75,7 @@ void Refine::on_search_clicked()
     {
         if(!emptyQuery)
             where += " AND ";
-        where += "type = '" + gender + "'";
+        where += "gender_id = '" + gender + "'";
         emptyQuery = false;
 
     }
@@ -132,6 +132,7 @@ void Refine::on_cancel_clicked()
 
 void Refine::on_cal_clicked()
 {
+    ui->search->setEnabled(false);
     datepick = new DatePick(this);
     datepick->show();
 
@@ -140,6 +141,7 @@ void Refine::on_cal_clicked()
 
 void Refine::on_cal_2_clicked()
 {
+    ui->search->setEnabled(false);
     datepick = new DatePick(this);
     datepick->show();
 
@@ -148,11 +150,13 @@ void Refine::on_cal_2_clicked()
 
 void Refine::getDateFrom(QString text)
 {
+    ui->search->setEnabled(true);
     ui->dobFrom->setText(text);
 
 }
 void Refine::getDateTo(QString text)
 {
+    ui->search->setEnabled(true);
     ui->dobTo->setText(text);
 
 }
