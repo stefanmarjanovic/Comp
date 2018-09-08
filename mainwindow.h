@@ -33,6 +33,8 @@ private slots:
 
     void on_Clear_clicked();
 
+    void on_quickSearch_textChanged(const QString &arg1);
+
 public slots:
     void customMenuRequested(QPoint pos);
 

@@ -99,8 +99,29 @@ void EditPlayerDiag::on_apply_clicked()     //identical to addplayer
 
 void EditPlayerDiag::on_deleteButton_clicked()
 {
-    deletePlayer(id);
-    emit sendRefresh();
+    QMessageBox msgBox;
+    msgBox.setText("Are you sure?");
+    msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Cancel);
+    msgBox.setDefaultButton(QMessageBox::Save);
+    int ret = msgBox.exec();
+
+    switch (ret) {
+    case QMessageBox::Save:
+    {
+        deletePlayer(id);
+        emit sendRefresh();
+
+        EditPlayerDiag::close();
+        break;
+    }
+    case QMessageBox::Cancel:
+        // Cancel was clicked
+        break;
+    default:
+        // should never be reached
+        break;
+    }
+
 
 }
 
@@ -122,4 +143,19 @@ void EditPlayerDiag::getDate(QString text)
 void EditPlayerDiag::on_cancel_clicked()
 {
     EditPlayerDiag::close();
+}
+
+
+void EditPlayerDiag::getFamilyID(QString fID)
+{
+    ui->familyID->setText(fID);
+}
+
+
+void EditPlayerDiag::on_famSearch_clicked()
+{
+    familysearchdiag = new FamilySearchDiag(this);
+    familysearchdiag->show();
+
+    QObject::connect(familysearchdiag, SIGNAL(sendFamilyID(QString)),this,SLOT(getFamilyID(QString)));
 }

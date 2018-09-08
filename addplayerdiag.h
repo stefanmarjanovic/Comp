@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QMessageBox>
 #include "datepick.h"
+#include "familysearchdiag.h"
 
 
 
@@ -27,11 +28,16 @@ private slots:
     void on_cancel_clicked();
 
     void on_cal_clicked();
+    void on_famSearch_clicked();
+
+    void getFamilyID(QString);
+
 signals:
     void sendRefresh();
 private:
     Ui::AddPlayerDiag *ui;
     DatePick * datepick;
+    FamilySearchDiag * familysearchdiag;
 };
 
 #endif // ADDPLAYERDIAG_H

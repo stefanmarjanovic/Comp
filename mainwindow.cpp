@@ -16,7 +16,9 @@ MainWindow::MainWindow(QWidget *parent) :
     dbOpen();
     dbRefresh();
     ui->playerTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->playerTable->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->playerTable->setContextMenuPolicy(Qt::CustomContextMenu);
+
     connect(ui->playerTable, SIGNAL(customContextMenuRequested(QPoint)),
                 SLOT(customMenuRequested(QPoint)));
 }
@@ -118,5 +120,12 @@ void MainWindow::customMenuRequested(QPoint pos){
 void MainWindow::on_Clear_clicked()
 {
     lastQuery = "";
-    dbRefresh();
+    ui->quickSearch->clear();
+}
+
+void MainWindow::on_quickSearch_textChanged(const QString &arg1)
+{
+    QString where = "WHERE (first_name LIKE '"+arg1+"%' OR last_name LIKE '"+arg1+"%' OR mobile LIKE '"+arg1+"%' OR email LIKE '"+arg1+"%')";
+    ui->playerTable->setModel(search(where));
+    lastQuery = where;
 }

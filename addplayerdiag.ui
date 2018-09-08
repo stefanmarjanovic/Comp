@@ -265,14 +265,30 @@
   <widget class="QPushButton" name="famSearch">
    <property name="geometry">
     <rect>
-     <x>210</x>
+     <x>250</x>
      <y>120</y>
-     <width>171</width>
+     <width>131</width>
      <height>21</height>
     </rect>
    </property>
    <property name="text">
     <string>Add To Family</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="familyID">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>120</y>
+     <width>31</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="acceptDrops">
+    <bool>false</bool>
    </property>
   </widget>
  </widget>

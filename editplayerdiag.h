@@ -7,7 +7,7 @@
 #include <QDate>
 
 #include "datepick.h"
-
+#include "familysearchdiag.h"
 
 
 namespace Ui {
@@ -30,6 +30,9 @@ private slots:
     void on_cal_clicked();
 
     void on_cancel_clicked();
+    void getFamilyID(QString);
+
+    void on_famSearch_clicked();
 
 public slots:
     void search(QString id);
@@ -39,6 +42,8 @@ signals:
 private:
     Ui::EditPlayerDiag *ui;
     DatePick * datepick;
+    FamilySearchDiag * familysearchdiag;
+
 };
 
 #endif // EDITPLAYERDIAG_H

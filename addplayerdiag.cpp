@@ -87,3 +87,16 @@ void AddPlayerDiag::getDate(QString text)
 }
 
 
+
+void AddPlayerDiag::on_famSearch_clicked()
+{
+    familysearchdiag = new FamilySearchDiag(this);
+    familysearchdiag->show();
+
+    QObject::connect(familysearchdiag, SIGNAL(sendFamilyID(QString)),this,SLOT(getFamilyID(QString)));
+}
+
+void AddPlayerDiag::getFamilyID(QString fID)
+{
+    ui->familyID->setText(fID);
+}
