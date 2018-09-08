@@ -7,6 +7,7 @@
 #include "refine.h"
 #include "addplayerdiag.h"
 #include "editplayerdiag.h"
+#include <QSortFilterProxyModel>
 
 namespace Ui {
 class MainWindow;
@@ -35,11 +36,16 @@ private slots:
 
     void on_quickSearch_textChanged(const QString &arg1);
 
+    void on_mockInsert_clicked();
+
 public slots:
     void customMenuRequested(QPoint pos);
 
 private:
     Ui::MainWindow *ui;
+
+    QSortFilterProxyModel* proxyModel;
+
     Refine *refine;
     AddPlayerDiag *addplayerdiag;
     EditPlayerDiag *editplayerdiag;

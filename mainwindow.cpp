@@ -18,9 +18,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->playerTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->playerTable->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->playerTable->setContextMenuPolicy(Qt::CustomContextMenu);
+    ui->playerTable->resizeColumnsToContents();
 
     connect(ui->playerTable, SIGNAL(customContextMenuRequested(QPoint)),
-                SLOT(customMenuRequested(QPoint)));
+            SLOT(customMenuRequested(QPoint)));
 }
 MainWindow::~MainWindow()
 {
@@ -30,10 +31,12 @@ MainWindow::~MainWindow()
 void MainWindow::dbRefresh()
 {
     ui->playerTable->setModel(search(lastQuery));
-    ui->playerTable->resizeColumnsToContents();
 
+    proxyModel = new QSortFilterProxyModel();
+        proxyModel->setSourceModel(ui->playerTable->model());
+    ui->playerTable->setModel(proxyModel);
     ui->playerTable->setSortingEnabled(true);
-    ui->playerTable->sortByColumn(2);
+    ui->playerTable->sortByColumn(0, Qt::AscendingOrder);
 }
 void MainWindow::getRefresh()
 {
@@ -102,8 +105,7 @@ void MainWindow::getEditPlayerAction(QString playerID)
 void MainWindow::getWhereQuery(QString where)
 {
     lastQuery = where;
-    ui->playerTable->setModel(search(where));
-    ui->playerTable->resizeColumnsToContents();
+    dbRefresh();
 }
 void MainWindow::customMenuRequested(QPoint pos){
     QModelIndex index=ui->playerTable->indexAt(pos);
@@ -126,6 +128,13 @@ void MainWindow::on_Clear_clicked()
 void MainWindow::on_quickSearch_textChanged(const QString &arg1)
 {
     QString where = "WHERE (first_name LIKE '"+arg1+"%' OR last_name LIKE '"+arg1+"%' OR mobile LIKE '"+arg1+"%' OR email LIKE '"+arg1+"%')";
-    ui->playerTable->setModel(search(where));
     lastQuery = where;
+    dbRefresh();
+}
+
+void MainWindow::on_mockInsert_clicked()
+{
+    mockInsert();
+    lastQuery = "";
+    dbRefresh();
 }

@@ -41,7 +41,7 @@ bool verifyPlayer(Player p, bool existingPlayerSearch);
 void dbOpen();
 void dbClose();
 QString toValues(Player p); //NEEDED? return the values for sql e.g. ("bob","saget",etc..)
-
+void mockInsert();
 
 
 
