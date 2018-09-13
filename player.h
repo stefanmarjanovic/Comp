@@ -13,6 +13,7 @@
 #include <QSqlError>
 
 
+
 using namespace std;
 
 class Player{
@@ -27,19 +28,18 @@ class Player{
         QString mob;
         QString email;
         QString gender_id;
+        static QSqlQueryModel*  search(QString where);  								//search players from db
 };
 
 //prototype declarations
 QSqlQueryModel*  dbLoad();  								//import players from db
-QSqlQueryModel*  search(QString where);  								//search players from db
 
 void addPlayer(Player p);								//add new player to the DB
 void deletePlayer(QString id);							//delete existing player
 void editPlayer(Player p); 							//edit an exisiting player
 Player getPlayer(QString id);
 bool verifyPlayer(Player p, bool existingPlayerSearch);
-void dbOpen();
-void dbClose();
+
 QString toValues(Player p); //NEEDED? return the values for sql e.g. ("bob","saget",etc..)
 void mockInsert();
 

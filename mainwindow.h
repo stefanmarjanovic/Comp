@@ -7,7 +7,13 @@
 #include "refine.h"
 #include "addplayerdiag.h"
 #include "editplayerdiag.h"
+#include "addvenuediag.h"
+#include "editvenuediag.h"
 #include <QSortFilterProxyModel>
+#include <QSqlDatabase>
+#include <QSqlQueryModel>
+#include <QSqlQuery>
+#include <QSqlError>
 
 namespace Ui {
 class MainWindow;
@@ -29,8 +35,11 @@ private slots:
     void dbRefresh();
     void getRefresh();
     void getWhereQuery(QString where);
+
     void getDeletePlayerAction(QString playerID);
     void getEditPlayerAction(QString playerID);
+    void getDeleteVenueAction(QString venueID);
+    void getEditVenueAction(QString venueID);
 
     void on_Clear_clicked();
 
@@ -38,8 +47,16 @@ private slots:
 
     void on_mockInsert_clicked();
 
+    void on_venueAdd_clicked();
+
+    void on_venueEdit_clicked();
+
 public slots:
-    void customMenuRequested(QPoint pos);
+    void customPlayerMenuRequested(QPoint pos);
+    void customVenueMenuRequested(QPoint pos);
+
+    void dbOpen();
+    void dbClose();
 
 private:
     Ui::MainWindow *ui;
@@ -49,6 +66,9 @@ private:
     Refine *refine;
     AddPlayerDiag *addplayerdiag;
     EditPlayerDiag *editplayerdiag;
+    AddVenueDiag *addvenuediag;
+    EditVenueDiag *editvenuediag;
+
 };
 
 

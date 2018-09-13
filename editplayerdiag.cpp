@@ -41,12 +41,6 @@ void EditPlayerDiag::on_search_clicked()
         ui->male->setChecked(true);
     else if(foundPlayer.gender_id == "0")
         ui->female->setChecked(true);
-
-
-
-    //ui->->setText(foundPlayer.gender_id);
-
-
 }
 
 void EditPlayerDiag::on_apply_clicked()     //identical to addplayer

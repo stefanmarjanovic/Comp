@@ -7,7 +7,7 @@ FamilySearchDiag::FamilySearchDiag(QWidget *parent) :
     ui(new Ui::FamilySearchDiag)
 {
     ui->setupUi(this);
-    ui->searchTable->setModel(search(""));
+    ui->searchTable->setModel(Player::search(""));
     ui->searchTable->setSelectionBehavior(QAbstractItemView::SelectRows);
 
     for(int i = 0; i < ui->searchTable->model()->columnCount(); i++)
@@ -27,7 +27,7 @@ FamilySearchDiag::~FamilySearchDiag()
 void FamilySearchDiag::on_lname_textChanged(const QString &arg1)
 {
     QString where = "WHERE (last_name LIKE '"+arg1+"%')";
-    ui->searchTable->setModel(search(where));
+    ui->searchTable->setModel(Player::search(where));
 }
 
 void FamilySearchDiag::on_add_clicked()

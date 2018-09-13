@@ -1,6 +1,6 @@
 #include "addplayerdiag.h"
 #include "ui_addplayerdiag.h"
-#include "player.h"
+
 #include "mainwindow.h"
 
 AddPlayerDiag::AddPlayerDiag(QWidget *parent) :
@@ -34,7 +34,7 @@ void AddPlayerDiag::on_apply_clicked()
     else
         gender = "0";
 
-    Player tempP = Player("-1",fname,lname,dob,mob,email,gender);
+    Player tempP = Player("-1",fname,lname,dob,mob,email,gender); //TODO remove id
 
 
     //TODO proper id
@@ -52,6 +52,7 @@ void AddPlayerDiag::on_apply_clicked()
             //Save was clicked
             //TODO proper id
             addPlayer(tempP);
+            emit sendRefresh();
             AddPlayerDiag::close();
             break;
         }
@@ -63,7 +64,6 @@ void AddPlayerDiag::on_apply_clicked()
               break;
         }
     }
-    emit sendRefresh();
 }
 
 void AddPlayerDiag::on_cancel_clicked()

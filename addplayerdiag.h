@@ -6,7 +6,7 @@
 #include <QMessageBox>
 #include "datepick.h"
 #include "familysearchdiag.h"
-
+#include "player.h"
 
 
 namespace Ui {
