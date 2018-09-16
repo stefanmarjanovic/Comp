@@ -4,6 +4,7 @@
 #include "player.h"
 #include "addplayerdiag.h"
 #include "editplayerdiag.h"
+#include "addteamdialog.h"
 
 //global variables
 QString lastQuery;
@@ -228,4 +229,16 @@ void MainWindow::on_venueEdit_clicked()
     editvenuediag->show();
 
     QObject::connect(editvenuediag,SIGNAL(sendRefresh()),this,SLOT(getRefresh()) );
+}
+
+void MainWindow::on_teamAdd_clicked()
+{
+    addteamdiag = new addTeamDialog(this);
+    addteamdiag->show();
+}
+
+void MainWindow::on_teamEdit_clicked()
+{
+    editteamdiag = new EditTeamDiag(this);
+    editteamdiag->show();
 }

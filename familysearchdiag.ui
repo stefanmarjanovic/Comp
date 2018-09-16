@@ -59,11 +59,11 @@
     <string>PushButton</string>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>360</x>
-     <y>400</y>
+     <x>370</x>
+     <y>410</y>
      <width>231</width>
      <height>32</height>
     </rect>

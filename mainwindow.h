@@ -9,6 +9,8 @@
 #include "editplayerdiag.h"
 #include "addvenuediag.h"
 #include "editvenuediag.h"
+#include "addteamdialog.h"
+#include "editteamdiag.h"
 #include <QSortFilterProxyModel>
 #include <QSqlDatabase>
 #include <QSqlQueryModel>
@@ -53,6 +55,10 @@ private slots:
 
  //   void on_mockInsert_2_clicked();
 
+    void on_teamAdd_clicked();
+
+    void on_teamEdit_clicked();
+
 public slots:
     void customPlayerMenuRequested(QPoint pos);
     void customVenueMenuRequested(QPoint pos);
@@ -70,6 +76,9 @@ private:
     EditPlayerDiag *editplayerdiag;
     AddVenueDiag *addvenuediag;
     EditVenueDiag *editvenuediag;
+    addTeamDialog *addteamdiag;
+    EditTeamDiag *editteamdiag;
+
 
 };
 

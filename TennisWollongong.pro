@@ -34,7 +34,9 @@ SOURCES += \
     familysearchdiag.cpp \
     addvenuediag.cpp \
     venue.cpp \
-    editvenuediag.cpp
+    editvenuediag.cpp \
+    addteamdialog.cpp \
+    editteamdiag.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -47,7 +49,9 @@ HEADERS += \
     familysearchdiag.h \
     addvenuediag.h \
     venue.h \
-    editvenuediag.h
+    editvenuediag.h \
+    addteamdialog.h \
+    editteamdiag.h
 
 FORMS += \
         mainwindow.ui \
@@ -57,7 +61,9 @@ FORMS += \
     refine.ui \
     familysearchdiag.ui \
     addvenuediag.ui \
-    editvenuediag.ui
+    editvenuediag.ui \
+    addteamdialog.ui \
+    editteamdiag.ui
 
 RESOURCES += \
     resources.qrc
