@@ -23,7 +23,7 @@ bool verifyVenue(Venue v)
     else
         for (QChar c : v.venueName)        //string validation
         {
-            if(!c.isLetter())
+            if(!c.isLetter() && c != " ")
             {
                 valid = false;
                 errorMessage += "Venue Name Invalid.\n";
@@ -40,7 +40,7 @@ bool verifyVenue(Venue v)
     else
         for (QChar c : v.streetNumber)        //string validation
         {
-            if(!c.isNumber())
+            if(!c.isNumber() && c != " ")
             {
                 valid = false;
                 errorMessage += "Street Number Invalid.\n";
@@ -55,7 +55,7 @@ bool verifyVenue(Venue v)
     else
         for (QChar c : v.streetName)        //string validation
         {
-            if(!c.isLetter())
+            if(!c.isLetter() && c != " ")
             {
                 valid = false;
                 errorMessage += "Street Name Invalid.\n";
@@ -70,7 +70,7 @@ bool verifyVenue(Venue v)
     else
         for (QChar c : v.suburb)        //string validation
         {
-            if(!c.isLetter())
+            if(!c.isLetter() && c != " ")
             {
                 valid = false;
                 errorMessage += "Suburb Invalid.\n";
@@ -110,7 +110,7 @@ QString addSuburb(QString suburb)								//add new venue to the DB
     QSqlQuery findSuburb(tennisTestDB);
     QSqlQuery insertSuburb(tennisTestDB);
 
-    findSuburb.prepare("Select id FROM suburbs WHERE suburb_name = '" + suburb + "'");
+    findSuburb.prepare("Select id FROM suburb WHERE suburb_name = '" + suburb + "'");
     findSuburb.exec();
     if(findSuburb.isActive())
     {
@@ -121,11 +121,11 @@ QString addSuburb(QString suburb)								//add new venue to the DB
         }
         else
         {
-            insertSuburb.prepare("INSERT INTO suburbs (suburb_name) VALUES ('" + suburb +"');");
+            insertSuburb.prepare("INSERT INTO suburb (suburb_name) VALUES ('" + suburb +"');");
             insertSuburb.exec();
             if(insertSuburb.isActive())
             {
-                insertSuburb.prepare("SELECT id FROM suburbs WHERE ID = @@Identity;");
+                insertSuburb.prepare("SELECT id FROM suburb WHERE ID = @@Identity;");
                 insertSuburb.exec();
                 if(insertSuburb.isActive())
                 {
@@ -148,7 +148,7 @@ QString addSuburb(QString suburb)								//add new venue to the DB
 void addVenue(Venue v)								//add new venue to the DB
 {
     QSqlQuery insertVenue(tennisTestDB);
-        insertVenue.prepare("INSERT INTO venues (name,street_number,street,suburb_id,postcode_id) VALUES ('"+v.venueName+"','"
+        insertVenue.prepare("INSERT INTO venue (name,street_number,street,suburb_id,postcode) VALUES ('"+v.venueName+"','"
                    + v.streetNumber +"','"
                    + v.streetName +"','"
                    + addSuburb(v.suburb) +"','"
@@ -167,7 +167,7 @@ void addVenue(Venue v)								//add new venue to the DB
 void Venue::editVenue(Venue v, QString id)								//add new venue to the DB
 {
     QSqlQuery update(tennisTestDB);
-    QString query = "UPDATE venues SET postcode_id ='"
+    QString query = "UPDATE venue SET postcode ='"
             + v.postcode   +"',"+
             "street ='"   + v.streetName    +"',"+
             "street_number ='"      + v.streetNumber         +"',"+
@@ -192,7 +192,7 @@ QSqlQueryModel* Venue::search(QString where)
     QSqlQueryModel *model = new QSqlQueryModel;
     QSqlQuery search(tennisTestDB);
 
-    search.prepare("SELECT * FROM venues " + where);
+    search.prepare("SELECT * FROM venue " + where);
     search.exec();
 
     if(search.isActive())
@@ -209,7 +209,7 @@ QSqlQueryModel* Venue::search(QString where)
 Venue Venue::getVenue(QString id)
 {
     QSqlQuery get(tennisTestDB);
-    QString query = "SELECT * FROM venues WHERE id = '"+ id +"'";
+    QString query = "SELECT * FROM venue WHERE id = '"+ id +"'";
     get.prepare(query);
     get.exec();
 
@@ -232,7 +232,7 @@ QString Venue::getSuburb(QString id)
 {
     QSqlQuery findSuburb(tennisTestDB);
 
-    findSuburb.prepare("SELECT suburb_name FROM suburbs WHERE ID = '" + id + "'");
+    findSuburb.prepare("SELECT suburb_name FROM suburb WHERE ID = '" + id + "'");
     findSuburb.exec();
     if(findSuburb.isActive())
     {
@@ -250,7 +250,7 @@ QString Venue::getSuburb(QString id)
 void Venue::deleteVenue(QString id)
 {                                // Delete player function
     QSqlQuery deleter(tennisTestDB);
-    QString query = "DELETE FROM VENUES WHERE id = '"+ id + "'";
+    QString query = "DELETE FROM venue WHERE id = '"+ id + "'";
     deleter.prepare(query);
     deleter.exec();
 

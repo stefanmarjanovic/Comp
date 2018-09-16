@@ -30,7 +30,7 @@
    <property name="geometry">
     <rect>
      <x>200</x>
-     <y>340</y>
+     <y>330</y>
      <width>171</width>
      <height>41</height>
     </rect>
@@ -44,8 +44,8 @@
    <widget class="QCheckBox" name="vacancy">
     <property name="geometry">
      <rect>
-      <x>50</x>
-      <y>10</y>
+      <x>40</x>
+      <y>20</y>
       <width>101</width>
       <height>20</height>
      </rect>
