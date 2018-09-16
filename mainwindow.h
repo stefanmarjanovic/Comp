@@ -51,6 +51,8 @@ private slots:
 
     void on_venueEdit_clicked();
 
+ //   void on_mockInsert_2_clicked();
+
 public slots:
     void customPlayerMenuRequested(QPoint pos);
     void customVenueMenuRequested(QPoint pos);
