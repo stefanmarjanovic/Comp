@@ -29,7 +29,9 @@ class Player{
         QString email;
         QString gender_id;
         QString FamilyID;
-        static QSqlQueryModel*  search(QString where);  								//search players from db
+        static QSqlQueryModel*  search(QString where);  //search players from db
+        static QSqlQueryModel*  familySearch(QString where);  //search players from db
+        static QString newFamilyID();
 };
 
 //prototype declarations

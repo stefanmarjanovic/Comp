@@ -22,6 +22,11 @@ private slots:
     void on_lname_textChanged(const QString &arg1);
 
     void on_add_clicked();
+    void on_newFamily_clicked();
+
+    void on_playerTableRadio_toggled(bool checked);
+    int getFamilyIDIndex();
+
 signals:
     void sendFamilyID(QString);
 
