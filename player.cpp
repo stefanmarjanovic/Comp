@@ -2,7 +2,7 @@
 #include "mainwindow.h" //set width
 
 extern QSqlDatabase tennisTestDB;
-Player::Player(QString id, QString fName, QString lName, QString dob, QString m, QString e, QString t){
+Player::Player(QString id, QString fName, QString lName, QString dob, QString m, QString e, QString t, QString FamilyID){
     playerID = id;
     firstName = fName;
     lastName = lName;
@@ -10,6 +10,7 @@ Player::Player(QString id, QString fName, QString lName, QString dob, QString m,
     mob = m;
     email = e;
     gender_id = t;
+    this->FamilyID = FamilyID;
 }
 
 
@@ -86,9 +87,10 @@ void editPlayer(Player p)								//add new player to the DB
             + p.firstName   +"',"+
             "last_name ='"   + p.lastName    +"',"+
             "dob = STR_TO_DATE('"+p.DOB+"','%d/%m/%Y')," +
-            "mobile ='"      + p.mob         +"',"+
-            "email ='"       + p.email       +"',"+
-            "gender_id ='"        + p.gender_id        +"'"+
+            "mobile ='"     + p.mob         +"',"+
+            "email ='"      + p.email       +"',"+
+            "gender_id ='"  + p.gender_id   +"',"+
+            "family_id ='"  + p.FamilyID    +"'"+
             "WHERE id ="    + p.playerID;
     update.prepare(query);
     update.exec();
@@ -112,13 +114,13 @@ Player getPlayer(QString id)
     {
         if(get.first())
         {
-            qDebug() << " Player Found successfully size";
-            return Player(get.value(0).toString(),get.value(1).toString(),get.value(2).toString(),get.value(3).toString(),get.value(4).toString(),get.value(5).toString(),get.value(6).toString());
+            qDebug() << " Player Found successfully: ";
+            return Player(get.value(0).toString(),get.value(1).toString(),get.value(2).toString(),get.value(3).toString(),get.value(4).toString(),get.value(5).toString(),get.value(6).toString(),get.value(7).toString());
         }
     }
     else
         qDebug() << " Query not active: " << get.lastError() << endl;
-    return Player("","","","","","","");
+    return Player("","","","","","","","");
 }
 
 void deletePlayer(QString id)
@@ -243,7 +245,6 @@ bool verifyPlayer(Player p, bool existingPlayerSearch)
         valid = false;
         errorMessage += "Email Invalid.\n";
     }
-
 
     if(!valid)
     {

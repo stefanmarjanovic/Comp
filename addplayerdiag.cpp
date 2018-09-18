@@ -19,7 +19,7 @@ AddPlayerDiag::~AddPlayerDiag()
 void AddPlayerDiag::on_apply_clicked()
 {
     //TODO REGEX
-    QString fname, lname, dob, mob, email, gender;
+    QString fname, lname, dob, mob, email, gender, familyID;
     bool male;
 
     fname = ui->fName->text();
@@ -28,13 +28,14 @@ void AddPlayerDiag::on_apply_clicked()
     mob = ui->mob->text();
     email = ui->email->text();
     male = ui->male->isChecked();
+    familyID = ui->familyID->text();
 
     if(male)
         gender = "1";
     else
         gender = "0";
 
-    Player tempP = Player("-1",fname,lname,dob,mob,email,gender); //TODO remove id
+    Player tempP = Player("-1",fname,lname,dob,mob,email,gender, familyID); //TODO remove id
 
 
     //TODO proper id

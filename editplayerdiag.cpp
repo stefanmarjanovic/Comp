@@ -36,6 +36,7 @@ void EditPlayerDiag::on_search_clicked()
     ui->dob->setText(dob);
     ui->email->setText(foundPlayer.email);
     ui->mob->setText(foundPlayer.mob);
+    ui->familyID->setText(foundPlayer.FamilyID);
 
     if(foundPlayer.gender_id == "1")
         ui->male->setChecked(true);
@@ -46,7 +47,7 @@ void EditPlayerDiag::on_search_clicked()
 void EditPlayerDiag::on_apply_clicked()     //identical to addplayer
 {
     //TODO REGEX
-    QString fname, lname, dob, mob, email, gender;
+    QString fname, lname, dob, mob, email, gender, familyID;
     bool male;
     fname = ui->fName->text();
     lname = ui->lName->text();
@@ -54,13 +55,13 @@ void EditPlayerDiag::on_apply_clicked()     //identical to addplayer
     mob = ui->mob->text();
     email = ui->email->text();
     male = ui->male->isChecked();
-
+    familyID = ui->familyID->text();
     if(male)
         gender = "1";
     else
         gender = "0";
 
-    Player tempP = Player(id,fname,lname,dob,mob,email,gender);
+    Player tempP = Player(id,fname,lname,dob,mob,email,gender,familyID);
     if(verifyPlayer(tempP,true))
     {
         QMessageBox msgBox;

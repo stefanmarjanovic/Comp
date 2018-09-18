@@ -19,7 +19,7 @@ using namespace std;
 class Player{
         public:
         //player constructor
-        Player(QString id, QString fName, QString lName, QString dob, QString m, QString e, QString gender_id);
+        Player(QString id, QString fName, QString lName, QString dob, QString m, QString e, QString gender_id,QString FamilyID);
 
         QString playerID;
         QString firstName;
@@ -28,6 +28,7 @@ class Player{
         QString mob;
         QString email;
         QString gender_id;
+        QString FamilyID;
         static QSqlQueryModel*  search(QString where);  								//search players from db
 };
 
