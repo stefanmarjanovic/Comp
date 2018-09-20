@@ -27,6 +27,8 @@ private slots:
     void on_playerTableRadio_toggled(bool checked);
     int getFamilyIDIndex();
 
+    void on_cancel_clicked();
+
 signals:
     void sendFamilyID(QString);
 

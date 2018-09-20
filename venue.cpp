@@ -10,7 +10,7 @@ Venue::Venue(QString venueName, QString streetNumber, QString streetName, QStrin
     this->postcode = postcode;
 }
 
-bool verifyVenue(Venue v)
+bool Venue::verifyVenue(Venue v)
 {
     QString errorMessage = "";
     bool valid = true;
@@ -145,7 +145,7 @@ QString addSuburb(QString suburb)								//add new venue to the DB
         qDebug() << " Query not active: " << findSuburb.executedQuery() << findSuburb.lastError() << endl;
 }
 
-void addVenue(Venue v)								//add new venue to the DB
+void Venue::addVenue(Venue v)								//add new venue to the DB
 {
     QSqlQuery insertVenue(tennisTestDB);
         insertVenue.prepare("INSERT INTO venue (name,street_number,street,suburb_id,postcode) VALUES ('"+v.venueName+"','"

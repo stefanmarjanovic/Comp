@@ -29,14 +29,15 @@ public:
     static QString getSuburb(QString id);
     static void deleteVenue(QString id);
     static void editVenue(Venue v, QString id);
-
+    static bool verifyVenue(Venue v);
+    static void addVenue(Venue v);
 public slots:
 
 };
 
 //prototype declarations
-bool verifyVenue(Venue v);
-void addVenue(Venue v);
+
+
 
 
 

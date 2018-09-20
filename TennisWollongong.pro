@@ -37,7 +37,11 @@ SOURCES += \
     editvenuediag.cpp \
     addteamdialog.cpp \
     editteamdiag.cpp \
-    teamsearchdiag.cpp
+    teamsearchdiag.cpp \
+    team.cpp \
+    divisionselector.cpp \
+    compselector.cpp \
+    database.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -53,7 +57,11 @@ HEADERS += \
     editvenuediag.h \
     addteamdialog.h \
     editteamdiag.h \
-    teamsearchdiag.h
+    teamsearchdiag.h \
+    team.h \
+    divisionselector.h \
+    compselector.h \
+    database.h
 
 FORMS += \
         mainwindow.ui \
@@ -66,7 +74,9 @@ FORMS += \
     editvenuediag.ui \
     addteamdialog.ui \
     editteamdiag.ui \
-    teamsearchdiag.ui
+    teamsearchdiag.ui \
+    divisionselector.ui \
+    compselector.ui
 
 RESOURCES += \
     resources.qrc

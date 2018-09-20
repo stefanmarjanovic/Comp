@@ -16,6 +16,7 @@
 #include <QSqlQueryModel>
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QMenuBar>
 
 namespace Ui {
 class MainWindow;
@@ -62,14 +63,13 @@ private slots:
 public slots:
     void customPlayerMenuRequested(QPoint pos);
     void customVenueMenuRequested(QPoint pos);
-
-    void dbOpen();
-    void dbClose();
+    void customTeamMenuRequested(QPoint pos);
 
 private:
     Ui::MainWindow *ui;
 
     QSortFilterProxyModel* proxyModel;
+    QSqlQueryModel* search(QString query);
 
     Refine *refine;
     AddPlayerDiag *addplayerdiag;

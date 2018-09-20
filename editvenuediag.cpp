@@ -24,7 +24,7 @@ void EditVenueDiag::search(QString venueID)
 void EditVenueDiag::on_apply_clicked()
 {
     Venue v = Venue(ui->venueName->text(),ui->streetNum->text(),ui->street->text(),ui->suburb->text(),ui->postcode->text());
-    if(verifyVenue(v))
+    if(Venue::verifyVenue(v))
     {
         QMessageBox msgBox;
         msgBox.setText("Are you sure?");

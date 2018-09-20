@@ -19,7 +19,7 @@ void AddVenueDiag::on_apply_clicked()
 
     qDebug() << v.venueName << " " << ui->vName->text();
 
-    if(verifyVenue(v))
+    if(Venue::verifyVenue(v))
     {
         QMessageBox msgBox;
         msgBox.setText("Are you sure?");
@@ -30,7 +30,7 @@ void AddVenueDiag::on_apply_clicked()
         switch (ret) {
           case QMessageBox::Save:
         {
-            addVenue(v);
+            Venue::addVenue(v);
             emit sendRefresh();
             AddVenueDiag::close();
             break;

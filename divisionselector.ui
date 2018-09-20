@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>TeamSearchDiag</class>
- <widget class="QDialog" name="TeamSearchDiag">
+ <class>DivisionSelector</class>
+ <widget class="QDialog" name="DivisionSelector">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -16,20 +16,13 @@
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>450</x>
-     <y>570</y>
+     <x>453</x>
+     <y>580</y>
      <width>321</width>
      <height>32</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
-    <item>
-     <widget class="QPushButton" name="newTeam">
-      <property name="text">
-       <string>New Team</string>
-      </property>
-     </widget>
-    </item>
     <item>
      <widget class="QPushButton" name="cancel">
       <property name="text">
@@ -52,34 +45,34 @@
   <widget class="QTableView" name="searchTable">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>50</y>
+     <x>12</x>
+     <y>60</y>
      <width>761</width>
      <height>511</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="searchText">
-   <property name="geometry">
-    <rect>
-     <x>562</x>
-     <y>20</y>
-     <width>211</width>
-     <height>21</height>
     </rect>
    </property>
   </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>440</x>
-     <y>20</y>
-     <width>131</width>
+     <x>420</x>
+     <y>30</y>
+     <width>151</width>
      <height>20</height>
     </rect>
    </property>
    <property name="text">
-    <string>Team name search</string>
+    <string>Division Name Search</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="searchText">
+   <property name="geometry">
+    <rect>
+     <x>562</x>
+     <y>30</y>
+     <width>211</width>
+     <height>21</height>
+    </rect>
    </property>
   </widget>
  </widget>

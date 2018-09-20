@@ -80,3 +80,8 @@ void FamilySearchDiag::on_playerTableRadio_toggled(bool checked)
     family_IDIndex = FamilySearchDiag::getFamilyIDIndex();
 
 }
+
+void FamilySearchDiag::on_cancel_clicked()
+{
+    FamilySearchDiag::close();
+}

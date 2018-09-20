@@ -2,13 +2,15 @@
 #include "ui_mainwindow.h"
 #include "refine.h"
 #include "player.h"
+#include "team.h"
 #include "addplayerdiag.h"
 #include "editplayerdiag.h"
 #include "addteamdialog.h"
+#include "database.h"
 
 //global variables
 QString lastQuery;
-QSqlDatabase tennisTestDB = QSqlDatabase::addDatabase("QMYSQL");
+extern QSqlDatabase tennisTestDB;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -16,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     lastQuery = "";
-    dbOpen();
+    Database::dbOpen();
     dbRefresh();
     ui->playerTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->playerTable->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -28,53 +30,50 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->venueTable->setContextMenuPolicy(Qt::CustomContextMenu);
     ui->venueTable->resizeColumnsToContents();
 
+    ui->teamTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->teamTable->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->teamTable->setContextMenuPolicy(Qt::CustomContextMenu);
+    ui->teamTable->resizeColumnsToContents();
+
 
     connect(ui->playerTable, SIGNAL(customContextMenuRequested(QPoint)),
             SLOT(customPlayerMenuRequested(QPoint)));
 
     connect(ui->venueTable, SIGNAL(customContextMenuRequested(QPoint)),
             SLOT(customVenueMenuRequested(QPoint)));
+
+    connect(ui->teamTable, SIGNAL(customContextMenuRequested(QPoint)),
+            SLOT(customTeamMenuRequested(QPoint)));
+
 }
 MainWindow::~MainWindow()
 {
-    dbClose();
+    Database::dbClose();
     delete ui;
 }
-void MainWindow::dbOpen()
-{
-    tennisTestDB.setHostName("127.0.0.1");
-    tennisTestDB.setDatabaseName("tennisTestDB");
-    tennisTestDB.setUserName("root");
-    if(tennisTestDB.isValid())
-    {
-        tennisTestDB.open();
-        if(!tennisTestDB.isOpen())
-            qDebug() << "DB not open";
-    }
-    else
-        qDebug() << "DB not valid";
 
-}
-void MainWindow::dbClose()
-{
-    tennisTestDB.close();
-}
 void MainWindow::dbRefresh()
 {
     ui->playerTable->setModel(Player::search(lastQuery));
-    ui->venueTable->setModel(Venue::search(""));
-
     proxyModel = new QSortFilterProxyModel();
-        proxyModel->setSourceModel(ui->playerTable->model());
+    proxyModel->setSourceModel(ui->playerTable->model());
     ui->playerTable->setModel(proxyModel);
     ui->playerTable->setSortingEnabled(true);
     ui->playerTable->sortByColumn(0, Qt::AscendingOrder);
 
+    ui->venueTable->setModel(Venue::search(""));
     proxyModel = new QSortFilterProxyModel();
-        proxyModel->setSourceModel(ui->venueTable->model());
+    proxyModel->setSourceModel(ui->venueTable->model());
     ui->venueTable->setModel(proxyModel);
     ui->venueTable->setSortingEnabled(true);
     ui->venueTable->sortByColumn(0, Qt::AscendingOrder);
+
+    ui->teamTable->setModel(Team::search(""));
+    proxyModel = new QSortFilterProxyModel();
+    proxyModel->setSourceModel(ui->teamTable->model());
+    ui->teamTable->setModel(proxyModel);
+    ui->teamTable->setSortingEnabled(true);
+    ui->teamTable->sortByColumn(0, Qt::AscendingOrder);
 }
 void MainWindow::getRefresh()
 {
@@ -195,6 +194,18 @@ void MainWindow::customVenueMenuRequested(QPoint pos)
     venueMenu->addAction("Edit Venue",this, std::bind(&MainWindow::getEditVenueAction,this, venueID));
     venueMenu->popup(ui->venueTable->viewport()->mapToGlobal(pos));
 }
+
+void MainWindow::customTeamMenuRequested(QPoint pos)
+{
+    QModelIndex teamIndex = ui->teamTable->indexAt(pos);
+    QString teamID = ui->teamTable->model()->index(teamIndex.row(),0).data().toString();
+    QMenu *teamMenu=new QMenu(this);
+
+    /*teamMenu->addAction("Delete Team",this, std::bind(&MainWindow::getDeleteTeamAction,this,teamID));
+    teamMenu->addAction("Edit Team",this, std::bind(&MainWindow::getEditTeamAction,this, teamID));
+    teamMenu->popup(ui->teamTable->viewport()->mapToGlobal(pos));*/
+}
+
 void MainWindow::on_Clear_clicked()
 {
     lastQuery = "";
@@ -235,10 +246,31 @@ void MainWindow::on_teamAdd_clicked()
 {
     addteamdiag = new addTeamDialog(this);
     addteamdiag->show();
+
+    QObject::connect(addteamdiag,SIGNAL(sendRefresh()),this,SLOT(getRefresh()) );
 }
 
 void MainWindow::on_teamEdit_clicked()
 {
     editteamdiag = new EditTeamDiag(this);
     editteamdiag->show();
+}
+QSqlQueryModel* MainWindow::search(QString query)
+{
+    QSqlQueryModel *model = new QSqlQueryModel;
+    QSqlQuery search(tennisTestDB);
+
+    search.prepare(query);
+    search.exec();
+
+    if(search.isActive())
+    {
+        model->setQuery(search);
+        qDebug() << " Query active: " << search.executedQuery();
+
+    }
+    else
+        qDebug() << " Query not active: " << search.executedQuery();
+
+    return model;
 }

@@ -2,6 +2,9 @@
 #define ADDTEAMDIALOG_H
 
 #include <QDialog>
+#include "divisionselector.h"
+#include "compselector.h"
+#include "team.h"
 
 namespace Ui {
 class addTeamDialog;
@@ -15,8 +18,21 @@ public:
     explicit addTeamDialog(QWidget *parent = 0);
     ~addTeamDialog();
 
+private slots:
+    void on_divisionSearch_clicked();
+
+    void on_compSearch_clicked();
+    void getDivID(QString);
+    void getCompID(QString);
+
+
+    void on_apply_clicked();
+signals:
+    void sendRefresh();
 private:
     Ui::addTeamDialog *ui;
+    DivisionSelector *divisionselector;
+    CompSelector *compselector;
 };
 
 #endif // ADDTEAMDIALOG_H
