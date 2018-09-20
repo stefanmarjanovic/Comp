@@ -274,3 +274,12 @@ QSqlQueryModel* MainWindow::search(QString query)
 
     return model;
 }
+
+void MainWindow::on_actionSetting_triggered()
+{
+    settings = new Settings(this);
+    settings->show();
+
+    QObject::connect(settings,SIGNAL(sendRefresh()),this,SLOT(getRefresh()) );
+
+}

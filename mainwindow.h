@@ -4,6 +4,13 @@
 #include <QMainWindow>
 #include <QSqlQueryModel>
 #include <QMenu>
+#include <QSortFilterProxyModel>
+#include <QSqlDatabase>
+#include <QSqlQueryModel>
+#include <QSqlQuery>
+#include <QSqlError>
+#include <QMenuBar>
+
 #include "refine.h"
 #include "addplayerdiag.h"
 #include "editplayerdiag.h"
@@ -11,12 +18,7 @@
 #include "editvenuediag.h"
 #include "addteamdialog.h"
 #include "editteamdiag.h"
-#include <QSortFilterProxyModel>
-#include <QSqlDatabase>
-#include <QSqlQueryModel>
-#include <QSqlQuery>
-#include <QSqlError>
-#include <QMenuBar>
+#include "settings.h"
 
 namespace Ui {
 class MainWindow;
@@ -60,6 +62,8 @@ private slots:
 
     void on_teamEdit_clicked();
 
+    void on_actionSetting_triggered();
+
 public slots:
     void customPlayerMenuRequested(QPoint pos);
     void customVenueMenuRequested(QPoint pos);
@@ -78,7 +82,7 @@ private:
     EditVenueDiag *editvenuediag;
     addTeamDialog *addteamdiag;
     EditTeamDiag *editteamdiag;
-
+    Settings *settings;
 
 };
 

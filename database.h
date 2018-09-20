@@ -7,11 +7,13 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QDebug>
+#include <QSettings>
+#include <QMessageBox>
 
 namespace Ui {
 class Database;
 }
-class Database
+class Database : public QObject
 {
     Q_OBJECT
 public:
@@ -20,6 +22,7 @@ public slots:
     static void dbClose();
     static QSqlQueryModel* search(QString table, QString where);
     static int getIndex(QString column, QAbstractItemModel *model);
+    static bool test(QString host, QString name, QString user, QString password);
 };
 
 #endif // DATABASE_H

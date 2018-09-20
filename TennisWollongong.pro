@@ -41,7 +41,8 @@ SOURCES += \
     team.cpp \
     divisionselector.cpp \
     compselector.cpp \
-    database.cpp
+    database.cpp \
+    settings.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -61,7 +62,8 @@ HEADERS += \
     team.h \
     divisionselector.h \
     compselector.h \
-    database.h
+    database.h \
+    settings.h
 
 FORMS += \
         mainwindow.ui \
@@ -76,7 +78,8 @@ FORMS += \
     editteamdiag.ui \
     teamsearchdiag.ui \
     divisionselector.ui \
-    compselector.ui
+    compselector.ui \
+    settings.ui
 
 RESOURCES += \
     resources.qrc

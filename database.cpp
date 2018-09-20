@@ -2,26 +2,99 @@
 
 QSqlDatabase tennisTestDB = QSqlDatabase::addDatabase("QMYSQL");
 
-
-void Database::dbOpen()
+bool Database::test(QString host, QString name, QString user, QString password)
 {
-    tennisTestDB.setHostName("127.0.0.1");
-    tennisTestDB.setDatabaseName("tennisTestDB");
-    tennisTestDB.setUserName("root");
+    bool valid = true;
+    QString message = "";
+
+    tennisTestDB.setHostName(host);
+    tennisTestDB.setDatabaseName(name);
+    tennisTestDB.setUserName(user);
+    tennisTestDB.setPassword(password);
     if(tennisTestDB.isValid())
     {
         tennisTestDB.open();
         if(!tennisTestDB.isOpen())
-            qDebug() << "DB not open";
+        {
+            message="Connection failed";
+            valid = false;
+        }
     }
     else
-        qDebug() << "DB not valid";
+    {
+        valid = false;
+        message="Connection failed";
+    }
 
+    if (!valid)
+    {
+        QMessageBox msgBox;
+        msgBox.setText("Error");
+        msgBox.setInformativeText(message);
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        msgBox.exec();
+    }
+    else
+    {
+        QMessageBox msgBox;
+        msgBox.setText("Success");
+        msgBox.setInformativeText("Connected successfully");
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        msgBox.exec();
+    }
+    return valid;
+}
+void Database::dbOpen()
+{
+    QSettings dbSettings;
+    qDebug() << dbSettings.value("changed").toString();
+    if(dbSettings.value("changed") != "true")
+    {
+        dbSettings.setValue("DBHost","127.0.0.1");
+        dbSettings.setValue("DBName","tennisTestDB");
+        dbSettings.setValue("DBUser","root");
+        dbSettings.setValue("DBPassword","");
+        dbSettings.setValue("changed","true");
+
+        tennisTestDB.setHostName("127.0.0.1");
+        tennisTestDB.setDatabaseName("tennisTestDB");
+        tennisTestDB.setUserName("root");
+        if(tennisTestDB.isValid())
+        {
+            tennisTestDB.open();
+            if(!tennisTestDB.isOpen())
+                qDebug() << "DB not open";
+        }
+        else
+            qDebug() << "DB not valid";
+    }
+    else
+    {
+        tennisTestDB.setHostName(dbSettings.value("DBHost").toString());
+        tennisTestDB.setDatabaseName(dbSettings.value("DBName").toString());
+        tennisTestDB.setUserName(dbSettings.value("DBUser").toString());
+        if(dbSettings.value("DBPassword") != "")
+            tennisTestDB.setUserName(dbSettings.value("DBPassword").toString());
+        if(tennisTestDB.isValid())
+        {
+            tennisTestDB.open();
+            if(!tennisTestDB.isOpen())
+                qDebug() << "DB from settings not open" << dbSettings.value("DBHost").toString();
+        }
+        else
+            qDebug() << "DB from settings not valid";
+    }
 }
 
 void Database::dbClose()
 {
+    QString connection;
+    connection = tennisTestDB.connectionName();
     tennisTestDB.close();
+    tennisTestDB = QSqlDatabase();
+    tennisTestDB.removeDatabase(connection);
 }
 
 QSqlQueryModel* Database::search(QString table, QString where)
@@ -48,7 +121,7 @@ int Database::getIndex(QString column, QAbstractItemModel *model)
 {
     for(int i = 0; i < model->columnCount(); i++)
     {
-      if(model->headerData(i, Qt::Horizontal).toString() == column)
-          return i;
+        if(model->headerData(i, Qt::Horizontal).toString() == column)
+            return i;
     }
 }
