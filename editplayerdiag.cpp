@@ -4,8 +4,6 @@
 
 /* GLOBAL VARIABLES */
 
-QString id;
-
 EditPlayerDiag::EditPlayerDiag(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::EditPlayerDiag)

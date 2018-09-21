@@ -24,6 +24,7 @@ private slots:
 
 signals:
     void sendRefresh();
+
 private:
     Ui::AddVenueDiag *ui;
 };

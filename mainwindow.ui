@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>900</width>
-    <height>534</height>
+    <height>539</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -25,7 +25,19 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">/*QWidget{
+background-color: rgb(54, 54, 54);
+color: rgb(213, 209, 209);
+font: 75 15pt &quot;Arial&quot;;
+}
+QLineEdit{ background: grey; };
+*/</string>
+  </property>
   <widget class="QWidget" name="centralWidget">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <widget class="QGraphicsView" name="graphicsView">
     <property name="geometry">
      <rect>
@@ -65,7 +77,7 @@ background-image: url(:/logo.png);</string>
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <property name="movable">
      <bool>false</bool>
@@ -127,6 +139,9 @@ background-image: url(:/logo.png);</string>
         <width>771</width>
         <height>321</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
       </property>
       <property name="showGrid">
        <bool>true</bool>
@@ -222,20 +237,7 @@ background-image: url(:/logo.png);</string>
      <attribute name="title">
       <string>Venues</string>
      </attribute>
-     <widget class="QPushButton" name="mockInsert_2">
-      <property name="geometry">
-       <rect>
-        <x>790</x>
-        <y>240</y>
-        <width>101</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Mock Insert</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="quickSearch_2">
+     <widget class="QLineEdit" name="quickSearchVenue">
       <property name="geometry">
        <rect>
         <x>590</x>
@@ -473,7 +475,7 @@ background-image: url(:/logo.png);</string>
        <string>Edit</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="quickSearch_3">
+     <widget class="QLineEdit" name="quickSearchTeam">
       <property name="geometry">
        <rect>
         <x>590</x>

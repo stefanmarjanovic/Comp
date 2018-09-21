@@ -29,17 +29,6 @@ bool Team::verifyTeam(Team t)
             }
         }
 
-    if(t.comp_id.isEmpty())
-    {
-        valid = false;
-        errorMessage += "Competition Invalid.\n";
-    }
-    if(t.division_id.isEmpty())
-    {
-        valid = false;
-        errorMessage += "Competition Invalid.\n";
-    }
-
     if(!valid)
         {
             QMessageBox msgBox;
@@ -92,7 +81,9 @@ QSqlQueryModel* Team::search(QString where)
     QSqlQueryModel *model = new QSqlQueryModel;
     QSqlQuery search(tennisTestDB);
 
-    search.prepare("SELECT * FROM team " + where);
+    search.prepare("select t.id, t.tablePosition as 'Table Position', t.name as 'Team Name', c.name as 'Competition Name', d.name as 'Division Name' FROM TEAM t LEFT OUTER JOIN COMPETITION c ON c.id = t.comp_id LEFT OUTER JOIN Division d ON d.id = t.division_id "
+                   + where
+                   + " ORDER BY id;");
     search.exec();
 
     if(search.isActive())

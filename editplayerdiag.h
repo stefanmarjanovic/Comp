@@ -43,6 +43,7 @@ private:
     Ui::EditPlayerDiag *ui;
     DatePick * datepick;
     FamilySearchDiag * familysearchdiag;
+    QString id;
 
 };
 

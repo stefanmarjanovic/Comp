@@ -45,6 +45,8 @@ private slots:
     void getEditPlayerAction(QString playerID);
     void getDeleteVenueAction(QString venueID);
     void getEditVenueAction(QString venueID);
+    void getDeleteTeamAction(QString TeamID);
+    void getEditTeamAction(QString TeamID);
 
     void on_Clear_clicked();
 
@@ -63,6 +65,14 @@ private slots:
     void on_teamEdit_clicked();
 
     void on_actionSetting_triggered();
+
+    void on_quickSearchVenue_textChanged(const QString &arg1);
+
+    void on_quickSearchTeam_textChanged(const QString &arg1);
+
+    void on_venueClear_clicked();
+
+    void on_teamClear_clicked();
 
 public slots:
     void customPlayerMenuRequested(QPoint pos);
@@ -84,6 +94,7 @@ private:
     EditTeamDiag *editteamdiag;
     Settings *settings;
 
+    QString lastPlayerQuery, lastVenueQuery, lastTeamQuery;
 };
 
 
