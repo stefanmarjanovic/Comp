@@ -12,6 +12,7 @@
 #include <QMenuBar>
 #include <QGraphicsOpacityEffect>
 #include <QPropertyAnimation>
+#include <QDesktopWidget>
 
 #include "refine.h"
 #include "addplayerdiag.h"
@@ -86,7 +87,7 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
-    QWidget *about; //why is it form?
+    QWidget *about;
 
     QSortFilterProxyModel* proxyModel;
     QSqlQueryModel* search(QString query);
