@@ -41,7 +41,7 @@ void EditTeamDiag::on_apply_clicked()
                 {
                     //TODO proper id
                     Team::editTeam(t, id);
-                    emit sendRefresh();
+                    emit sendRefresh("TEAM");
 
                     // Save was clicked
                     EditTeamDiag::close();

@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>logo.png</file>
-        <file>mockData.csv</file>
         <file>calendar-1559935_960_720.png</file>
+        <file>ACMlogo.PNG</file>
     </qresource>
 </RCC>

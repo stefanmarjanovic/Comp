@@ -79,6 +79,12 @@
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>searchText</tabstop>
+  <tabstop>cancel</tabstop>
+  <tabstop>add</tabstop>
+  <tabstop>searchTable</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

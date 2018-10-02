@@ -53,7 +53,7 @@ void AddPlayerDiag::on_apply_clicked()
             //Save was clicked
             //TODO proper id
             addPlayer(tempP);
-            emit sendRefresh();
+            emit sendRefresh("PLAYER");
             AddPlayerDiag::close();
             break;
         }

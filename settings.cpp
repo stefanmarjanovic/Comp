@@ -24,7 +24,7 @@ Settings::~Settings()
 {
 
     Database::dbOpen();
-    emit sendRefresh();
+    emit sendRefresh("ALL");
     delete ui;
 }
 

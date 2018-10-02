@@ -38,7 +38,7 @@ public slots:
     void search(QString id);
 
 signals:
-    void sendRefresh();
+    void sendRefresh(QString);
 private:
     Ui::EditPlayerDiag *ui;
     DatePick * datepick;

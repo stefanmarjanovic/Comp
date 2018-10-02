@@ -23,7 +23,7 @@ private slots:
     void on_cancel_clicked();
 
 signals:
-    void sendRefresh();
+    void sendRefresh(QString);
 
 private:
     Ui::AddVenueDiag *ui;

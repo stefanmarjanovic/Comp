@@ -31,7 +31,7 @@ void AddVenueDiag::on_apply_clicked()
           case QMessageBox::Save:
         {
             Venue::addVenue(v);
-            emit sendRefresh();
+            emit sendRefresh("VENUE");
             AddVenueDiag::close();
             break;
         }

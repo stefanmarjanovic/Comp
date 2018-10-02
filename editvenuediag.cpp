@@ -36,7 +36,7 @@ void EditVenueDiag::on_apply_clicked()
         case QMessageBox::Save:
         {
             Venue::editVenue(v, venID);
-            emit sendRefresh();
+            emit sendRefresh("VENUE");
             EditVenueDiag::close();
             break;
         }
@@ -62,7 +62,7 @@ void EditVenueDiag::on_deleteButton_clicked()
     case QMessageBox::Save:
     {
         Venue::deleteVenue(venID);
-        emit sendRefresh();
+        emit sendRefresh("VENUE");
 
         EditVenueDiag::close();
         break;

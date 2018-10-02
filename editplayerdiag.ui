@@ -370,14 +370,16 @@
   <tabstop>search</tabstop>
   <tabstop>fName</tabstop>
   <tabstop>lName</tabstop>
+  <tabstop>familyID</tabstop>
+  <tabstop>famSearch</tabstop>
   <tabstop>dob</tabstop>
   <tabstop>cal</tabstop>
   <tabstop>mob</tabstop>
   <tabstop>email</tabstop>
   <tabstop>female</tabstop>
   <tabstop>male</tabstop>
-  <tabstop>cancel</tabstop>
   <tabstop>deleteButton</tabstop>
+  <tabstop>cancel</tabstop>
   <tabstop>apply</tabstop>
  </tabstops>
  <resources/>

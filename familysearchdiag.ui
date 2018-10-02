@@ -131,6 +131,15 @@
    </widget>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>playerTableRadio</tabstop>
+  <tabstop>familyTableRadio</tabstop>
+  <tabstop>lname</tabstop>
+  <tabstop>searchTable</tabstop>
+  <tabstop>newFamily</tabstop>
+  <tabstop>cancel</tabstop>
+  <tabstop>add</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

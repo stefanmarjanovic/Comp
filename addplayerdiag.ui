@@ -295,7 +295,8 @@
  <tabstops>
   <tabstop>fName</tabstop>
   <tabstop>lName</tabstop>
-  <tabstop>dob</tabstop>
+  <tabstop>familyID</tabstop>
+  <tabstop>famSearch</tabstop>
   <tabstop>cal</tabstop>
   <tabstop>mob</tabstop>
   <tabstop>email</tabstop>
@@ -303,6 +304,7 @@
   <tabstop>male</tabstop>
   <tabstop>cancel</tabstop>
   <tabstop>apply</tabstop>
+  <tabstop>dob</tabstop>
  </tabstops>
  <resources/>
  <connections/>

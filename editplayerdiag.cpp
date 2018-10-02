@@ -73,7 +73,7 @@ void EditPlayerDiag::on_apply_clicked()     //identical to addplayer
         {
             //TODO proper id
             editPlayer(tempP);
-            emit sendRefresh();
+            emit sendRefresh("PLAYER");
 
             // Save was clicked
             EditPlayerDiag::close();
@@ -102,7 +102,7 @@ void EditPlayerDiag::on_deleteButton_clicked()
     case QMessageBox::Save:
     {
         deletePlayer(id);
-        emit sendRefresh();
+        emit sendRefresh("PLAYER");
 
         EditPlayerDiag::close();
         break;

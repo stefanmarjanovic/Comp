@@ -33,7 +33,7 @@ private slots:
     void getFamilyID(QString);
 
 signals:
-    void sendRefresh();
+    void sendRefresh(QString);
 private:
     Ui::AddPlayerDiag *ui;
     DatePick * datepick;

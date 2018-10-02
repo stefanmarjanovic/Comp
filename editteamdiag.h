@@ -30,7 +30,7 @@ private slots:
 public slots:
     void search(QString teamID);
 signals:
-    void sendRefresh();
+    void sendRefresh(QString);
 private:
     Ui::EditTeamDiag *ui;
     QString id;

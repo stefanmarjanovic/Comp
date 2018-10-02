@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
     lastVenueQuery = "";
     lastTeamQuery = "";
     Database::dbOpen();
-    dbRefresh();
+    dbRefresh("ALL");
     ui->playerTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->playerTable->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->playerTable->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -53,33 +53,39 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::dbRefresh()
+void MainWindow::dbRefresh(QString tableChoice)
 {
-    ui->playerTable->setModel(Player::search(lastPlayerQuery));
-    proxyModel = new QSortFilterProxyModel();
-    proxyModel->setSourceModel(ui->playerTable->model());
-    ui->playerTable->setModel(proxyModel);
-    ui->playerTable->setSortingEnabled(true);
-    ui->playerTable->sortByColumn(0, Qt::AscendingOrder);
+    if(tableChoice == "PLAYER" || tableChoice == "ALL")
+    {
+        ui->playerTable->setModel(Player::search(lastPlayerQuery));
+        proxyModel = new QSortFilterProxyModel();
+        proxyModel->setSourceModel(ui->playerTable->model());
+        ui->playerTable->setModel(proxyModel);
+        ui->playerTable->setSortingEnabled(true);
+        ui->playerTable->sortByColumn(0, Qt::AscendingOrder);
+    }
 
-    ui->venueTable->setModel(Venue::search(lastVenueQuery));
-    proxyModel = new QSortFilterProxyModel();
-    proxyModel->setSourceModel(ui->venueTable->model());
-    ui->venueTable->setModel(proxyModel);
-    ui->venueTable->setSortingEnabled(true);
-    ui->venueTable->sortByColumn(0, Qt::AscendingOrder);
+    if(tableChoice == "VENUE" || tableChoice == "ALL")
+    {
+        ui->venueTable->setModel(Venue::search(lastVenueQuery));
+        proxyModel = new QSortFilterProxyModel();
+        proxyModel->setSourceModel(ui->venueTable->model());
+        ui->venueTable->setModel(proxyModel);
+        ui->venueTable->setSortingEnabled(true);
+        ui->venueTable->sortByColumn(0, Qt::AscendingOrder);
+    }
 
-    ui->teamTable->setModel(Team::search(lastTeamQuery));
-    proxyModel = new QSortFilterProxyModel();
-    proxyModel->setSourceModel(ui->teamTable->model());
-    ui->teamTable->setModel(proxyModel);
-    ui->teamTable->setSortingEnabled(true);
-    ui->teamTable->sortByColumn(0, Qt::AscendingOrder);
+    if(tableChoice == "TEAM" || tableChoice == "ALL")
+    {
+        ui->teamTable->setModel(Team::search(lastTeamQuery));
+        proxyModel = new QSortFilterProxyModel();
+        proxyModel->setSourceModel(ui->teamTable->model());
+        ui->teamTable->setModel(proxyModel);
+        ui->teamTable->setSortingEnabled(true);
+        ui->teamTable->sortByColumn(0, Qt::AscendingOrder);
+    }
 }
-void MainWindow::getRefresh()
-{
-    dbRefresh();
-}
+
 void MainWindow::on_Refine_clicked()
 {
     refine = new Refine(this);
@@ -93,7 +99,7 @@ void MainWindow::on_playeAdButton_clicked()
     addplayerdiag = new AddPlayerDiag(this);
     addplayerdiag->show();
 
-    QObject::connect(addplayerdiag,SIGNAL(sendRefresh()),this,SLOT(getRefresh()) );
+    QObject::connect(addplayerdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
 }
 
 void MainWindow::on_PlayerEditButton_clicked()
@@ -101,7 +107,7 @@ void MainWindow::on_PlayerEditButton_clicked()
     editplayerdiag = new EditPlayerDiag(this);
     editplayerdiag->show();
 
-    QObject::connect(editplayerdiag,SIGNAL(sendRefresh()),this,SLOT(getRefresh()) );
+    QObject::connect(editplayerdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
 }
 void MainWindow::getDeletePlayerAction(QString playerID)
 {
@@ -116,7 +122,7 @@ void MainWindow::getDeletePlayerAction(QString playerID)
     case QMessageBox::Yes:
     {
         deletePlayer(playerID);
-        getRefresh();
+        dbRefresh("PLAYER");
 
         break;
     }
@@ -134,7 +140,7 @@ void MainWindow::getEditPlayerAction(QString playerID)
     editplayerdiag->show();
     editplayerdiag->search(playerID);
 
-    QObject::connect(editplayerdiag,SIGNAL(sendRefresh()),this,SLOT(getRefresh()) );
+    QObject::connect(editplayerdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
 }
 void MainWindow::getDeleteVenueAction(QString venueID)
 {
@@ -149,7 +155,7 @@ void MainWindow::getDeleteVenueAction(QString venueID)
     case QMessageBox::Yes:
     {
         Venue::deleteVenue(venueID);
-        getRefresh();
+        dbRefresh("VENUE");
 
         break;
     }
@@ -167,7 +173,7 @@ void MainWindow::getEditVenueAction(QString venueID)
     editvenuediag->show();
     editvenuediag->search(venueID);
 
-    QObject::connect(editvenuediag,SIGNAL(sendRefresh()),this,SLOT(getRefresh()) );
+    QObject::connect(editvenuediag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
 }
 
 void MainWindow::getDeleteTeamAction(QString teamID)
@@ -183,7 +189,7 @@ void MainWindow::getDeleteTeamAction(QString teamID)
     case QMessageBox::Yes:
     {
         Team::deleteTeam(teamID);
-        getRefresh();
+        dbRefresh("TEAM");
 
         break;
     }
@@ -201,13 +207,13 @@ void MainWindow::getEditTeamAction(QString teamID)
     editteamdiag->show();
     editteamdiag->search(teamID);
 
-    QObject::connect(editteamdiag,SIGNAL(sendRefresh()),this,SLOT(getRefresh()) );
+    QObject::connect(editteamdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
 }
 
 void MainWindow::getWhereQuery(QString where)
 {
     lastPlayerQuery = where;
-    dbRefresh();
+    dbRefresh("PLAYER");
 }
 void MainWindow::customPlayerMenuRequested(QPoint pos)
 {
@@ -246,7 +252,7 @@ void MainWindow::on_mockInsert_clicked()
 {
     mockInsert();
     lastPlayerQuery = "";
-    dbRefresh();
+    dbRefresh("ALL");
 }
 
 void MainWindow::on_venueAdd_clicked()
@@ -254,7 +260,7 @@ void MainWindow::on_venueAdd_clicked()
     addvenuediag = new AddVenueDiag(this);
     addvenuediag->show();
 
-    QObject::connect(addvenuediag,SIGNAL(sendRefresh()),this,SLOT(getRefresh()) );
+    QObject::connect(addvenuediag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
 }
 
 void MainWindow::on_venueEdit_clicked()
@@ -262,7 +268,7 @@ void MainWindow::on_venueEdit_clicked()
     editvenuediag = new EditVenueDiag(this);
     editvenuediag->show();
 
-    QObject::connect(editvenuediag,SIGNAL(sendRefresh()),this,SLOT(getRefresh()) );
+    QObject::connect(editvenuediag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
 }
 
 void MainWindow::on_teamAdd_clicked()
@@ -270,7 +276,7 @@ void MainWindow::on_teamAdd_clicked()
     addteamdiag = new addTeamDialog(this);
     addteamdiag->show();
 
-    QObject::connect(addteamdiag,SIGNAL(sendRefresh()),this,SLOT(getRefresh()) );
+    QObject::connect(addteamdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
 }
 
 void MainWindow::on_teamEdit_clicked()
@@ -278,7 +284,7 @@ void MainWindow::on_teamEdit_clicked()
     editteamdiag = new EditTeamDiag(this);
     editteamdiag->show();
 
-    QObject::connect(editteamdiag,SIGNAL(sendRefresh()),this,SLOT(getRefresh()) );
+    QObject::connect(editteamdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)()) );
 }
 QSqlQueryModel* MainWindow::search(QString query)
 {
@@ -305,49 +311,68 @@ void MainWindow::on_actionSetting_triggered()
     settings = new Settings(this);
     settings->show();
 
-    QObject::connect(settings,SIGNAL(sendRefresh()),this,SLOT(getRefresh()) );
+    QObject::connect(settings,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)()) );
 
 }
 
+void MainWindow::on_actionAbout_triggered()
+{
+    about = new QWidget();
+    Ui::About aboutInstance;
+    aboutInstance.setupUi(about);
+
+
+    QPropertyAnimation *anim = new QPropertyAnimation();
+    anim->setTargetObject(about);
+    anim->setPropertyName("windowOpacity");
+
+    anim->setDuration(1000);
+    anim->setStartValue(0);
+    anim->setEndValue(1);
+    //anim->setEasingCurve(QEasingCurve::InBack);
+    anim->start(QPropertyAnimation::DeleteWhenStopped);
+
+    about->show();
+}
 
 void MainWindow::on_quickSearch_textChanged(const QString &arg1)
 {
     QString where = "WHERE (first_name LIKE '"+arg1+"%' OR last_name LIKE '"+arg1+"%' OR mobile LIKE '"+arg1+"%' OR email LIKE '"+arg1+"%')";
     lastPlayerQuery = where;
-    dbRefresh();
+    dbRefresh("PLAYER");
 }
 
 void MainWindow::on_quickSearchVenue_textChanged(const QString &arg1)
 {
     QString where = "WHERE (name LIKE '"+arg1+"%' OR street LIKE '"+arg1+"%')";
     lastVenueQuery = where;
-    dbRefresh();
+    dbRefresh("VENUE");
 }
 
 void MainWindow::on_quickSearchTeam_textChanged(const QString &arg1)
 {
     QString where = " WHERE (t.name LIKE '%"+arg1+"%')";
     lastTeamQuery = where;
-    dbRefresh();
+    dbRefresh("TEAM");
 }
 
 void MainWindow::on_Clear_clicked()
 {
     lastPlayerQuery = "";
-    dbRefresh();
+    dbRefresh("TEAM");
     ui->quickSearch->clear();
 }
 
 void MainWindow::on_venueClear_clicked()
 {
     lastVenueQuery = "";
-    dbRefresh();
+    dbRefresh("VENUE");
     ui->quickSearchVenue->clear();
 }
 
 void MainWindow::on_teamClear_clicked()
 {
     lastTeamQuery = "";
-    dbRefresh();
+    dbRefresh("TEAM");
     ui->quickSearchTeam->clear();
 }

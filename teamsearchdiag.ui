@@ -83,6 +83,13 @@
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>searchText</tabstop>
+  <tabstop>newTeam</tabstop>
+  <tabstop>cancel</tabstop>
+  <tabstop>add</tabstop>
+  <tabstop>searchTable</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

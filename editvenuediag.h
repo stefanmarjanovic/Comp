@@ -28,7 +28,7 @@ public slots:
     void search(QString venueID);
 
 signals:
-    void sendRefresh();
+    void sendRefresh(QString);
 
 private:
     Ui::EditVenueDiag *ui;

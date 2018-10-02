@@ -473,20 +473,20 @@
   <tabstop>fName</tabstop>
   <tabstop>lName</tabstop>
   <tabstop>dobFrom</tabstop>
+  <tabstop>cal</tabstop>
   <tabstop>dobTo</tabstop>
+  <tabstop>cal_2</tabstop>
   <tabstop>mob</tabstop>
   <tabstop>email</tabstop>
-  <tabstop>id</tabstop>
-  <tabstop>whereStatement</tabstop>
-  <tabstop>male</tabstop>
-  <tabstop>cancel</tabstop>
-  <tabstop>clear</tabstop>
-  <tabstop>search</tabstop>
-  <tabstop>searchByID</tabstop>
   <tabstop>female</tabstop>
+  <tabstop>male</tabstop>
+  <tabstop>clear</tabstop>
+  <tabstop>cancel</tabstop>
+  <tabstop>search</tabstop>
+  <tabstop>id</tabstop>
+  <tabstop>searchByID</tabstop>
+  <tabstop>whereStatement</tabstop>
   <tabstop>custom</tabstop>
-  <tabstop>cal</tabstop>
-  <tabstop>cal_2</tabstop>
  </tabstops>
  <resources/>
  <connections/>

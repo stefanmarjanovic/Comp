@@ -10,6 +10,8 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QMenuBar>
+#include <QGraphicsOpacityEffect>
+#include <QPropertyAnimation>
 
 #include "refine.h"
 #include "addplayerdiag.h"
@@ -19,6 +21,8 @@
 #include "addteamdialog.h"
 #include "editteamdiag.h"
 #include "settings.h"
+#include "ui_about.h"
+
 
 namespace Ui {
 class MainWindow;
@@ -37,8 +41,7 @@ private slots:
     void on_Refine_clicked();
     void on_playeAdButton_clicked();
     void on_PlayerEditButton_clicked();
-    void dbRefresh();
-    void getRefresh();
+    void dbRefresh(QString tableChoice);
     void getWhereQuery(QString where);
 
     void getDeletePlayerAction(QString playerID);
@@ -65,6 +68,8 @@ private slots:
     void on_teamEdit_clicked();
 
     void on_actionSetting_triggered();
+    void on_actionAbout_triggered();
+
 
     void on_quickSearchVenue_textChanged(const QString &arg1);
 
@@ -81,6 +86,7 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
+    QWidget *about; //why is it form?
 
     QSortFilterProxyModel* proxyModel;
     QSqlQueryModel* search(QString query);
@@ -93,6 +99,7 @@ private:
     addTeamDialog *addteamdiag;
     EditTeamDiag *editteamdiag;
     Settings *settings;
+
 
     QString lastPlayerQuery, lastVenueQuery, lastTeamQuery;
 };

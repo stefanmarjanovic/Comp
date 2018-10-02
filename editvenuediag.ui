@@ -288,6 +288,19 @@
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>id_2</tabstop>
+  <tabstop>search</tabstop>
+  <tabstop>venueName</tabstop>
+  <tabstop>streetNum</tabstop>
+  <tabstop>street</tabstop>
+  <tabstop>suburb</tabstop>
+  <tabstop>postcode</tabstop>
+  <tabstop>vacancy</tabstop>
+  <tabstop>deleteButton</tabstop>
+  <tabstop>cancel</tabstop>
+  <tabstop>apply</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

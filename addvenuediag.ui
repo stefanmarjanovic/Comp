@@ -176,6 +176,15 @@
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>vName</tabstop>
+  <tabstop>streetNum</tabstop>
+  <tabstop>streetName</tabstop>
+  <tabstop>suburb</tabstop>
+  <tabstop>postCode</tabstop>
+  <tabstop>cancel</tabstop>
+  <tabstop>apply</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

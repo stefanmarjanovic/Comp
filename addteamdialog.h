@@ -28,7 +28,7 @@ private slots:
 
     void on_apply_clicked();
 signals:
-    void sendRefresh();
+    void sendRefresh(QString);
 private:
     Ui::addTeamDialog *ui;
     DivisionSelector *divisionselector;

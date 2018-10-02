@@ -56,7 +56,7 @@ void addTeamDialog::on_apply_clicked()
             //Save was clicked
             //TODO proper id
             Team::addTeam(t);
-            emit sendRefresh();
+            emit sendRefresh("TEAM");
             addTeamDialog::close();
             break;
         }
