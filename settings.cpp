@@ -18,6 +18,12 @@ Settings::Settings(QWidget *parent) :
 
     if(dbSettings.value("DBPassword").isValid())
         ui->password->setText(dbSettings.value("DBPassword").toString());
+
+    if(dbSettings.value("nightmode").isValid())
+       if(dbSettings.value("nightmode") == "true")
+           ui->nightmode->setChecked(true);
+       else
+           ui->nightmode->setChecked(false);
 }
 
 Settings::~Settings()
@@ -25,6 +31,7 @@ Settings::~Settings()
     qDebug("delete test.");
     Database::dbOpen();
     emit sendRefresh("ALL");
+    emit sendLoadStyleSheet();
     delete ui;
 }
 
@@ -58,5 +65,15 @@ void Settings::on_cancel_clicked()
 }
 void Settings::reject()
 {
+    delete this;
+}
+
+void Settings::on_applyAppearance_clicked()
+{
+    if(ui->nightmode->isChecked())
+        dbSettings.setValue("nightmode","true");
+    else
+        dbSettings.setValue("nightmode","false");
+
     delete this;
 }

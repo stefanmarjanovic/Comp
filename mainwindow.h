@@ -80,11 +80,11 @@ private slots:
 
     void on_teamClear_clicked();
 
-    void on_playeAdButton_2_clicked();
-
     void on_compEdit_clicked();
 
     void on_compAdd_clicked();
+
+    void loadStyleSheet();
 
 public slots:
     void customPlayerMenuRequested(QPoint pos);
@@ -106,6 +106,8 @@ private:
     addTeamDialog *addteamdiag;
     EditTeamDiag *editteamdiag;
     Settings *settings;
+
+    QSettings userSettings;
 
 
     QString lastPlayerQuery, lastVenueQuery, lastTeamQuery;

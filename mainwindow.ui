@@ -26,13 +26,7 @@
    <string>ACM</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">/*QWidget{
-background-color: rgb(54, 54, 54);
-color: rgb(213, 209, 209);
-font: 75 15pt &quot;Arial&quot;;
-}
-QLineEdit{ background: grey; };
-*/</string>
+   <string notr="true"/>
   </property>
   <property name="unifiedTitleAndToolBarOnMac">
    <bool>false</bool>
@@ -605,7 +599,7 @@ background-image: url(:/logo.png);</string>
      <x>0</x>
      <y>0</y>
      <width>900</width>
-     <height>26</height>
+     <height>22</height>
     </rect>
    </property>
    <property name="nativeMenuBar">

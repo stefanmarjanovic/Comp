@@ -46,6 +46,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->teamTable, SIGNAL(customContextMenuRequested(QPoint)),
             SLOT(customTeamMenuRequested(QPoint)));
 
+    loadStyleSheet();
+
 }
 MainWindow::~MainWindow()
 {
@@ -53,6 +55,14 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::loadStyleSheet()
+{
+    if(userSettings.value("nightmode") == "true")
+        this->setStyleSheet("QWidget{background-color: rgb(54, 54, 54); color: rgb(213, 209, 209);  font: 75 15pt \"Arial\";} QLineEdit{ background: grey; };");
+    else
+        this->setStyleSheet("");
+
+}
 void MainWindow::dbRefresh(QString tableChoice)
 {
     if(tableChoice == "PLAYER" || tableChoice == "ALL")
@@ -311,6 +321,7 @@ void MainWindow::on_actionSetting_triggered()
     settings = new Settings(this);
     settings->show();
     QObject::connect(settings,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
+    QObject::connect(settings,SIGNAL(sendLoadStyleSheet()),this,SLOT(loadStyleSheet()) );
 
 }
 

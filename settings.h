@@ -25,9 +25,11 @@ private slots:
 
     void on_cancel_clicked();
 
+    void on_applyAppearance_clicked();
+
 signals:
     void sendRefresh(QString);
-
+    void sendLoadStyleSheet();
 private:
     Ui::Settings *ui;
     QSettings dbSettings;
