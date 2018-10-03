@@ -284,7 +284,7 @@ void MainWindow::on_teamEdit_clicked()
     editteamdiag = new EditTeamDiag(this);
     editteamdiag->show();
 
-    QObject::connect(editteamdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)()) );
+    QObject::connect(editteamdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
 }
 QSqlQueryModel* MainWindow::search(QString query)
 {
@@ -310,7 +310,7 @@ void MainWindow::on_actionSetting_triggered()
 {
     settings = new Settings(this);
     settings->show();
-    QObject::connect(settings,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)()) );
+    QObject::connect(settings,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
 
 }
 

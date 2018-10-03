@@ -22,7 +22,7 @@ Settings::Settings(QWidget *parent) :
 
 Settings::~Settings()
 {
-
+    qDebug("delete test.");
     Database::dbOpen();
     emit sendRefresh("ALL");
     delete ui;
@@ -37,7 +37,7 @@ void Settings::on_apply_clicked()
     dbSettings.setValue("DBPassword",password);
     dbSettings.setValue("changed","true");
 
-    Settings::~Settings();
+    delete this;
 }
 
 void Settings::on_test_clicked()
@@ -54,9 +54,9 @@ void Settings::on_test_clicked()
 
 void Settings::on_cancel_clicked()
 {
-    Settings::~Settings();
+    delete this;
 }
 void Settings::reject()
 {
-    Settings::~Settings();
+    delete this;
 }
