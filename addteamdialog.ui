@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>376</width>
-    <height>276</height>
+    <height>316</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>140</x>
-     <y>240</y>
+     <y>280</y>
      <width>113</width>
      <height>32</height>
     </rect>
@@ -30,7 +30,7 @@
    <property name="geometry">
     <rect>
      <x>260</x>
-     <y>240</y>
+     <y>280</y>
      <width>113</width>
      <height>32</height>
     </rect>
@@ -55,7 +55,7 @@
    <property name="geometry">
     <rect>
      <x>180</x>
-     <y>20</y>
+     <y>60</y>
      <width>171</width>
      <height>21</height>
     </rect>
@@ -65,7 +65,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>70</y>
+     <y>110</y>
      <width>121</width>
      <height>20</height>
     </rect>
@@ -78,7 +78,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>20</y>
+     <y>60</y>
      <width>121</width>
      <height>20</height>
     </rect>
@@ -94,7 +94,7 @@
    <property name="geometry">
     <rect>
      <x>180</x>
-     <y>80</y>
+     <y>120</y>
      <width>171</width>
      <height>21</height>
     </rect>
@@ -107,7 +107,7 @@
    <property name="geometry">
     <rect>
      <x>180</x>
-     <y>60</y>
+     <y>100</y>
      <width>171</width>
      <height>21</height>
     </rect>
@@ -120,7 +120,7 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>130</y>
+     <y>170</y>
      <width>121</width>
      <height>20</height>
     </rect>
@@ -133,7 +133,7 @@
    <property name="geometry">
     <rect>
      <x>180</x>
-     <y>120</y>
+     <y>160</y>
      <width>171</width>
      <height>21</height>
     </rect>
@@ -149,13 +149,33 @@
    <property name="geometry">
     <rect>
      <x>180</x>
-     <y>140</y>
+     <y>180</y>
      <width>171</width>
      <height>21</height>
     </rect>
    </property>
    <property name="acceptDrops">
     <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>20</y>
+     <width>101</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>12</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="text">
+    <string>Add Team</string>
    </property>
   </widget>
  </widget>

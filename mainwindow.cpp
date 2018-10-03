@@ -382,3 +382,13 @@ void MainWindow::on_teamClear_clicked()
     dbRefresh("TEAM");
     ui->quickSearchTeam->clear();
 }
+
+void MainWindow::on_compEdit_clicked()
+{
+
+}
+
+void MainWindow::on_compAdd_clicked()
+{
+
+}

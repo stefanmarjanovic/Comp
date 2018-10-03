@@ -80,6 +80,12 @@ private slots:
 
     void on_teamClear_clicked();
 
+    void on_playeAdButton_2_clicked();
+
+    void on_compEdit_clicked();
+
+    void on_compAdd_clicked();
+
 public slots:
     void customPlayerMenuRequested(QPoint pos);
     void customVenueMenuRequested(QPoint pos);
