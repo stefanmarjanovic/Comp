@@ -7,6 +7,7 @@
 #include "editplayerdiag.h"
 #include "addteamdialog.h"
 #include "database.h"
+#include "addcompdiag.h"
 
 //global variables
 extern QSqlDatabase tennisTestDB;
@@ -401,5 +402,8 @@ void MainWindow::on_compEdit_clicked()
 
 void MainWindow::on_compAdd_clicked()
 {
+    addcompdiag = new AddCompDiag(this);
+    addcompdiag->show();
 
+   // QObject::connect(addcompdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
 }

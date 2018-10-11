@@ -77,7 +77,7 @@ background-image: url(:/logo.png);</string>
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <property name="movable">
      <bool>false</bool>
@@ -599,7 +599,7 @@ background-image: url(:/logo.png);</string>
      <x>0</x>
      <y>0</y>
      <width>900</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
    <property name="nativeMenuBar">

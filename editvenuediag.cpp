@@ -79,7 +79,7 @@ void EditVenueDiag::on_deleteButton_clicked()
 
 void EditVenueDiag::on_cancel_clicked()
 {
-
+    EditVenueDiag::close();
 }
 
 void EditVenueDiag::on_search_clicked()

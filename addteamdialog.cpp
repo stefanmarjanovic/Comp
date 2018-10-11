@@ -69,3 +69,8 @@ void addTeamDialog::on_apply_clicked()
         }
     }
 }
+
+void addTeamDialog::on_cancel_clicked()
+{
+    addTeamDialog::close();
+}

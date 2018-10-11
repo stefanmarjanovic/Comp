@@ -69,7 +69,6 @@ void AddPlayerDiag::on_apply_clicked()
 
 void AddPlayerDiag::on_cancel_clicked()
 {
-
     AddPlayerDiag::close();
 }
 

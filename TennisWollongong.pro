@@ -45,7 +45,9 @@ SOURCES += \
     divisionselector.cpp \
     compselector.cpp \
     database.cpp \
-    settings.cpp
+    settings.cpp \
+    addcompdiag.cpp \
+    competition.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -66,7 +68,9 @@ HEADERS += \
     divisionselector.h \
     compselector.h \
     database.h \
-    settings.h
+    settings.h \
+    addcompdiag.h \
+    competition.h
 
 FORMS += \
         mainwindow.ui \
@@ -83,7 +87,8 @@ FORMS += \
     divisionselector.ui \
     compselector.ui \
     settings.ui \
-    about.ui
+    about.ui \
+    addcompdiag.ui
 
 RESOURCES += \
     resources.qrc

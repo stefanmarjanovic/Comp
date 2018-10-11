@@ -23,6 +23,7 @@
 #include "editteamdiag.h"
 #include "settings.h"
 #include "ui_about.h"
+#include "addcompdiag.h"
 
 
 namespace Ui {
@@ -86,6 +87,8 @@ private slots:
 
     void loadStyleSheet();
 
+    void on_playerTable_activated(const QModelIndex &index);
+
 public slots:
     void customPlayerMenuRequested(QPoint pos);
     void customVenueMenuRequested(QPoint pos);
@@ -105,6 +108,7 @@ private:
     EditVenueDiag *editvenuediag;
     addTeamDialog *addteamdiag;
     EditTeamDiag *editteamdiag;
+    AddCompDiag *addcompdiag;
     Settings *settings;
 
     QSettings userSettings;

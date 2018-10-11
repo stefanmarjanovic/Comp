@@ -37,8 +37,4 @@ public slots:
 
 //prototype declarations
 
-
-
-
-
 #endif // VENUE_H
