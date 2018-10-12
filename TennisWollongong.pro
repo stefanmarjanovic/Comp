@@ -74,9 +74,9 @@ HEADERS += \
     settings.h \
     addcompdiag.h \
     adddivisiondiag.h \
-    division.h
+    division.h \
     competition.h \
-    viewdraw.h \
+    viewdraw.h
 
 FORMS += \
         mainwindow.ui \
