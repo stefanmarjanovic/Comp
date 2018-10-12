@@ -13,6 +13,10 @@ addDivisionDiag::~addDivisionDiag()
     delete ui;
 }
 
+void addDivisionDiag::getDivID(QString id)
+{
+    ui->compID->setText(id);
+}
 
 void addDivisionDiag::on_buttonBox_accepted()
 {
@@ -20,36 +24,41 @@ void addDivisionDiag::on_buttonBox_accepted()
     division *d = new division();
 
     fname = ui->divName->text();
+    cID = ui->compID->text();
 
+    d->divName = fname;
     d->compId = cID;
-    qDebug() << " Division name: " << fname;
+    qDebug() << " Division name: " << d->divName;
+    qDebug() << " Comp Id: " << d->compId;
 
-//    if(division::verifyName(d->divName) == false)
-//    {
-//        QMessageBox msgBox;
-//        msgBox.setText("Are you sure?");
-//        msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Cancel);
-//        msgBox.setDefaultButton(QMessageBox::Save);
-//        int ret = msgBox.exec();
 
-//        switch (ret) {
-//          case QMessageBox::Save:
-//        {
-//            //Save was clicked
-//            //TODO proper id
-//            division::addDivision(d->divName);
-//            emit sendRefresh("PLAYER");
-//            addDivisionDiag::close();
-//            break;
-//        }
-//          case QMessageBox::Cancel:
-//              // Cancel was clicked
-//              break;
-//          default:
-//              // should never be reached
-//              break;
-//        }
-//    }
+    if(division::verifyName(d->divName) == false && !cID.isEmpty())
+    {
+        QMessageBox msgBox;
+        msgBox.setText("Are you sure?");
+        msgBox.setStandardButtons(QMessageBox::Save | QMessageBox::Cancel);
+        msgBox.setDefaultButton(QMessageBox::Save);
+        int ret = msgBox.exec();
+
+        switch (ret) {
+          case QMessageBox::Save:
+        {
+            //Save was clicked
+            d->addDivision(*d);
+            //emit sendRefresh("DIVISION")
+            qDebug() << "Saved successfully";
+
+            addDivisionDiag::close();
+            break;
+        }
+          case QMessageBox::Cancel:
+              // Cancel was clicked
+              break;
+          default:
+              // should never be reached
+              break;
+        }
+    }
 }
 
 void addDivisionDiag::on_compSearch_clicked()
@@ -58,5 +67,7 @@ void addDivisionDiag::on_compSearch_clicked()
     compselect->show();
 
 
-    QObject::connect(compselect, SIGNAL(sendID(QString)),this,SLOT(getCompID(QString)));
+    QObject::connect(compselect, SIGNAL(sendID(QString)),this,SLOT(getDivID(QString)));
 }
+
+

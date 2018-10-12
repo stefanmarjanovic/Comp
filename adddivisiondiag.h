@@ -8,6 +8,7 @@
 #include "division.h"
 
 
+
 namespace Ui {
 class addDivisionDiag;
 }
@@ -24,12 +25,13 @@ public:
 private slots:
     void on_buttonBox_accepted();
 
+    void getDivID(QString id);
+
     void on_compSearch_clicked();
 
 private:
     Ui::addDivisionDiag *ui;
     CompSelector * compselect;
-
 };
 
 #endif // ADDDIVISIONDIAG_H

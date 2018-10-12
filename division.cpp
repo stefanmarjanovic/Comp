@@ -16,12 +16,14 @@ division::division(QString dName)
 
 void division::addDivision(division d)
 {
+    qDebug() << "Division name: " << d.divName;
+
     QSqlQuery insertDiv(tennisTestDB);
-        insertDiv.prepare("INSERT INTO division (name) VALUES ('"+d.divName+"')");
+        insertDiv.prepare("INSERT INTO division(name) VALUES ('" + d.divName + "')");
         insertDiv.exec();
       if(insertDiv.isActive())
     {
-        qDebug() << " Venue Added successfully";
+        qDebug() << " Division Added successfully";
     }
     else
         qDebug() << " Query not active: " << insertDiv.executedQuery() << insertDiv.lastError();
@@ -31,7 +33,7 @@ void division::addDivision(division d)
 division division::getDivision(QString id)
 {
     QSqlQuery get(tennisTestDB);
-    QString query = "SELECT * FROM division WHERE id = '"+ id +"'";
+    QString query = "SELECT * FROM division WHERE id = '"+ id +"';";
     get.prepare(query);
     get.exec();
 
