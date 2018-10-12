@@ -17,6 +17,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    QSettings userSettings("Settings.ini", QSettings::IniFormat);
+    qDebug() << userSettings.fileName();
     lastPlayerQuery = "";
     lastVenueQuery = "";
     lastTeamQuery = "";

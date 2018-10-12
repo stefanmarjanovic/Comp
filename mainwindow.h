@@ -87,7 +87,6 @@ private slots:
 
     void loadStyleSheet();
 
-    void on_playerTable_activated(const QModelIndex &index);
 
 public slots:
     void customPlayerMenuRequested(QPoint pos);

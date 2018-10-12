@@ -25,6 +25,9 @@
      <height>20</height>
     </rect>
    </property>
+   <property name="layoutDirection">
+    <enum>Qt::RightToLeft</enum>
+   </property>
    <property name="text">
     <string>DOB From</string>
    </property>
@@ -58,6 +61,9 @@
      <height>20</height>
     </rect>
    </property>
+   <property name="layoutDirection">
+    <enum>Qt::RightToLeft</enum>
+   </property>
    <property name="text">
     <string>Last Name</string>
    </property>
@@ -70,6 +76,9 @@
      <width>121</width>
      <height>20</height>
     </rect>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::RightToLeft</enum>
    </property>
    <property name="text">
     <string>Gender</string>
@@ -131,6 +140,9 @@
      <width>121</width>
      <height>20</height>
     </rect>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::RightToLeft</enum>
    </property>
    <property name="text">
     <string>First Name</string>
@@ -197,6 +209,9 @@
      <height>20</height>
     </rect>
    </property>
+   <property name="layoutDirection">
+    <enum>Qt::RightToLeft</enum>
+   </property>
    <property name="text">
     <string>Email</string>
    </property>
@@ -209,6 +224,9 @@
      <width>121</width>
      <height>20</height>
     </rect>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::RightToLeft</enum>
    </property>
    <property name="text">
     <string>MOB</string>
@@ -295,6 +313,9 @@
      <width>121</width>
      <height>20</height>
     </rect>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::RightToLeft</enum>
    </property>
    <property name="text">
     <string>DOB To</string>
@@ -444,6 +465,9 @@
      <weight>50</weight>
      <bold>false</bold>
     </font>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::RightToLeft</enum>
    </property>
    <property name="text">
     <string>ID of Player</string>

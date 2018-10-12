@@ -16,13 +16,20 @@
   <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
-     <x>453</x>
+     <x>273</x>
      <y>580</y>
-     <width>321</width>
+     <width>501</width>
      <height>32</height>
     </rect>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QPushButton" name="pushButton">
+      <property name="text">
+       <string>Add New </string>
+      </property>
+     </widget>
+    </item>
     <item>
      <widget class="QPushButton" name="cancel">
       <property name="text">
@@ -31,9 +38,9 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="add">
+     <widget class="QPushButton" name="submit">
       <property name="text">
-       <string>Add</string>
+       <string>Submit</string>
       </property>
       <property name="default">
        <bool>true</bool>
@@ -99,7 +106,7 @@
  <tabstops>
   <tabstop>searchText</tabstop>
   <tabstop>cancel</tabstop>
-  <tabstop>add</tabstop>
+  <tabstop>submit</tabstop>
   <tabstop>searchTable</tabstop>
  </tabstops>
  <resources/>
