@@ -3,6 +3,8 @@
 
 #include <QDialog>
 #include <database.h>
+#include "adddivisiondiag.h"
+
 namespace Ui {
 class DivisionSelector;
 }
@@ -18,15 +20,18 @@ public:
 private slots:
     void on_searchText_textChanged(const QString &arg1);
 
-    void on_add_clicked();
-
     void on_cancel_clicked();
+
+    void on_submit_clicked();
+
+    void on_pushButton_clicked();
 
 signals:
     void sendID(QString);
 
 private:
     Ui::DivisionSelector *ui;
+    addDivisionDiag *adddivsiondiag;
     int IDIndex;
 };
 

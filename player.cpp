@@ -103,7 +103,11 @@ QString Player::newFamilyID()
             }
             else
                 qDebug() << " Query not active: " << newID.lastError() << endl;
+
+     return NULL;
 }
+
+
 QString toValues(Player p)
 {
     return

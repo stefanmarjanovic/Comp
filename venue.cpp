@@ -206,6 +206,7 @@ QSqlQueryModel* Venue::search(QString where)
 
     return model;
 }
+
 Venue Venue::getVenue(QString id)
 {
     QSqlQuery get(tennisTestDB);

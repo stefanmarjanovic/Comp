@@ -27,7 +27,12 @@ void DivisionSelector::on_searchText_textChanged(const QString &arg1)
 
 }
 
-void DivisionSelector::on_add_clicked()
+void DivisionSelector::on_cancel_clicked()
+{
+    DivisionSelector::close();
+}
+
+void DivisionSelector::on_submit_clicked()
 {
     QModelIndexList selection = ui->searchTable->selectionModel()->selectedIndexes();
     if(!selection.isEmpty())
@@ -37,7 +42,8 @@ void DivisionSelector::on_add_clicked()
     }
 }
 
-void DivisionSelector::on_cancel_clicked()
+void DivisionSelector::on_pushButton_clicked()
 {
-    DivisionSelector::close();
+    adddivsiondiag = new addDivisionDiag(this);
+    adddivsiondiag->show();
 }
