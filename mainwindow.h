@@ -24,7 +24,7 @@
 #include "settings.h"
 #include "ui_about.h"
 #include "addcompdiag.h"
-
+#include "viewdraw.h"
 
 namespace Ui {
 class MainWindow;
@@ -87,7 +87,7 @@ private slots:
 
     void loadStyleSheet();
 
-    void on_playerTable_activated(const QModelIndex &index);
+    void on_compViewDraw_clicked();
 
 public slots:
     void customPlayerMenuRequested(QPoint pos);
@@ -110,9 +110,9 @@ private:
     EditTeamDiag *editteamdiag;
     AddCompDiag *addcompdiag;
     Settings *settings;
+    ViewDraw *viewdraw;
 
     QSettings userSettings;
-
 
     QString lastPlayerQuery, lastVenueQuery, lastTeamQuery;
 };

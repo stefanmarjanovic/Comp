@@ -47,7 +47,8 @@ SOURCES += \
     database.cpp \
     settings.cpp \
     addcompdiag.cpp \
-    competition.cpp
+    competition.cpp \
+    viewdraw.cpp \
 
 HEADERS += \
         mainwindow.h \
@@ -70,7 +71,8 @@ HEADERS += \
     database.h \
     settings.h \
     addcompdiag.h \
-    competition.h
+    competition.h \
+    viewdraw.h \
 
 FORMS += \
         mainwindow.ui \
@@ -88,7 +90,8 @@ FORMS += \
     compselector.ui \
     settings.ui \
     about.ui \
-    addcompdiag.ui
+    addcompdiag.ui \
+    viewdraw.ui \
 
 RESOURCES += \
     resources.qrc

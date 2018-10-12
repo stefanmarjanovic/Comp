@@ -28,7 +28,6 @@ Settings::Settings(QWidget *parent) :
 
 Settings::~Settings()
 {
-    qDebug("delete test.");
     Database::dbOpen();
     emit sendRefresh("ALL");
     emit sendLoadStyleSheet();

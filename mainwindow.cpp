@@ -17,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    //set settings to global and use extern
     lastPlayerQuery = "";
     lastVenueQuery = "";
     lastTeamQuery = "";
@@ -406,4 +408,10 @@ void MainWindow::on_compAdd_clicked()
     addcompdiag->show();
 
    // QObject::connect(addcompdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
+}
+
+void MainWindow::on_compViewDraw_clicked()
+{
+    viewdraw = new ViewDraw(this);
+    viewdraw->show();
 }
