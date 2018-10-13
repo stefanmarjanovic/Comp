@@ -45,7 +45,7 @@ void addDivisionDiag::on_buttonBox_accepted()
         {
             //Save was clicked
             d->addDivision(*d);
-            //emit sendRefresh("DIVISION")
+            emit sendRefresh("DIVISION");
             qDebug() << "Saved successfully";
 
             addDivisionDiag::close();

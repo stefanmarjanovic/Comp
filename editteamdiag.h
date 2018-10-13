@@ -27,6 +27,8 @@ private slots:
     void on_compSearch_clicked();
     void getDivID(QString);
     void getCompID(QString);
+    void on_cancel_clicked();
+
 public slots:
     void search(QString teamID);
 signals:

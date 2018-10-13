@@ -50,7 +50,8 @@ SOURCES += \
     competition.cpp \
     viewdraw.cpp \
     adddivisiondiag.cpp \
-    division.cpp
+    division.cpp \
+    venueselector.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -76,7 +77,8 @@ HEADERS += \
     adddivisiondiag.h \
     division.h \
     competition.h \
-    viewdraw.h
+    viewdraw.h \
+    venueselector.h
 
 FORMS += \
         mainwindow.ui \
@@ -91,12 +93,13 @@ FORMS += \
     editteamdiag.ui \
     teamsearchdiag.ui \
     divisionselector.ui \
-    compselector.ui \
     settings.ui \
     about.ui \
     addcompdiag.ui \
     viewdraw.ui \
-    adddivisiondiag.ui
+    adddivisiondiag.ui \
+    compselector.ui \
+    venueselector.ui
 
 RESOURCES += \
     resources.qrc

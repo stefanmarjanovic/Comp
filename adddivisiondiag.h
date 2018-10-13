@@ -29,6 +29,9 @@ private slots:
 
     void on_compSearch_clicked();
 
+signals:
+    void sendRefresh(QString);
+
 private:
     Ui::addDivisionDiag *ui;
     CompSelector * compselect;

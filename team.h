@@ -15,8 +15,8 @@
 class Team
 {
 public:
-    Team(QString name, QString division_id, QString comp_id);
-    QString name, division_id, comp_id;
+    Team(QString name, QString division_id, QString comp_id, QString venue_id);
+    QString name, division_id, comp_id, venue_id;
 
     static QSqlQueryModel*  search(QString where);  								//search players from db
     static Team getTeam(QString id);

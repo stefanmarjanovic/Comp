@@ -28,6 +28,15 @@ void addTeamDialog::on_compSearch_clicked()
 
     QObject::connect(compselector, SIGNAL(sendID(QString)),this,SLOT(getCompID(QString)));
 }
+
+void addTeamDialog::on_venueSearch_clicked()
+{
+    venueselector = new VenueSelector(this);
+    venueselector->show();
+
+    QObject::connect(venueselector, SIGNAL(sendID(QString)),this,SLOT(getVenueID(QString)));
+}
+
 void addTeamDialog::getDivID(QString id)
 {
     ui->divisionID->setText(id);
@@ -36,11 +45,14 @@ void addTeamDialog::getCompID(QString id)
 {
     ui->compID->setText(id);
 }
-
+void addTeamDialog::getVenueID(QString id)
+{
+    ui->venueID->setText(id);
+}
 
 void addTeamDialog::on_apply_clicked()
 {
-    Team t = Team(ui->teamName->text(),ui->divisionID->text(),ui->compID->text());
+    Team t = Team(ui->teamName->text(),ui->divisionID->text(),ui->compID->text(), ui->venueID->text());
 
     if(Team::verifyTeam(t))
     {
@@ -74,3 +86,5 @@ void addTeamDialog::on_cancel_clicked()
 {
     addTeamDialog::close();
 }
+
+
