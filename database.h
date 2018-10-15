@@ -7,9 +7,9 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QDebug>
-#include <QSettings>
 #include <QMessageBox>
 
+#include "settings.h"
 namespace Ui {
 class Database;
 }

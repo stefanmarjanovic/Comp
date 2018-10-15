@@ -48,15 +48,14 @@ bool Database::test(QString host, QString name, QString user, QString password)
 }
 void Database::dbOpen()
 {
-    QSettings dbSettings;
-    qDebug() << dbSettings.value("changed").toString();
-    if(dbSettings.value("changed") != "true")
+    qDebug() << Settings::load()->value("changed").toString();
+    if(Settings::load()->value("changed") != "true")
     {
-        dbSettings.setValue("DBHost","127.0.0.1");
-        dbSettings.setValue("DBName","tennisTestDB");
-        dbSettings.setValue("DBUser","root");
-        dbSettings.setValue("DBPassword","");
-        dbSettings.setValue("changed","true");
+        Settings::load()->setValue("DBHost","127.0.0.1");
+        Settings::load()->setValue("DBName","tennisTestDB");
+        Settings::load()->setValue("DBUser","root");
+        Settings::load()->setValue("DBPassword","");
+        Settings::load()->setValue("changed","true");
 
         tennisTestDB.setHostName("127.0.0.1");
         tennisTestDB.setDatabaseName("tennisTestDB");
@@ -72,16 +71,16 @@ void Database::dbOpen()
     }
     else
     {
-        tennisTestDB.setHostName(dbSettings.value("DBHost").toString());
-        tennisTestDB.setDatabaseName(dbSettings.value("DBName").toString());
-        tennisTestDB.setUserName(dbSettings.value("DBUser").toString());
-        if(dbSettings.value("DBPassword") != "")
-            tennisTestDB.setUserName(dbSettings.value("DBPassword").toString());
+        tennisTestDB.setHostName(Settings::load()->value("DBHost").toString());
+        tennisTestDB.setDatabaseName(Settings::load()->value("DBName").toString());
+        tennisTestDB.setUserName(Settings::load()->value("DBUser").toString());
+        if(Settings::load()->value("DBPassword") != "")
+            tennisTestDB.setUserName(Settings::load()->value("DBPassword").toString());
         if(tennisTestDB.isValid())
         {
             tennisTestDB.open();
             if(!tennisTestDB.isOpen())
-                qDebug() << "DB from settings not open" << dbSettings.value("DBHost").toString();
+                qDebug() << "DB from settings not open" << Settings::load()->value("DBHost").toString();
         }
         else
             qDebug() << "DB from settings not valid";

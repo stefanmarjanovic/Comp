@@ -66,8 +66,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::loadStyleSheet()
 {
-    if(userSettings.value("nightmode") == "true")
-        this->setStyleSheet("QWidget{background-color: rgb(54, 54, 54); color: rgb(213, 209, 209);  font: 75 15pt \"Arial\";} QLineEdit{ background: grey; };");
+    if(Settings::load()->value("nightmode") == "true")
+        this->setStyleSheet("QWidget{background-color: rgb(54, 54, 54); color: rgb(213, 209, 209); } QLineEdit{ background: grey; };");
     else
         this->setStyleSheet("");
 

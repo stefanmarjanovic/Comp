@@ -26,6 +26,7 @@
 #include "addcompdiag.h"
 #include "viewdraw.h"
 #include "addpaymentdiag.h"
+#include "settings.h"
 
 namespace Ui {
 class MainWindow;
@@ -117,8 +118,6 @@ private:
     Settings *settings;
     ViewDraw *viewdraw;
     AddPaymentDiag *addpaymentdiag;
-
-    QSettings userSettings;
 
     QString lastPlayerQuery, lastVenueQuery, lastTeamQuery, lastPaymentQuery, lastDivisionQuery;
 };

@@ -16,6 +16,8 @@ class Settings : public QDialog
 
 public:
     explicit Settings(QWidget *parent = 0);
+    static void save(QString key, QString value);
+    static QSettings* load();
     ~Settings();
 
 private slots:
@@ -32,7 +34,6 @@ signals:
     void sendLoadStyleSheet();
 private:
     Ui::Settings *ui;
-    QSettings dbSettings;
     QString host, name, user, password;
     void reject();
 
