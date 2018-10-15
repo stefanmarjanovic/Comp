@@ -1,11 +1,12 @@
 #include "team.h"
 
 extern QSqlDatabase tennisTestDB;
-Team::Team(QString name, QString division_id, QString comp_id)
+Team::Team(QString name, QString division_id, QString comp_id, QString venue_id)
 {
     this->name = name;
     this->division_id = division_id;
     this->comp_id = comp_id;
+    this->venue_id = venue_id;
 }
 
 bool Team::verifyTeam(Team t)
@@ -45,10 +46,11 @@ bool Team::verifyTeam(Team t)
 void Team::addTeam(Team t)
 {
     QSqlQuery insertTeam(tennisTestDB);
-    insertTeam.prepare("INSERT INTO team (name, division_id, comp_id) VALUES ('"
+    insertTeam.prepare("INSERT INTO team (name, division_id, comp_id, venue_id) VALUES ('"
                        + t.name     +"','"
                        + t.division_id +"','"
-                       + t.comp_id     +"')");
+                       + t.comp_id     +"','"
+                       + t.division_id +"')");
     insertTeam.exec();
 
     if(insertTeam.isActive())
@@ -64,6 +66,7 @@ void Team::editTeam(Team t, QString id)
     update.prepare("UPDATE TEAM SET name ='" + t.name + "',"+
             "division_id = '" + t.division_id + "',"+
             "comp_id = '" +t.comp_id + "'"+
+            "venue_id ='"+t.venue_id + "'"+
             "WHERE id = " + id);
     update.exec();
 
@@ -109,15 +112,14 @@ Team Team::getTeam(QString id)
         if(get.first())
         {
             qDebug() << " team Found successfully size";
-            return Team(get.value(1).toString(),get.value(2).toString(),get.value(3).toString());
+            return Team(get.value(1).toString(),get.value(2).toString(),get.value(3).toString(), get.value(3).toString());
         }
     }
     else
         qDebug() << " Query not active: " << get.lastError() << " : " + get.executedQuery();
-    return Team("","","");
-
-
+    return Team("","","","");
 }
+
 void Team::deleteTeam(QString id)
 {                                // Delete player function
     QSqlQuery deleter(tennisTestDB);

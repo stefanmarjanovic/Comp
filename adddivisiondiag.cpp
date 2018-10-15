@@ -13,7 +13,7 @@ addDivisionDiag::~addDivisionDiag()
     delete ui;
 }
 
-void addDivisionDiag::getDivID(QString id)
+void addDivisionDiag::getCompID(QString id)
 {
     ui->compID->setText(id);
 }
@@ -28,9 +28,6 @@ void addDivisionDiag::on_buttonBox_accepted()
 
     d->divName = fname;
     d->compId = cID;
-    qDebug() << " Division name: " << d->divName;
-    qDebug() << " Comp Id: " << d->compId;
-
 
     if(division::verifyName(d->divName) == false && !cID.isEmpty())
     {
@@ -45,7 +42,7 @@ void addDivisionDiag::on_buttonBox_accepted()
         {
             //Save was clicked
             d->addDivision(*d);
-            //emit sendRefresh("DIVISION")
+            emit sendRefresh("DIVISION");
             qDebug() << "Saved successfully";
 
             addDivisionDiag::close();
@@ -67,7 +64,7 @@ void addDivisionDiag::on_compSearch_clicked()
     compselect->show();
 
 
-    QObject::connect(compselect, SIGNAL(sendID(QString)),this,SLOT(getDivID(QString)));
+    QObject::connect(compselect, SIGNAL(sendID(QString)),this,SLOT(getCompID(QString)));
 }
 
 

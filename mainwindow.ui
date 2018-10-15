@@ -77,7 +77,7 @@ background-image: url(:/logo.png);</string>
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>4</number>
     </property>
     <property name="movable">
      <bool>false</bool>
@@ -604,6 +604,123 @@ background-image: url(:/logo.png);</string>
       </property>
      </widget>
     </widget>
+    <widget class="QWidget" name="Payments">
+     <attribute name="title">
+      <string>Payments</string>
+     </attribute>
+     <widget class="QPushButton" name="paymentClear">
+      <property name="geometry">
+       <rect>
+        <x>790</x>
+        <y>320</y>
+        <width>101</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Clear</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="quickSearchTeam_2">
+      <property name="geometry">
+       <rect>
+        <x>590</x>
+        <y>10</y>
+        <width>191</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_13">
+      <property name="geometry">
+       <rect>
+        <x>490</x>
+        <y>10</y>
+        <width>91</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Quick Search</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_14">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>91</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Transactions</string>
+      </property>
+     </widget>
+     <widget class="QTableView" name="paymentTable">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>30</y>
+        <width>771</width>
+        <height>321</height>
+       </rect>
+      </property>
+      <property name="showGrid">
+       <bool>true</bool>
+      </property>
+      <property name="gridStyle">
+       <enum>Qt::SolidLine</enum>
+      </property>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>100</number>
+      </attribute>
+      <attribute name="horizontalHeaderStretchLastSection">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="verticalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+     </widget>
+     <widget class="QPushButton" name="paymentAdd">
+      <property name="geometry">
+       <rect>
+        <x>790</x>
+        <y>30</y>
+        <width>101</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Add </string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="paymentEdit">
+      <property name="geometry">
+       <rect>
+        <x>790</x>
+        <y>70</y>
+        <width>101</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Edit</string>
+      </property>
+     </widget>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -612,7 +729,7 @@ background-image: url(:/logo.png);</string>
      <x>0</x>
      <y>0</y>
      <width>900</width>
-     <height>22</height>
+     <height>26</height>
     </rect>
    </property>
    <property name="nativeMenuBar">

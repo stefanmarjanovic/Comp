@@ -2,9 +2,11 @@
 #define ADDDIVISIONDIAG_H
 
 #include <QDialog>
+#include <QString>
 #include <QObject>
 #include <QMessageBox>
 #include "compselector.h"
+#include "datepick.h"
 #include "division.h"
 
 
@@ -23,15 +25,18 @@ public:
 
 
 private slots:
+
     void on_buttonBox_accepted();
-
-    void getDivID(QString id);
-
+    void getCompID(QString id);
     void on_compSearch_clicked();
+
+signals:
+    void sendRefresh(QString);
 
 private:
     Ui::addDivisionDiag *ui;
     CompSelector * compselect;
+    DatePick * datepick;
 };
 
 #endif // ADDDIVISIONDIAG_H

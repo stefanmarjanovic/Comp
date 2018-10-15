@@ -150,4 +150,58 @@ int Database::getIndex(QString column, QAbstractItemModel *model)
         if(model->headerData(i, Qt::Horizontal).toString() == column)
             return i;
     }
+    return 0;
 }
+
+QStringList Database::search(QString table, QString select, QString where)
+{
+    QSqlQuery search(tennisTestDB);
+    QStringList result;
+
+    search.prepare("SELECT " + select + " FROM " + table + " WHERE " + where);
+
+    search.exec();
+
+    if(search.isActive())
+    {
+        qDebug() << " Query active: " << search.executedQuery();
+
+        while (search.next())
+        {
+                QString divID = search.value(0).toString();
+                result << divID;
+        }
+
+    }
+    else
+        qDebug() << " Query not active: " << search.executedQuery();
+
+    return result;
+}
+
+QStringList Database::customSearch(QString query)
+{
+    QSqlQuery search(tennisTestDB);
+    QStringList result;
+
+    search.prepare(query);
+
+    search.exec();
+
+    if(search.isActive())
+    {
+        qDebug() << " Query active: " << search.executedQuery();
+
+        while (search.next())
+        {
+                QString divID = search.value(0).toString();
+                result << divID;
+        }
+
+    }
+    else
+        qDebug() << " Query not active: " << search.executedQuery();
+
+    return result;
+}
+

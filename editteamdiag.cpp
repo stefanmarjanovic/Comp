@@ -22,11 +22,12 @@ void EditTeamDiag::on_search_clicked()
     ui->compID->setText(t.comp_id);
     ui->divisionID->setText(t.division_id);
     ui->teamName->setText(t.name);
+    ui->venueID->setText(t.venue_id);
 }
 
 void EditTeamDiag::on_apply_clicked()
 {
-    Team t = Team(ui->teamName->text(),ui->divisionID->text(),ui->compID->text());
+    Team t = Team(ui->teamName->text(),ui->divisionID->text(),ui->compID->text(), ui->venueID->text());
 
             if(Team::verifyTeam(t))
             {
@@ -86,4 +87,9 @@ void EditTeamDiag::search(QString teamID)
 {
     ui->id->setText(teamID);
     on_search_clicked();
+}
+
+void EditTeamDiag::on_cancel_clicked()
+{
+    this->close();
 }

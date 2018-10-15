@@ -46,4 +46,6 @@ void DivisionSelector::on_pushButton_clicked()
 {
     adddivsiondiag = new addDivisionDiag(this);
     adddivsiondiag->show();
+
+
 }

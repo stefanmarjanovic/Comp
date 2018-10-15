@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>376</width>
-    <height>316</height>
+    <height>366</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>140</x>
-     <y>280</y>
+     <y>330</y>
      <width>113</width>
      <height>32</height>
     </rect>
@@ -30,7 +30,7 @@
    <property name="geometry">
     <rect>
      <x>260</x>
-     <y>280</y>
+     <y>330</y>
      <width>113</width>
      <height>32</height>
     </rect>
@@ -176,6 +176,48 @@
    </property>
    <property name="text">
     <string>Add Team</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="venueSearch">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>220</y>
+     <width>171</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Add Venue</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="venueID">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>240</y>
+     <width>171</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="acceptDrops">
+    <bool>false</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>230</y>
+     <width>121</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Home ground </string>
    </property>
   </widget>
  </widget>

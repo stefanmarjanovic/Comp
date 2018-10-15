@@ -2,7 +2,7 @@
 #define DIVISIONSELECTOR_H
 
 #include <QDialog>
-#include <database.h>
+#include "database.h"
 #include "adddivisiondiag.h"
 
 namespace Ui {

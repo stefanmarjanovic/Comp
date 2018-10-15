@@ -8,6 +8,7 @@
 #include "addteamdialog.h"
 #include "database.h"
 #include "addcompdiag.h"
+#include "payment.h"
 
 //global variables
 extern QSqlDatabase tennisTestDB;
@@ -22,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     lastPlayerQuery = "";
     lastVenueQuery = "";
     lastTeamQuery = "";
+    lastPaymentQuery = "";
     Database::dbOpen();
     dbRefresh("ALL");
     ui->playerTable->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -44,8 +46,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->compTable->setContextMenuPolicy(Qt::CustomContextMenu);
     ui->compTable->resizeColumnsToContents();
 
-
-
     connect(ui->playerTable, SIGNAL(customContextMenuRequested(QPoint)),
             SLOT(customPlayerMenuRequested(QPoint)));
 
@@ -57,6 +57,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->compTable, SIGNAL(customContextMenuRequested(QPoint)),
             SLOT(customCompMenuRequested(QPoint)));
+
+    connect(ui->paymentTable, SIGNAL(customContextMenuRequested(QPoint)),
+            SLOT(customTeamMenuRequested(QPoint)));
 
     loadStyleSheet();
 
@@ -116,6 +119,17 @@ void MainWindow::dbRefresh(QString tableChoice)
         ui->compTable->setSortingEnabled(true);
         ui->compTable->sortByColumn(0, Qt::AscendingOrder);
     }
+
+    if(tableChoice == "DIVISION" || tableChoice == "ALL")
+    {
+        ui->teamTable->setModel(Team::search(lastDivisionQuery));
+        proxyModel = new QSortFilterProxyModel();
+        proxyModel->setSourceModel(ui->teamTable->model());
+        ui->teamTable->setModel(proxyModel);
+        ui->teamTable->setSortingEnabled(true);
+        ui->teamTable->sortByColumn(0, Qt::AscendingOrder);
+    }
+
 }
 
 void MainWindow::on_Refine_clicked()
@@ -456,4 +470,12 @@ void MainWindow::on_compViewDraw_clicked()
 
     viewdraw = new ViewDraw(id,this);
     viewdraw->show();
+}
+
+void MainWindow::on_paymentAdd_clicked()
+{
+    addpaymentdiag = new AddPaymentDiag(this);
+    addpaymentdiag->show();
+
+    QObject::connect(addcompdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
 }

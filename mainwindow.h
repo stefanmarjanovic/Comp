@@ -25,6 +25,7 @@
 #include "ui_about.h"
 #include "addcompdiag.h"
 #include "viewdraw.h"
+#include "addpaymentdiag.h"
 
 namespace Ui {
 class MainWindow;
@@ -89,6 +90,8 @@ private slots:
 
     void on_compViewDraw_clicked();
 
+    void on_paymentAdd_clicked();
+
 public slots:
     void customPlayerMenuRequested(QPoint pos);
     void customVenueMenuRequested(QPoint pos);
@@ -113,10 +116,11 @@ private:
     AddCompDiag *addcompdiag;
     Settings *settings;
     ViewDraw *viewdraw;
+    AddPaymentDiag *addpaymentdiag;
 
     QSettings userSettings;
 
-    QString lastPlayerQuery, lastVenueQuery, lastTeamQuery;
+    QString lastPlayerQuery, lastVenueQuery, lastTeamQuery, lastPaymentQuery, lastDivisionQuery;
 };
 
 

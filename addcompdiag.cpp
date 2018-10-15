@@ -54,3 +54,13 @@ void AddCompDiag::on_divisionSearch_clicked()
 
     QObject::connect(divisionselector, SIGNAL(sendID(QString)),this,SLOT(getDivID(QString)));
 }
+
+void AddCompDiag::getDivID(QString id)
+{
+    ui->divisionID->setText(id);
+}
+
+void AddCompDiag::getDate(QString d)
+{
+    ui->sDate->setText(d);
+}
