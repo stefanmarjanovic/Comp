@@ -39,6 +39,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->teamTable->setContextMenuPolicy(Qt::CustomContextMenu);
     ui->teamTable->resizeColumnsToContents();
 
+    ui->compTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->compTable->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->compTable->setContextMenuPolicy(Qt::CustomContextMenu);
+    ui->compTable->resizeColumnsToContents();
+
+
 
     connect(ui->playerTable, SIGNAL(customContextMenuRequested(QPoint)),
             SLOT(customPlayerMenuRequested(QPoint)));
@@ -48,6 +54,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->teamTable, SIGNAL(customContextMenuRequested(QPoint)),
             SLOT(customTeamMenuRequested(QPoint)));
+
+    connect(ui->compTable, SIGNAL(customContextMenuRequested(QPoint)),
+            SLOT(customCompMenuRequested(QPoint)));
 
     loadStyleSheet();
 
@@ -96,6 +105,16 @@ void MainWindow::dbRefresh(QString tableChoice)
         ui->teamTable->setModel(proxyModel);
         ui->teamTable->setSortingEnabled(true);
         ui->teamTable->sortByColumn(0, Qt::AscendingOrder);
+    }
+
+    if(tableChoice == "COMP" || tableChoice == "ALL")
+    {
+        ui->compTable->setModel(Database::search("COMPETITION",""));
+        proxyModel = new QSortFilterProxyModel();
+        proxyModel->setSourceModel(ui->compTable->model());
+        ui->compTable->setModel(proxyModel);
+        ui->compTable->setSortingEnabled(true);
+        ui->compTable->sortByColumn(0, Qt::AscendingOrder);
     }
 }
 
@@ -236,6 +255,16 @@ void MainWindow::customPlayerMenuRequested(QPoint pos)
 
     menu->addAction("Delete Player",this, std::bind(&MainWindow::getDeletePlayerAction,this,playerID));
     menu->addAction("Edit Player",this, std::bind(&MainWindow::getEditPlayerAction,this, playerID));
+    menu->popup(ui->playerTable->viewport()->mapToGlobal(pos));
+}
+
+void MainWindow::customCompMenuRequested(QPoint pos)
+{
+    QModelIndex index=ui->compTable->indexAt(pos);
+    QMenu *menu=new QMenu(this);
+
+    menu->addAction("View Schedule",this, std::bind(&MainWindow::on_compViewDraw_clicked,this));
+   // menu->addAction("Edit Player",this, std::bind(&MainWindow::getEditPlayerAction,this, playerID));
     menu->popup(ui->playerTable->viewport()->mapToGlobal(pos));
 }
 void MainWindow::customVenueMenuRequested(QPoint pos)
@@ -412,6 +441,19 @@ void MainWindow::on_compAdd_clicked()
 
 void MainWindow::on_compViewDraw_clicked()
 {
-    viewdraw = new ViewDraw(this);
+    QModelIndexList selection = ui->compTable->selectionModel()->selectedRows();
+
+    QString id;
+    for(int i = 0; i < ui->compTable->model()->columnCount(); i++)
+    {
+      if(ui->compTable->model()->headerData(i, Qt::Horizontal).toString() == "id")
+      {
+          id = ui->compTable->model()->index(selection.first().row(),i).data().toString();
+          break;
+      }
+    }
+    qDebug() << id;
+
+    viewdraw = new ViewDraw(id,this);
     viewdraw->show();
 }

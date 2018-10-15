@@ -93,6 +93,8 @@ public slots:
     void customPlayerMenuRequested(QPoint pos);
     void customVenueMenuRequested(QPoint pos);
     void customTeamMenuRequested(QPoint pos);
+    void customCompMenuRequested(QPoint pos);
+
 
 private:
     Ui::MainWindow *ui;

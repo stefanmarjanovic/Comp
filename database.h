@@ -21,6 +21,7 @@ public slots:
     static void dbOpen();
     static void dbClose();
     static QSqlQueryModel* search(QString table, QString where);
+    static QStringList search(QString table, QString select, QString where);
     static int getIndex(QString column, QAbstractItemModel *model);
     static bool test(QString host, QString name, QString user, QString password);
 };
