@@ -26,6 +26,9 @@ private slots:
 
     void on_divisionSearch_clicked();
 
+    void getDivID(QString id);
+    void getDate(QString);
+
 private:
     Ui::AddCompDiag *ui;
     DatePick * datepick;

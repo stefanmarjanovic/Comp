@@ -79,6 +79,7 @@ void AddPlayerDiag::on_cal_clicked()
     datepick->show();
     QObject::connect(datepick,SIGNAL(sendDate(QString)),this,SLOT(getDate(QString)) );
 }
+
 void AddPlayerDiag::getDate(QString text)
 {
    ui->apply->setEnabled(true);

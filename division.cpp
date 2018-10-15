@@ -16,7 +16,6 @@ division::division(QString dName)
 
 void division::addDivision(division d)
 {
-    qDebug() << "Division name: " << d.divName;
 
     QSqlQuery insertDiv(tennisTestDB);
         insertDiv.prepare("INSERT INTO division(name) VALUES ('" + d.divName + "')");
