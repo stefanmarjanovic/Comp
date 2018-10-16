@@ -21,6 +21,8 @@ public:
 private slots:
     void on_buttonPDFExport_clicked();
 
+    void on_buttonOK_clicked();
+
 private:
     Ui::ViewDraw *ui;
     QString id;

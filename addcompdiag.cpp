@@ -16,6 +16,8 @@ AddCompDiag::~AddCompDiag()
 void AddCompDiag::on_cal_clicked()
 {
     //ui->apply->setEnabled(false);
+    ui->buttonBox->setEnabled(false);
+
     datepick = new DatePick(this);
     datepick->show();
     QObject::connect(datepick,SIGNAL(sendDate(QString)),this,SLOT(getDate(QString)) );
@@ -62,5 +64,6 @@ void AddCompDiag::getDivID(QString id)
 
 void AddCompDiag::getDate(QString d)
 {
+    ui->buttonBox->setEnabled(true);
     ui->sDate->setText(d);
 }

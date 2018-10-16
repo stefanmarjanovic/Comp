@@ -24,6 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
     lastVenueQuery = "";
     lastTeamQuery = "";
     lastPaymentQuery = "";
+    lastCompQuery = "";
     Database::dbOpen();
     loadStyleSheet();
     dbRefresh("ALL");
@@ -76,7 +77,7 @@ void MainWindow::dbRefresh(QString tableChoice)
 {
     if(tableChoice == "PLAYER" || tableChoice == "ALL")
     {
-        ui->playerTable->setModel(Player::search(lastPlayerQuery));
+        ui->playerTable->setModel(Database::modelSearch("PLAYER","ID, first_name as 'First Name', last_name as 'Last Name', dob as 'Date of Birth', Mobile, eMail, Type, family_id as 'Family ID', team_id as 'Team ID', case when gender_id = 0 then 'male' when gender_id = 1 then 'female' end as Gender",lastPlayerQuery));
         proxyModel = new QSortFilterProxyModel();
         proxyModel->setSourceModel(ui->playerTable->model());
         ui->playerTable->setModel(proxyModel);
@@ -87,7 +88,7 @@ void MainWindow::dbRefresh(QString tableChoice)
 
     if(tableChoice == "VENUE" || tableChoice == "ALL")
     {
-        ui->venueTable->setModel(Venue::search(lastVenueQuery));
+        ui->venueTable->setModel(Database::modelSearch("VENUE INNER JOIN SUBURB ON VENUE.SUBURB_ID = SUBURB.ID","VENUE.ID as ID,Name,Street_Number as 'Street Number',Street,SUBURB.SUBURB_NAME as Suburb, Postcode, Vacancy_Count as 'Vacant Courts'",lastVenueQuery));
         proxyModel = new QSortFilterProxyModel();
         proxyModel->setSourceModel(ui->venueTable->model());
         ui->venueTable->setModel(proxyModel);
@@ -111,7 +112,7 @@ void MainWindow::dbRefresh(QString tableChoice)
 
     if(tableChoice == "COMP" || tableChoice == "ALL")
     {
-        ui->compTable->setModel(Database::search("COMPETITION",""));
+        ui->compTable->setModel(Database::search("COMPETITION",lastCompQuery));
         proxyModel = new QSortFilterProxyModel();
         proxyModel->setSourceModel(ui->compTable->model());
         ui->compTable->setModel(proxyModel);
@@ -153,7 +154,21 @@ void MainWindow::on_playeAdButton_clicked()
 
 void MainWindow::on_PlayerEditButton_clicked()
 {
+    QModelIndexList selection = ui->playerTable->selectionModel()->selectedRows();
+
+    QString id = "";
+
+    if(!selection.isEmpty())
+        for(int i = 0; i < ui->playerTable->model()->columnCount(); i++)
+        {
+            if(ui->playerTable->model()->headerData(i, Qt::Horizontal).toString() == "ID")
+            {
+                id = ui->playerTable->model()->index(selection.first().row(),i).data().toString();
+                break;
+            }
+        }
     editplayerdiag = new EditPlayerDiag(this);
+    editplayerdiag->search(id);
     editplayerdiag->show();
 
     QObject::connect(editplayerdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
@@ -218,6 +233,7 @@ void MainWindow::getDeleteVenueAction(QString venueID)
 }
 void MainWindow::getEditVenueAction(QString venueID)
 {
+
     editvenuediag = new EditVenueDiag(this);
     editvenuediag->show();
     editvenuediag->search(venueID);
@@ -324,7 +340,24 @@ void MainWindow::on_venueAdd_clicked()
 
 void MainWindow::on_venueEdit_clicked()
 {
+    QModelIndexList selection = ui->venueTable->selectionModel()->selectedRows();
+
+    QString id = "";
+
+    if(!selection.isEmpty())
+        for(int i = 0; i < ui->venueTable->model()->columnCount(); i++)
+        {
+            if(ui->venueTable->model()->headerData(i, Qt::Horizontal).toString() == "ID")
+            {
+                id = ui->venueTable->model()->index(selection.first().row(),i).data().toString();
+                break;
+            }
+        }
+
     editvenuediag = new EditVenueDiag(this);
+
+    editvenuediag->search(id);
+
     editvenuediag->show();
 
     QObject::connect(editvenuediag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
@@ -340,7 +373,22 @@ void MainWindow::on_teamAdd_clicked()
 
 void MainWindow::on_teamEdit_clicked()
 {
+    QModelIndexList selection = ui->teamTable->selectionModel()->selectedRows();
+
+    QString id = "";
+
+    if(!selection.isEmpty())
+        for(int i = 0; i < ui->teamTable->model()->columnCount(); i++)
+        {
+            if(ui->teamTable->model()->headerData(i, Qt::Horizontal).toString() == "id")
+            {
+                id = ui->teamTable->model()->index(selection.first().row(),i).data().toString();
+                break;
+            }
+        }
+
     editteamdiag = new EditTeamDiag(this);
+    editteamdiag->search(id);
     editteamdiag->show();
 
     QObject::connect(editteamdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
@@ -403,14 +451,14 @@ void MainWindow::on_actionAbout_triggered()
 
 void MainWindow::on_quickSearch_textChanged(const QString &arg1)
 {
-    QString where = "WHERE (first_name LIKE '"+arg1+"%' OR last_name LIKE '"+arg1+"%' OR mobile LIKE '"+arg1+"%' OR email LIKE '"+arg1+"%')";
+    QString where = "(first_name LIKE '"+arg1+"%' OR last_name LIKE '"+arg1+"%' OR mobile LIKE '"+arg1+"%' OR email LIKE '"+arg1+"%')";
     lastPlayerQuery = where;
     dbRefresh("PLAYER");
 }
 
 void MainWindow::on_quickSearchVenue_textChanged(const QString &arg1)
 {
-    QString where = "WHERE (name LIKE '"+arg1+"%' OR street LIKE '"+arg1+"%')";
+    QString where = "(name LIKE '"+arg1+"%' OR street LIKE '"+arg1+"%')";
     lastVenueQuery = where;
     dbRefresh("VENUE");
 }
@@ -442,10 +490,33 @@ void MainWindow::on_teamClear_clicked()
     dbRefresh("TEAM");
     ui->quickSearchTeam->clear();
 }
-
+void MainWindow::on_quickSearchComp_textChanged(const QString &arg1)
+{
+    QString where = "WHERE (COMPETITION.Name LIKE '%"+arg1+"%')";
+    lastCompQuery = where;
+    dbRefresh("COMP");
+}
 void MainWindow::on_compEdit_clicked()
 {
+//    QModelIndexList selection = ui->compTable->selectionModel()->selectedRows();
 
+//    QString id = "";
+
+//    if(!selection.isEmpty())
+//        for(int i = 0; i < ui->compTable->model()->columnCount(); i++)
+//        {
+//            if(ui->compTable->model()->headerData(i, Qt::Horizontal).toString() == "id")
+//            {
+//                id = ui->compTable->model()->index(selection.first().row(),i).data().toString();
+//                break;
+//            }
+//        }
+
+//    editcompdiag = new EditTeamDiag(this);
+//    editteamdiag->search(id);
+//    editteamdiag->show();
+
+//    QObject::connect(editteamdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
 }
 
 void MainWindow::on_compAdd_clicked()
@@ -501,4 +572,18 @@ void MainWindow::on_paymentAdd_clicked()
     addpaymentdiag->show();
 
     QObject::connect(addcompdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
+}
+
+void MainWindow::on_compClear_clicked()
+{
+    lastPlayerQuery = "";
+    dbRefresh("COMP");
+    ui->quickSearchComp->clear();
+}
+
+void MainWindow::on_paymentClear_clicked()
+{
+    lastPaymentQuery = "";
+    dbRefresh("PAYMENT");
+    ui->quickSearchPayments->clear();
 }

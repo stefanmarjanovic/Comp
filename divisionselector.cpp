@@ -7,9 +7,9 @@ DivisionSelector::DivisionSelector(QWidget *parent) :
     ui(new Ui::DivisionSelector)
 {
     ui->setupUi(this);
-    ui->searchTable->setModel(Database::search("division",""));
+    ui->searchTable->setModel(Database::modelSearch("division INNER JOIN COMPETITION ON division.compID = COMPETITION.id","division.id, Division.Name as Division, Competition.name as Competition",""));
     ui->searchTable->setSelectionBehavior(QAbstractItemView::SelectRows);
-
+    ui->searchTable->resizeColumnsToContents();
 
     IDIndex = Database::getIndex("id", ui->searchTable->model());
 
@@ -23,7 +23,7 @@ DivisionSelector::~DivisionSelector()
 
 void DivisionSelector::on_searchText_textChanged(const QString &arg1)
 {
-    ui->searchTable->setModel(Database::search("division", "WHERE (name LIKE '%"+arg1+"%')"));
+    ui->searchTable->setModel(Database::modelSearch("division INNER JOIN COMPETITION ON division.compID = COMPETITION.id","division.id, Division.Name as Division, Competition.name as Competition","(Division.Name LIKE '%"+arg1+"%')"));
 
 }
 

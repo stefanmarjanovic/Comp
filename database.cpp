@@ -142,6 +142,33 @@ QStringList Database::search(QString table, QString select, QString where)
     return result;
 }
 
+QSqlQueryModel* Database::modelSearch(QString table, QString select, QString where)
+{
+    QSqlQuery search(tennisTestDB);
+    QSqlQueryModel *model = new QSqlQueryModel;
+
+    QString query = "SELECT " + select + " FROM " + table;
+    if(where != "")
+        query+=" WHERE " + where;
+    search.prepare(query);
+    search.exec();
+    if(search.isActive())
+    {
+        qDebug() << " Query active: " << search.executedQuery();
+
+        while (search.next())
+        {
+            model->setQuery(search);
+
+        }
+
+    }
+    else
+        qDebug() << " Query not active: " << search.executedQuery();
+
+    return model;
+}
+
 int Database::getIndex(QString column, QAbstractItemModel *model)
 {
     for(int i = 0; i < model->columnCount(); i++)

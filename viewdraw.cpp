@@ -187,3 +187,8 @@ void ViewDraw::on_buttonPDFExport_clicked()
     doc.setPageSize(printer.pageRect().size()); // This is necessary if you want to hide the page number
     doc.print(&printer);
 }
+
+void ViewDraw::on_buttonOK_clicked()
+{
+    ViewDraw::close();
+}

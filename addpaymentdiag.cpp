@@ -27,7 +27,7 @@ AddPaymentDiag::~AddPaymentDiag()
 
 void AddPaymentDiag::getDate(QString d)
 {
-//   ui->apply->setEnabled(true);
+    ui->buttonBox->setEnabled(true);
    ui->pDate->setText(d);
 }
 
@@ -112,7 +112,7 @@ void AddPaymentDiag::on_buttonBox_accepted()
 
 void AddPaymentDiag::on_cal_clicked()
 {
-    //ui->apply->setEnabled(false);
+    ui->buttonBox->setEnabled(false);
     datepick = new DatePick(this);
     datepick->show();
     QObject::connect(datepick,SIGNAL(sendDate(QString)),this,SLOT(getDate(QString)) );

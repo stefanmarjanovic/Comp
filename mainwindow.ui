@@ -77,7 +77,7 @@ background-image: url(:/logo.png);</string>
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>4</number>
     </property>
     <property name="movable">
      <bool>false</bool>
@@ -163,7 +163,7 @@ background-image: url(:/logo.png);</string>
       <property name="geometry">
        <rect>
         <x>790</x>
-        <y>320</y>
+        <y>280</y>
         <width>101</width>
         <height>32</height>
        </rect>
@@ -176,7 +176,7 @@ background-image: url(:/logo.png);</string>
       <property name="geometry">
        <rect>
         <x>790</x>
-        <y>280</y>
+        <y>320</y>
         <width>101</width>
         <height>32</height>
        </rect>
@@ -295,7 +295,7 @@ background-image: url(:/logo.png);</string>
        <bool>false</bool>
       </attribute>
      </widget>
-     <widget class="QLineEdit" name="quickSearch_2">
+     <widget class="QLineEdit" name="quickSearchComp">
       <property name="geometry">
        <rect>
         <x>590</x>
@@ -316,19 +316,6 @@ background-image: url(:/logo.png);</string>
       </property>
       <property name="text">
        <string>Add </string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="delete_2">
-      <property name="geometry">
-       <rect>
-        <x>790</x>
-        <y>320</y>
-        <width>101</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Delete</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_12">
@@ -361,6 +348,19 @@ background-image: url(:/logo.png);</string>
       </property>
       <property name="text">
        <string>View Draw</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="compClear">
+      <property name="geometry">
+       <rect>
+        <x>790</x>
+        <y>320</y>
+        <width>101</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Clear</string>
       </property>
      </widget>
     </widget>
@@ -621,7 +621,7 @@ background-image: url(:/logo.png);</string>
        <string>Clear</string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="quickSearchTeam_2">
+     <widget class="QLineEdit" name="quickSearchPayments">
       <property name="geometry">
        <rect>
         <x>590</x>

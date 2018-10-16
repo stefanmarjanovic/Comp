@@ -7,7 +7,7 @@ FamilySearchDiag::FamilySearchDiag(QWidget *parent) :
     ui(new Ui::FamilySearchDiag)
 {
     ui->setupUi(this);
-    ui->searchTable->setModel(Player::search(""));
+    FamilySearchDiag::on_playerTableRadio_toggled(true);
     ui->searchTable->setSelectionBehavior(QAbstractItemView::SelectRows);
 
 
@@ -35,13 +35,13 @@ void FamilySearchDiag::on_lname_textChanged(const QString &arg1)
     QString where;
     if(ui->playerTableRadio->isChecked())
     {
-        where = "WHERE (last_name LIKE '"+arg1+"%')";
-        ui->searchTable->setModel(Player::search(where));
+        where = "(last_name LIKE '"+arg1+"%')";
+        ui->searchTable->setModel(Database::modelSearch("PLAYER","ID, first_name as 'First Name', last_name as 'Last Name', dob as 'Date of Birth', Mobile, eMail, Type, family_id, team_id as 'Team ID', case when gender_id = 0 then 'male' when gender_id = 1 then 'female' end as gender",where));
     }
     else
     {
-        where = "WHERE (street LIKE '"+arg1+"%')";
-        ui->searchTable->setModel(Player::familySearch(where));
+        where = "(street LIKE '"+arg1+"%')";
+        ui->searchTable->setModel(Database::modelSearch("FAMILY INNER JOIN SUBURB ON FAMILY.suburdID = SUBURB.ID INNER JOIN STATE ON FAMILY.stateID = STATE.id","family_id, streetNum as 'Street Number', Street, Postcode, resPhone as 'Phone Number', Suburb.suburb_name as Suburb, State.State",where));
     }
 }
 
@@ -69,12 +69,12 @@ void FamilySearchDiag::on_playerTableRadio_toggled(bool checked)
     if(checked)
     {
         ui->searchLabel->setText("Last Name: ");
-        ui->searchTable->setModel(Player::search(""));
+        ui->searchTable->setModel(Database::modelSearch("PLAYER","ID, first_name as 'First Name', last_name as 'Last Name', dob as 'Date of Birth', Mobile, eMail, Type, family_id, team_id as 'Team ID', case when gender_id = 0 then 'male' when gender_id = 1 then 'female' end as gender",""));
     }
     else
     {
         ui->searchLabel->setText("Street: ");
-        ui->searchTable->setModel(Player::familySearch(""));
+        ui->searchTable->setModel(Database::modelSearch("FAMILY INNER JOIN SUBURB ON FAMILY.suburdID = SUBURB.ID INNER JOIN STATE ON FAMILY.stateID = STATE.id","family_id, streetNum as 'Street Number', Street, Postcode, resPhone as 'Phone Number', Suburb.suburb_name as Suburb, State.State",""));
     }
 
     family_IDIndex = FamilySearchDiag::getFamilyIDIndex();
