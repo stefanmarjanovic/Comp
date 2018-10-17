@@ -35,12 +35,17 @@ public:
 
 private slots:
     void getDate(QString d);
-    void on_buttonBox_accepted();
     void on_cal_clicked();
 
     void on_playerSearch_clicked();
     void getPlayerID(QString id);
 
+
+    void on_comboBox_currentIndexChanged(const QString &arg1);
+
+    void on_apply_clicked();
+
+    void on_cancel_clicked();
 
 signals:
     //void sendRefresh("PAYMENT");

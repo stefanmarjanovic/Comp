@@ -7,11 +7,11 @@ DivisionSelector::DivisionSelector(QWidget *parent) :
     ui(new Ui::DivisionSelector)
 {
     ui->setupUi(this);
-    ui->searchTable->setModel(Database::search("division",""));
-    ui->searchTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->divisionTable->setModel(Database::search("division",""));
+    ui->divisionTable->setSelectionBehavior(QAbstractItemView::SelectRows);
 
 
-    IDIndex = Database::getIndex("id", ui->searchTable->model());
+    IDIndex = Database::getIndex("id", ui->divisionTable->model());
 
     qDebug() << IDIndex;
 }
@@ -23,7 +23,7 @@ DivisionSelector::~DivisionSelector()
 
 void DivisionSelector::on_searchText_textChanged(const QString &arg1)
 {
-    ui->searchTable->setModel(Database::search("division", "WHERE (name LIKE '%"+arg1+"%')"));
+    ui->divisionTable->setModel(Database::search("division", "WHERE (name LIKE '%"+arg1+"%')"));
 
 }
 
@@ -34,7 +34,7 @@ void DivisionSelector::on_cancel_clicked()
 
 void DivisionSelector::on_submit_clicked()
 {
-    QModelIndexList selection = ui->searchTable->selectionModel()->selectedIndexes();
+    QModelIndexList selection = ui->divisionTable->selectionModel()->selectedIndexes();
     if(!selection.isEmpty())
     {
         emit sendID(selection.at(IDIndex).data().toString());

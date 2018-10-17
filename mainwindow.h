@@ -97,6 +97,7 @@ public slots:
     void customVenueMenuRequested(QPoint pos);
     void customTeamMenuRequested(QPoint pos);
     void customCompMenuRequested(QPoint pos);
+    void customPaymentMenuRequested(QPoint pos);
 
 
 private:

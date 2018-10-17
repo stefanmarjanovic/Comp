@@ -24,6 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
     lastVenueQuery = "";
     lastTeamQuery = "";
     lastPaymentQuery = "";
+    lastDivisionQuery = "";
     Database::dbOpen();
     dbRefresh("ALL");
     ui->playerTable->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -46,6 +47,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->compTable->setContextMenuPolicy(Qt::CustomContextMenu);
     ui->compTable->resizeColumnsToContents();
 
+    ui->paymentTable->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->paymentTable->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->paymentTable->setContextMenuPolicy(Qt::CustomContextMenu);
+    ui->paymentTable->resizeColumnsToContents();
+
+
     connect(ui->playerTable, SIGNAL(customContextMenuRequested(QPoint)),
             SLOT(customPlayerMenuRequested(QPoint)));
 
@@ -59,7 +66,7 @@ MainWindow::MainWindow(QWidget *parent) :
             SLOT(customCompMenuRequested(QPoint)));
 
     connect(ui->paymentTable, SIGNAL(customContextMenuRequested(QPoint)),
-            SLOT(customTeamMenuRequested(QPoint)));
+            SLOT(customPaymentMenuRequested(QPoint)));
 
     loadStyleSheet();
 
@@ -120,14 +127,14 @@ void MainWindow::dbRefresh(QString tableChoice)
         ui->compTable->sortByColumn(0, Qt::AscendingOrder);
     }
 
-    if(tableChoice == "DIVISION" || tableChoice == "ALL")
+    if(tableChoice == "PAYMENT" || tableChoice == "ALL")
     {
-        ui->teamTable->setModel(Team::search(lastDivisionQuery));
+        ui->paymentTable->setModel(Database::search("PAYMENT",""));
         proxyModel = new QSortFilterProxyModel();
-        proxyModel->setSourceModel(ui->teamTable->model());
-        ui->teamTable->setModel(proxyModel);
-        ui->teamTable->setSortingEnabled(true);
-        ui->teamTable->sortByColumn(0, Qt::AscendingOrder);
+        proxyModel->setSourceModel(ui->paymentTable->model());
+        ui->paymentTable->setModel(proxyModel);
+        ui->paymentTable->setSortingEnabled(true);
+        ui->paymentTable->sortByColumn(0, Qt::AscendingOrder);
     }
 
 }
@@ -301,6 +308,16 @@ void MainWindow::customTeamMenuRequested(QPoint pos)
     teamMenu->addAction("Delete Team",this, std::bind(&MainWindow::getDeleteTeamAction,this,teamID));
     teamMenu->addAction("Edit Team",this, std::bind(&MainWindow::getEditTeamAction,this, teamID));
     teamMenu->popup(ui->teamTable->viewport()->mapToGlobal(pos));
+}
+
+void MainWindow::customPaymentMenuRequested(QPoint pos){
+    QModelIndex paymentIndex = ui->paymentTable->indexAt(pos);
+    QString paymentID = ui->paymentTable->model()->index(paymentIndex.row(),0).data().toString();
+    QMenu *paymentMenu=new QMenu(this);
+
+    //paymentMenu->addAction("Delete Team",this, std::bind(&MainWindow::getDeletePaymentAction,this,paymentID));
+    //paymentMenu->addAction("Edit Team",this, std::bind(&MainWindow::getEditPaymentAction,this, paymentID));
+    paymentMenu->popup(ui->paymentTable->viewport()->mapToGlobal(pos));
 }
 
 

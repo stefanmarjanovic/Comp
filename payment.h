@@ -25,11 +25,12 @@ class Payment
         QString amountPaid;         //amount paid  
         QString startdate;          //
         QString expiryDate;         //Memnership active from start to expiry date
+        QString completeTrans;      //0 = owing 1 = completed
 
-        static Payment getPayment(QString id);      //return a payment type
-        void calcAmount(QString fId);                 //calculate the outstanding amount
-        static void addPayment(Payment p);          //add a payment
-        static int getFee(QString pID);             //return the cost of the registration fee
+        static QString getFee(QString pID);             //return the cost of the registration fee
+        static Payment getPayment(QString id);          //return a payment type
+        void calcAmount(QString fId);                   //calculate the outstanding amount
+        static void addPayment(Payment p);              //add a payment
 
 };
 

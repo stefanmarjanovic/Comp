@@ -56,7 +56,8 @@ SOURCES += \
     venueselector.cpp \
     payment.cpp \
     addpaymentdiag.cpp \
-    playerselector.cpp
+    playerselector.cpp \
+    editpaymentdiag.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -86,7 +87,8 @@ HEADERS += \
     venueselector.h \
     payment.h \
     addpaymentdiag.h \
-    playerselector.h
+    playerselector.h \
+    editpaymentdiag.h
 
 FORMS += \
         mainwindow.ui \
@@ -109,7 +111,8 @@ FORMS += \
     compselector.ui \
     venueselector.ui \
     addpaymentdiag.ui \
-    playerselector.ui
+    playerselector.ui \
+    editpaymentdiag.ui
 
 RESOURCES += \
     resources.qrc

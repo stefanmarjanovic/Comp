@@ -11,7 +11,7 @@ Payment::Payment()
     currentDate = "";
     startdate = "";
     expiryDate = "";
-
+    completeTrans = "";
 }
 
 Payment::Payment(QString pID, QString paymentType, QString date, QString paid)
@@ -45,25 +45,46 @@ Payment Payment::getPayment(QString id)
 void Payment::calcAmount(QString fId)    //must be called after paid amount is set
 {
     //run query retrieving registration fee
-    QString fee = Database::search("fees", "amount", ("id = " + fId)).first();
+    QString fee = getFee(fId);  //Database::search("fees", "amount", ("id = " + fId)).first();
     qDebug() << "Fee: " <<  fee;
 
-    this->owing = QString::number(fee.toDouble() - this->amountPaid.toDouble());
+    if(QString::number(this->amountPaid.toDouble()) < QString::number(fee.toDouble())){
+
+        qDebug() << "IF entered";
+        this->owing = QString::number(fee.toDouble() - this->amountPaid.toDouble());
+        qDebug() << "Owing: " << this->owing;
+        this->completeTrans = "0"; //false - IF partial payment
+        qDebug() << "Completed: false";
+
+    } else {
+        qDebug() << "IF entered";
+        this->amountPaid = fee;
+        this->owing = "0";
+        this->completeTrans = "1"; //true - IF complete payment
+        qDebug() << "Completed: true";
+    }
 }
 
 void Payment::addPayment(Payment p){
 
     //insert paid and owing amount into Cash_received table
     QSqlQuery insertCash(tennisTestDB);
-    insertCash.prepare("INSERT INTO cash_receieved (CASH_AMOUNT, OUTSTANDING_AMOUNT) VALUES (" + p.amountPaid + ", " + p.owing + ");");
+    insertCash.prepare("INSERT INTO cash_received (CASH_AMOUNT, OUTSTANDING_AMOUNT) VALUES (" + p.amountPaid + ", " + p.owing + ");");
     insertCash.exec();
+    if(insertCash.isActive())
+    {
+        qDebug() << " Cash Payment Added successfully";
+    }
+    else
+        qDebug() << " Query not active: " << insertCash.executedQuery() << insertCash.lastError();
 
     //retrieve latest cash_id add to payment object
     p.cashId = Database::customSearch("Select id from cash_received").last();
+    qDebug() << "Latest Cash reference ID: " << p.cashId;
 
     //insert payment details into payment table
     QSqlQuery insertPayment(tennisTestDB);
-        insertPayment.prepare("INSERT INTO payment(player_id,fee_id,cash_id, date_processed, date_from, date_to) VALUES (" + p.refPlayerID + ", " + p.feeId + "," + p.cashId + ", STR_TO_DATE('" + p.currentDate + "','%Y-%m-%d'), STR_TO_DATE('" + p.startdate + "','%Y-%m-%d'), STR_TO_DATE('" + p.expiryDate + "','%Y-%m-%d'));");
+        insertPayment.prepare("INSERT INTO payment(player_id,fee_id,cash_id, date_processed, completed , date_from, date_to) VALUES (" + p.refPlayerID + ", " + p.feeId + "," + p.cashId + ", STR_TO_DATE('" + p.currentDate + "','%Y-%m-%d'), '"+ p.completeTrans +"', STR_TO_DATE('" + p.startdate + "','%Y-%m-%d'), STR_TO_DATE('" + p.expiryDate + "','%Y-%m-%d'));");
         insertPayment.exec();
     if(insertPayment.isActive())
     {
@@ -71,4 +92,9 @@ void Payment::addPayment(Payment p){
     }
     else
         qDebug() << " Query not active: " << insertPayment.executedQuery() << insertPayment.lastError();
+}
+
+QString Payment::getFee(QString pID)
+{
+    return QString(Database::search("fees","amount","(id = " + pID +")").first());
 }
