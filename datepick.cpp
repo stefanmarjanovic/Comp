@@ -6,6 +6,7 @@ DatePick::DatePick(QWidget *parent) :
     ui(new Ui::DatePick)
 {
     ui->setupUi(this);
+    ui->calendarWidget->unsetCursor();
 }
 
 DatePick::~DatePick()

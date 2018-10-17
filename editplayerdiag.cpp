@@ -120,7 +120,7 @@ void EditPlayerDiag::on_deleteButton_clicked()
 
 void EditPlayerDiag::on_cal_clicked()
 {
-    ui->search->setEnabled(false);
+    ui->apply->setEnabled(false);
     datepick = new DatePick(this);
     datepick->show();
 
@@ -129,7 +129,7 @@ void EditPlayerDiag::on_cal_clicked()
 
 void EditPlayerDiag::getDate(QString text)
 {
-   ui->search->setEnabled(true);
+   ui->apply->setEnabled(true);
    ui->dob->setText(text);
 }
 

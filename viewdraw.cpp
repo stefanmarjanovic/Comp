@@ -16,9 +16,11 @@ ViewDraw::ViewDraw(QString id, QWidget *parent) :
     int tableRows = 0;
     int tableColumns =0;
     int roundRow=0;
-    int rounds = 3;
-
+    int rounds =  Database::search("COMPETITION", "rounds", "id = " + id).first().toInt();
     htmlOut = "";
+   // htmlOut += "<img src=\":/logo.png\" style='width:100%'/>";
+    htmlOut +="<h1>" + QString(Database::search("COMPETITION", "name", "id =" + id)[0]) + "</h1>";
+
     for (QString divisionID : divisionList)
     {
         qDebug() << "div id is" << divisionID;
@@ -157,8 +159,6 @@ ViewDraw::ViewDraw(QString id, QWidget *parent) :
     font.setPointSize(18);
     compName->setFont(font);
 
-    htmlOut.prepend("<h1>" + compName->text() + "</h1>");
-
     ui->viewDrawTable->setItem(0, 0, compName);
     ui->viewDrawTable->resizeColumnsToContents();
     ui->viewDrawTable->resizeRowsToContents();
@@ -182,9 +182,13 @@ void ViewDraw::on_buttonPDFExport_clicked()
     printer.setPaperSize(QPrinter::A4);
     printer.setOrientation(QPrinter::Landscape);
     printer.setOutputFileName(fileName);
-
     QTextDocument doc;
     doc.setHtml("<body>" + htmlOut + "</body>");
     doc.setPageSize(printer.pageRect().size()); // This is necessary if you want to hide the page number
     doc.print(&printer);
+}
+
+void ViewDraw::on_buttonOK_clicked()
+{
+    ViewDraw::close();
 }

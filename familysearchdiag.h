@@ -6,6 +6,8 @@
 #include <player.h>
 #include <QModelIndex>
 
+#include "database.h"
+
 namespace Ui {
 class FamilySearchDiag;
 }

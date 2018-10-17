@@ -28,7 +28,7 @@ AddPaymentDiag::~AddPaymentDiag()
 
 void AddPaymentDiag::getDate(QString d)
 {
-//   ui->apply->setEnabled(true);
+    ui->buttonBox->setEnabled(true);
    ui->pDate->setText(d);
 }
 

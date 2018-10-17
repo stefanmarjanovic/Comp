@@ -24,28 +24,26 @@ MainWindow::MainWindow(QWidget *parent) :
     lastVenueQuery = "";
     lastTeamQuery = "";
     lastPaymentQuery = "";
+    lastCompQuery = "";
     lastDivisionQuery = "";
     Database::dbOpen();
+    loadStyleSheet();
     dbRefresh("ALL");
     ui->playerTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->playerTable->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->playerTable->setContextMenuPolicy(Qt::CustomContextMenu);
-    ui->playerTable->resizeColumnsToContents();
 
     ui->venueTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->venueTable->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->venueTable->setContextMenuPolicy(Qt::CustomContextMenu);
-    ui->venueTable->resizeColumnsToContents();
 
     ui->teamTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->teamTable->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->teamTable->setContextMenuPolicy(Qt::CustomContextMenu);
-    ui->teamTable->resizeColumnsToContents();
 
     ui->compTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->compTable->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->compTable->setContextMenuPolicy(Qt::CustomContextMenu);
-    ui->compTable->resizeColumnsToContents();
 
     ui->paymentTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->paymentTable->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -66,10 +64,7 @@ MainWindow::MainWindow(QWidget *parent) :
             SLOT(customCompMenuRequested(QPoint)));
 
     connect(ui->paymentTable, SIGNAL(customContextMenuRequested(QPoint)),
-            SLOT(customPaymentMenuRequested(QPoint)));
-
-    loadStyleSheet();
-
+            SLOT(customTeamMenuRequested(QPoint)));
 }
 MainWindow::~MainWindow()
 {
@@ -79,8 +74,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::loadStyleSheet()
 {
-    if(userSettings.value("nightmode") == "true")
-        this->setStyleSheet("QWidget{background-color: rgb(54, 54, 54); color: rgb(213, 209, 209);  font: 75 15pt \"Arial\";} QLineEdit{ background: grey; };");
+    if(Settings::load()->value("nightmode") == "true")
+        this->setStyleSheet("QWidget{background-color: rgb(54, 54, 54); color: rgb(213, 209, 209); } QLineEdit{ background: grey; };");
     else
         this->setStyleSheet("");
 
@@ -89,22 +84,25 @@ void MainWindow::dbRefresh(QString tableChoice)
 {
     if(tableChoice == "PLAYER" || tableChoice == "ALL")
     {
-        ui->playerTable->setModel(Player::search(lastPlayerQuery));
+        ui->playerTable->setModel(Database::modelSearch("PLAYER","ID, first_name as 'First Name', last_name as 'Last Name', dob as 'Date of Birth', Mobile, eMail, Type, family_id as 'Family ID', team_id as 'Team ID', case when gender_id = 0 then 'male' when gender_id = 1 then 'female' end as Gender",lastPlayerQuery));
         proxyModel = new QSortFilterProxyModel();
         proxyModel->setSourceModel(ui->playerTable->model());
         ui->playerTable->setModel(proxyModel);
         ui->playerTable->setSortingEnabled(true);
         ui->playerTable->sortByColumn(0, Qt::AscendingOrder);
+        ui->playerTable->resizeColumnsToContents();
     }
 
     if(tableChoice == "VENUE" || tableChoice == "ALL")
     {
-        ui->venueTable->setModel(Venue::search(lastVenueQuery));
+        ui->venueTable->setModel(Database::modelSearch("VENUE INNER JOIN SUBURB ON VENUE.SUBURB_ID = SUBURB.ID","VENUE.ID as ID,Name,Street_Number as 'Street Number',Street,SUBURB.SUBURB_NAME as Suburb, Postcode, Vacancy_Count as 'Vacant Courts'",lastVenueQuery));
         proxyModel = new QSortFilterProxyModel();
         proxyModel->setSourceModel(ui->venueTable->model());
         ui->venueTable->setModel(proxyModel);
         ui->venueTable->setSortingEnabled(true);
         ui->venueTable->sortByColumn(0, Qt::AscendingOrder);
+        ui->venueTable->resizeColumnsToContents();
+
     }
 
     if(tableChoice == "TEAM" || tableChoice == "ALL")
@@ -115,16 +113,20 @@ void MainWindow::dbRefresh(QString tableChoice)
         ui->teamTable->setModel(proxyModel);
         ui->teamTable->setSortingEnabled(true);
         ui->teamTable->sortByColumn(0, Qt::AscendingOrder);
+        ui->teamTable->resizeColumnsToContents();
+
     }
 
     if(tableChoice == "COMP" || tableChoice == "ALL")
     {
-        ui->compTable->setModel(Database::search("COMPETITION",""));
+        ui->compTable->setModel(Database::search("COMPETITION",lastCompQuery));
         proxyModel = new QSortFilterProxyModel();
         proxyModel->setSourceModel(ui->compTable->model());
         ui->compTable->setModel(proxyModel);
         ui->compTable->setSortingEnabled(true);
         ui->compTable->sortByColumn(0, Qt::AscendingOrder);
+        ui->compTable->resizeColumnsToContents();
+
     }
 
     if(tableChoice == "PAYMENT" || tableChoice == "ALL")
@@ -136,7 +138,19 @@ void MainWindow::dbRefresh(QString tableChoice)
         ui->paymentTable->setSortingEnabled(true);
         ui->paymentTable->sortByColumn(0, Qt::AscendingOrder);
     }
+    
+       if(tableChoice == "DIVISION" || tableChoice == "ALL")
+    {
+        ui->teamTable->setModel(Team::search(lastDivisionQuery));
+        proxyModel = new QSortFilterProxyModel();
+        proxyModel->setSourceModel(ui->teamTable->model());
+        ui->teamTable->setModel(proxyModel);
+        ui->teamTable->setSortingEnabled(true);
+        ui->teamTable->sortByColumn(0, Qt::AscendingOrder);
+        ui->teamTable->resizeColumnsToContents();
 
+    }
+  
 }
 
 void MainWindow::on_Refine_clicked()
@@ -157,7 +171,21 @@ void MainWindow::on_playeAdButton_clicked()
 
 void MainWindow::on_PlayerEditButton_clicked()
 {
+    QModelIndexList selection = ui->playerTable->selectionModel()->selectedRows();
+
+    QString id = "";
+
+    if(!selection.isEmpty())
+        for(int i = 0; i < ui->playerTable->model()->columnCount(); i++)
+        {
+            if(ui->playerTable->model()->headerData(i, Qt::Horizontal).toString() == "ID")
+            {
+                id = ui->playerTable->model()->index(selection.first().row(),i).data().toString();
+                break;
+            }
+        }
     editplayerdiag = new EditPlayerDiag(this);
+    editplayerdiag->search(id);
     editplayerdiag->show();
 
     QObject::connect(editplayerdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
@@ -222,6 +250,7 @@ void MainWindow::getDeleteVenueAction(QString venueID)
 }
 void MainWindow::getEditVenueAction(QString venueID)
 {
+
     editvenuediag = new EditVenueDiag(this);
     editvenuediag->show();
     editvenuediag->search(venueID);
@@ -285,7 +314,7 @@ void MainWindow::customCompMenuRequested(QPoint pos)
     QMenu *menu=new QMenu(this);
 
     menu->addAction("View Schedule",this, std::bind(&MainWindow::on_compViewDraw_clicked,this));
-   // menu->addAction("Edit Player",this, std::bind(&MainWindow::getEditPlayerAction,this, playerID));
+    // menu->addAction("Edit Player",this, std::bind(&MainWindow::getEditPlayerAction,this, playerID));
     menu->popup(ui->playerTable->viewport()->mapToGlobal(pos));
 }
 void MainWindow::customVenueMenuRequested(QPoint pos)
@@ -338,7 +367,24 @@ void MainWindow::on_venueAdd_clicked()
 
 void MainWindow::on_venueEdit_clicked()
 {
+    QModelIndexList selection = ui->venueTable->selectionModel()->selectedRows();
+
+    QString id = "";
+
+    if(!selection.isEmpty())
+        for(int i = 0; i < ui->venueTable->model()->columnCount(); i++)
+        {
+            if(ui->venueTable->model()->headerData(i, Qt::Horizontal).toString() == "ID")
+            {
+                id = ui->venueTable->model()->index(selection.first().row(),i).data().toString();
+                break;
+            }
+        }
+
     editvenuediag = new EditVenueDiag(this);
+
+    editvenuediag->search(id);
+
     editvenuediag->show();
 
     QObject::connect(editvenuediag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
@@ -354,7 +400,22 @@ void MainWindow::on_teamAdd_clicked()
 
 void MainWindow::on_teamEdit_clicked()
 {
+    QModelIndexList selection = ui->teamTable->selectionModel()->selectedRows();
+
+    QString id = "";
+
+    if(!selection.isEmpty())
+        for(int i = 0; i < ui->teamTable->model()->columnCount(); i++)
+        {
+            if(ui->teamTable->model()->headerData(i, Qt::Horizontal).toString() == "id")
+            {
+                id = ui->teamTable->model()->index(selection.first().row(),i).data().toString();
+                break;
+            }
+        }
+
     editteamdiag = new EditTeamDiag(this);
+    editteamdiag->search(id);
     editteamdiag->show();
 
     QObject::connect(editteamdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
@@ -411,20 +472,20 @@ void MainWindow::on_actionAbout_triggered()
                             Qt::AlignCenter,
                             about->size(),
                             qApp->desktop()->availableGeometry()
-                        ));
+                            ));
     about->show();
 }
 
 void MainWindow::on_quickSearch_textChanged(const QString &arg1)
 {
-    QString where = "WHERE (first_name LIKE '"+arg1+"%' OR last_name LIKE '"+arg1+"%' OR mobile LIKE '"+arg1+"%' OR email LIKE '"+arg1+"%')";
+    QString where = "(first_name LIKE '"+arg1+"%' OR last_name LIKE '"+arg1+"%' OR mobile LIKE '"+arg1+"%' OR email LIKE '"+arg1+"%')";
     lastPlayerQuery = where;
     dbRefresh("PLAYER");
 }
 
 void MainWindow::on_quickSearchVenue_textChanged(const QString &arg1)
 {
-    QString where = "WHERE (name LIKE '"+arg1+"%' OR street LIKE '"+arg1+"%')";
+    QString where = "(name LIKE '"+arg1+"%' OR street LIKE '"+arg1+"%')";
     lastVenueQuery = where;
     dbRefresh("VENUE");
 }
@@ -456,10 +517,33 @@ void MainWindow::on_teamClear_clicked()
     dbRefresh("TEAM");
     ui->quickSearchTeam->clear();
 }
-
+void MainWindow::on_quickSearchComp_textChanged(const QString &arg1)
+{
+    QString where = "WHERE (COMPETITION.Name LIKE '%"+arg1+"%')";
+    lastCompQuery = where;
+    dbRefresh("COMP");
+}
 void MainWindow::on_compEdit_clicked()
 {
+//    QModelIndexList selection = ui->compTable->selectionModel()->selectedRows();
 
+//    QString id = "";
+
+//    if(!selection.isEmpty())
+//        for(int i = 0; i < ui->compTable->model()->columnCount(); i++)
+//        {
+//            if(ui->compTable->model()->headerData(i, Qt::Horizontal).toString() == "id")
+//            {
+//                id = ui->compTable->model()->index(selection.first().row(),i).data().toString();
+//                break;
+//            }
+//        }
+
+//    editcompdiag = new EditTeamDiag(this);
+//    editteamdiag->search(id);
+//    editteamdiag->show();
+
+//    QObject::connect(editteamdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
 }
 
 void MainWindow::on_compAdd_clicked()
@@ -467,26 +551,46 @@ void MainWindow::on_compAdd_clicked()
     addcompdiag = new AddCompDiag(this);
     addcompdiag->show();
 
-   // QObject::connect(addcompdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
+    // QObject::connect(addcompdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
 }
 
 void MainWindow::on_compViewDraw_clicked()
 {
     QModelIndexList selection = ui->compTable->selectionModel()->selectedRows();
 
-    QString id;
-    for(int i = 0; i < ui->compTable->model()->columnCount(); i++)
+    QString id = "";
+    if(!selection.isEmpty())
     {
-      if(ui->compTable->model()->headerData(i, Qt::Horizontal).toString() == "id")
-      {
-          id = ui->compTable->model()->index(selection.first().row(),i).data().toString();
-          break;
-      }
+        for(int i = 0; i < ui->compTable->model()->columnCount(); i++)
+        {
+            if(ui->compTable->model()->headerData(i, Qt::Horizontal).toString() == "id")
+            {
+                id = ui->compTable->model()->index(selection.first().row(),i).data().toString();
+                break;
+            }
+        }
+        viewdraw = new ViewDraw(id,this);
+        viewdraw->show();
     }
-    qDebug() << id;
+    else
+    {
+        QMessageBox msgBox;
+        msgBox.setText("Error");
+        msgBox.setInformativeText("You must select a competition to continue");
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.setDefaultButton(QMessageBox::Ok);
+        int ret = msgBox.exec();
 
-    viewdraw = new ViewDraw(id,this);
-    viewdraw->show();
+        switch (ret) {
+        case QMessageBox::Ok:
+        {
+            break;
+        }
+        default:
+            // should never be reached
+            break;
+        }
+    }
 }
 
 void MainWindow::on_paymentAdd_clicked()
@@ -495,4 +599,18 @@ void MainWindow::on_paymentAdd_clicked()
     addpaymentdiag->show();
 
     QObject::connect(addcompdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
+}
+
+void MainWindow::on_compClear_clicked()
+{
+    lastPlayerQuery = "";
+    dbRefresh("COMP");
+    ui->quickSearchComp->clear();
+}
+
+void MainWindow::on_paymentClear_clicked()
+{
+    lastPaymentQuery = "";
+    dbRefresh("PAYMENT");
+    ui->quickSearchPayments->clear();
 }
