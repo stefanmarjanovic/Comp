@@ -75,7 +75,7 @@ void Team::editTeam(Team t, QString id)
         qDebug() << " Team Edited successfully";
     }
     else
-        qDebug() << " Query not active: " << update.lastError() << endl;
+        qDebug() << " Query not active: " << update.executedQuery() << endl;
 
 }
 

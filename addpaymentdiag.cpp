@@ -28,7 +28,7 @@ AddPaymentDiag::~AddPaymentDiag()
 
 void AddPaymentDiag::getDate(QString d)
 {
-    ui->buttonBox->setEnabled(true);
+    ui->apply->setEnabled(true);
    ui->pDate->setText(d);
 }
 
@@ -131,7 +131,7 @@ void AddPaymentDiag::on_apply_clicked()
             {
                 //Save was clicked
                 p->addPayment(*p);
-                //emit sendRefresh("PAYMENT");
+                emit sendRefresh("PAYMENT");
                 qDebug() << "Saved successfully";
 
                 AddPaymentDiag::close();

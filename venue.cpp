@@ -219,7 +219,7 @@ Venue Venue::getVenue(QString id)
         if(get.first())
         {
             qDebug() << " Venue Found successfully size";
-            return Venue(get.value(1).toString(),get.value(2).toString(),get.value(3).toString(),get.value(4).toString(),get.value(6).toString());
+            return Venue(get.value(1).toString(),get.value(2).toString(),get.value(3).toString(),get.value(4).toString(),get.value(5).toString());
         }
     }
     else

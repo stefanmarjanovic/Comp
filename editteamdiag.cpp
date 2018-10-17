@@ -61,7 +61,7 @@ void EditTeamDiag::on_apply_clicked()
 void EditTeamDiag::on_divisionSearch_clicked()
 {
     divisionselector = new DivisionSelector(this);
-    divisionselector->show();
+    divisionselector->open();
 
     QObject::connect(divisionselector, SIGNAL(sendID(QString)),this,SLOT(getDivID(QString)));
 }
@@ -69,7 +69,7 @@ void EditTeamDiag::on_divisionSearch_clicked()
 void EditTeamDiag::on_compSearch_clicked()
 {
     compselector = new CompSelector(this);
-    compselector->show();
+    compselector->open();
 
     QObject::connect(compselector, SIGNAL(sendID(QString)),this,SLOT(getCompID(QString)));
 }
@@ -93,3 +93,16 @@ void EditTeamDiag::on_cancel_clicked()
 {
     this->close();
 }
+
+void EditTeamDiag::on_venueSearch_clicked()
+{
+    venueselector = new VenueSelector(this);
+    venueselector->open();
+
+    QObject::connect(venueselector, SIGNAL(sendID(QString)),this,SLOT(getVenueID(QString)));
+}
+void EditTeamDiag::getVenueID(QString id)
+{
+    ui->venueID->setText(id);
+}
+

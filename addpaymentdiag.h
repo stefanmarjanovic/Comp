@@ -48,7 +48,7 @@ private slots:
     void on_cancel_clicked();
 
 signals:
-    //void sendRefresh("PAYMENT");
+    void sendRefresh(QString);
 
 
 private:

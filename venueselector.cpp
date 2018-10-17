@@ -46,7 +46,7 @@ void VenueSelector::on_submit_clicked()
 void VenueSelector::on_pushButton_clicked()
 {
     venueselector = new AddVenueDiag(this);
-    venueselector->show();
+    venueselector->open();
 
 
 }

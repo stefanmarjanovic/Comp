@@ -5,6 +5,7 @@
 #include "team.h"
 #include "divisionselector.h"
 #include "compselector.h"
+#include "venueselector.h"
 
 namespace Ui {
 class EditTeamDiag;
@@ -29,16 +30,19 @@ private slots:
     void getCompID(QString);
     void on_cancel_clicked();
 
+    void on_venueSearch_clicked();
+    void getVenueID(QString id);
 public slots:
     void search(QString teamID);
 signals:
     void sendRefresh(QString);
+
 private:
     Ui::EditTeamDiag *ui;
     QString id;
     DivisionSelector *divisionselector;
     CompSelector *compselector;
-
+    VenueSelector *venueselector;
 };
 
 #endif // EDITTEAMDIAG_H

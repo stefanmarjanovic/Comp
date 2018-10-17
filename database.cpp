@@ -195,6 +195,7 @@ QStringList Database::customSearch(QString query)
         while (search.next())
         {
                 QString divID = search.value(0).toString();
+                qDebug() << divID;
                 result << divID;
         }
 
@@ -203,5 +204,24 @@ QStringList Database::customSearch(QString query)
         qDebug() << " Query not active: " << search.executedQuery();
 
     return result;
+}
+bool Database::rawQuery(QString query)
+{
+    QSqlQuery search(tennisTestDB);
+
+    search.prepare(query);
+
+    search.exec();
+
+    if(search.isActive())
+    {
+        qDebug() << " Query active: " << search.executedQuery();
+        return true;
+    }
+    else
+    {
+        qDebug() << " Query not active: " << search.executedQuery();
+        return false;
+    }
 }
 

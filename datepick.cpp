@@ -6,7 +6,7 @@ DatePick::DatePick(QWidget *parent) :
     ui(new Ui::DatePick)
 {
     ui->setupUi(this);
-    ui->calendarWidget->unsetCursor();
+    ui->calendarWidget->setSelectedDate(QDate::currentDate().addDays(-1));
 }
 
 DatePick::~DatePick()

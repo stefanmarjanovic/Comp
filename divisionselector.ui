@@ -49,7 +49,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QTableView" name="divisionTable">
+  <widget class="QTableView" name="searchTable">
    <property name="geometry">
     <rect>
      <x>12</x>
@@ -107,7 +107,7 @@
   <tabstop>searchText</tabstop>
   <tabstop>cancel</tabstop>
   <tabstop>submit</tabstop>
-  <tabstop>divisionTable</tabstop>
+  <tabstop>searchTable</tabstop>
  </tabstops>
  <resources/>
  <connections/>

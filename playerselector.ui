@@ -42,14 +42,17 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>470</x>
+     <x>230</x>
      <y>10</y>
-     <width>81</width>
+     <width>321</width>
      <height>20</height>
     </rect>
    </property>
    <property name="text">
     <string>Player Search</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">

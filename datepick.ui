@@ -22,6 +22,10 @@
      <height>191</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(110, 156, 119);
+background-color: rgb(98, 101, 106);</string>
+   </property>
    <property name="gridVisible">
     <bool>false</bool>
    </property>

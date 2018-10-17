@@ -18,7 +18,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
     //set settings to global and use extern
     lastPlayerQuery = "";
     lastVenueQuery = "";
@@ -65,6 +64,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->paymentTable, SIGNAL(customContextMenuRequested(QPoint)),
             SLOT(customTeamMenuRequested(QPoint)));
+
+   ui->paymentEdit->hide();
+
 }
 MainWindow::~MainWindow()
 {
@@ -84,7 +86,7 @@ void MainWindow::dbRefresh(QString tableChoice)
 {
     if(tableChoice == "PLAYER" || tableChoice == "ALL")
     {
-        ui->playerTable->setModel(Database::modelSearch("PLAYER","ID, first_name as 'First Name', last_name as 'Last Name', dob as 'Date of Birth', Mobile, eMail, Type, family_id as 'Family ID', team_id as 'Team ID', case when gender_id = 0 then 'male' when gender_id = 1 then 'female' end as Gender",lastPlayerQuery));
+        ui->playerTable->setModel(Database::modelSearch("PLAYER","ID, first_name as 'First Name', last_name as 'Last Name', dob as 'Date of Birth', Mobile, eMail as 'e-Mail', Type, family_id as 'Family ID', team_id as 'Team ID', case when gender_id = 1 then 'male' when gender_id = 0 then 'female' end as Gender",lastPlayerQuery));
         proxyModel = new QSortFilterProxyModel();
         proxyModel->setSourceModel(ui->playerTable->model());
         ui->playerTable->setModel(proxyModel);
@@ -156,7 +158,7 @@ void MainWindow::dbRefresh(QString tableChoice)
 void MainWindow::on_Refine_clicked()
 {
     refine = new Refine(this);
-    refine->show();
+    refine->open();
 
     QObject::connect(refine,SIGNAL(sendWhereQuery(QString)),this,SLOT(getWhereQuery(QString)) );
 }
@@ -164,7 +166,7 @@ void MainWindow::on_Refine_clicked()
 void MainWindow::on_playeAdButton_clicked()
 {
     addplayerdiag = new AddPlayerDiag(this);
-    addplayerdiag->show();
+    addplayerdiag->open();
 
     QObject::connect(addplayerdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
 }
@@ -186,7 +188,7 @@ void MainWindow::on_PlayerEditButton_clicked()
         }
     editplayerdiag = new EditPlayerDiag(this);
     editplayerdiag->search(id);
-    editplayerdiag->show();
+    editplayerdiag->open();
 
     QObject::connect(editplayerdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
 }
@@ -218,7 +220,7 @@ void MainWindow::getDeletePlayerAction(QString playerID)
 void MainWindow::getEditPlayerAction(QString playerID)
 {
     editplayerdiag = new EditPlayerDiag(this);
-    editplayerdiag->show();
+    editplayerdiag->open();
     editplayerdiag->search(playerID);
 
     QObject::connect(editplayerdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
@@ -252,7 +254,7 @@ void MainWindow::getEditVenueAction(QString venueID)
 {
 
     editvenuediag = new EditVenueDiag(this);
-    editvenuediag->show();
+    editvenuediag->open();
     editvenuediag->search(venueID);
 
     QObject::connect(editvenuediag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
@@ -286,7 +288,7 @@ void MainWindow::getDeleteTeamAction(QString teamID)
 void MainWindow::getEditTeamAction(QString teamID)
 {
     editteamdiag = new EditTeamDiag(this);
-    editteamdiag->show();
+    editteamdiag->open();
     editteamdiag->search(teamID);
 
     QObject::connect(editteamdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
@@ -360,7 +362,7 @@ void MainWindow::on_mockInsert_clicked()
 void MainWindow::on_venueAdd_clicked()
 {
     addvenuediag = new AddVenueDiag(this);
-    addvenuediag->show();
+    addvenuediag->open();
 
     QObject::connect(addvenuediag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
 }
@@ -385,7 +387,7 @@ void MainWindow::on_venueEdit_clicked()
 
     editvenuediag->search(id);
 
-    editvenuediag->show();
+    editvenuediag->open();
 
     QObject::connect(editvenuediag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
 }
@@ -393,7 +395,7 @@ void MainWindow::on_venueEdit_clicked()
 void MainWindow::on_teamAdd_clicked()
 {
     addteamdiag = new addTeamDialog(this);
-    addteamdiag->show();
+    addteamdiag->open();
 
     QObject::connect(addteamdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
 }
@@ -416,7 +418,7 @@ void MainWindow::on_teamEdit_clicked()
 
     editteamdiag = new EditTeamDiag(this);
     editteamdiag->search(id);
-    editteamdiag->show();
+    editteamdiag->open();
 
     QObject::connect(editteamdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
 }
@@ -443,7 +445,7 @@ QSqlQueryModel* MainWindow::search(QString query)
 void MainWindow::on_actionSetting_triggered()
 {
     settings = new Settings(this);
-    settings->show();
+    settings->open();
     QObject::connect(settings,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
     QObject::connect(settings,SIGNAL(sendLoadStyleSheet()),this,SLOT(loadStyleSheet()) );
 
@@ -500,7 +502,7 @@ void MainWindow::on_quickSearchTeam_textChanged(const QString &arg1)
 void MainWindow::on_Clear_clicked()
 {
     lastPlayerQuery = "";
-    dbRefresh("TEAM");
+    dbRefresh("PLAYER");
     ui->quickSearch->clear();
 }
 
@@ -525,33 +527,33 @@ void MainWindow::on_quickSearchComp_textChanged(const QString &arg1)
 }
 void MainWindow::on_compEdit_clicked()
 {
-//    QModelIndexList selection = ui->compTable->selectionModel()->selectedRows();
+    QModelIndexList selection = ui->compTable->selectionModel()->selectedRows();
+    editcompdiag = new EditCompDiag(this);
+    QString id = "";
 
-//    QString id = "";
+    if(!selection.isEmpty())
+        for(int i = 0; i < ui->compTable->model()->columnCount(); i++)
+        {
+            if(ui->compTable->model()->headerData(i, Qt::Horizontal).toString() == "id")
+            {
+                id = ui->compTable->model()->index(selection.first().row(),i).data().toString();
+                editcompdiag->search(id);
+                break;
+            }
+        }
 
-//    if(!selection.isEmpty())
-//        for(int i = 0; i < ui->compTable->model()->columnCount(); i++)
-//        {
-//            if(ui->compTable->model()->headerData(i, Qt::Horizontal).toString() == "id")
-//            {
-//                id = ui->compTable->model()->index(selection.first().row(),i).data().toString();
-//                break;
-//            }
-//        }
 
-//    editcompdiag = new EditTeamDiag(this);
-//    editteamdiag->search(id);
-//    editteamdiag->show();
+    editcompdiag->open();
 
-//    QObject::connect(editteamdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
+    QObject::connect(editcompdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
 }
 
 void MainWindow::on_compAdd_clicked()
 {
     addcompdiag = new AddCompDiag(this);
-    addcompdiag->show();
+    addcompdiag->open();
 
-    // QObject::connect(addcompdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
+    QObject::connect(addcompdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
 }
 
 void MainWindow::on_compViewDraw_clicked()
@@ -570,7 +572,7 @@ void MainWindow::on_compViewDraw_clicked()
             }
         }
         viewdraw = new ViewDraw(id,this);
-        viewdraw->show();
+        viewdraw->open();
     }
     else
     {
@@ -596,9 +598,10 @@ void MainWindow::on_compViewDraw_clicked()
 void MainWindow::on_paymentAdd_clicked()
 {
     addpaymentdiag = new AddPaymentDiag(this);
-    addpaymentdiag->show();
+    addpaymentdiag->open();
 
-    QObject::connect(addcompdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
+
+    QObject::connect(addpaymentdiag,SIGNAL(sendRefresh(QString)),this,SLOT(dbRefresh(QString)) );
 }
 
 void MainWindow::on_compClear_clicked()
@@ -613,4 +616,9 @@ void MainWindow::on_paymentClear_clicked()
     lastPaymentQuery = "";
     dbRefresh("PAYMENT");
     ui->quickSearchPayments->clear();
+}
+
+void MainWindow::on_paymentEdit_clicked()
+{
+
 }

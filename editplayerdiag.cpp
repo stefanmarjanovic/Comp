@@ -148,7 +148,7 @@ void EditPlayerDiag::getFamilyID(QString fID)
 void EditPlayerDiag::on_famSearch_clicked()
 {
     familysearchdiag = new FamilySearchDiag(this);
-    familysearchdiag->show();
+    familysearchdiag->open();
 
     QObject::connect(familysearchdiag, SIGNAL(sendFamilyID(QString)),this,SLOT(getFamilyID(QString)));
 }

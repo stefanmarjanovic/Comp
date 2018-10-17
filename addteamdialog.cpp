@@ -16,7 +16,7 @@ addTeamDialog::~addTeamDialog()
 void addTeamDialog::on_divisionSearch_clicked()
 {
     divisionselector = new DivisionSelector(this);
-    divisionselector->show();
+    divisionselector->open();
 
     QObject::connect(divisionselector, SIGNAL(sendID(QString)),this,SLOT(getDivID(QString)));
 }
@@ -24,7 +24,7 @@ void addTeamDialog::on_divisionSearch_clicked()
 void addTeamDialog::on_compSearch_clicked()
 {
     compselector = new CompSelector(this);
-    compselector->show();
+    compselector->open();
 
     QObject::connect(compselector, SIGNAL(sendID(QString)),this,SLOT(getCompID(QString)));
 }
@@ -32,7 +32,7 @@ void addTeamDialog::on_compSearch_clicked()
 void addTeamDialog::on_venueSearch_clicked()
 {
     venueselector = new VenueSelector(this);
-    venueselector->show();
+    venueselector->open();
 
     QObject::connect(venueselector, SIGNAL(sendID(QString)),this,SLOT(getVenueID(QString)));
 }

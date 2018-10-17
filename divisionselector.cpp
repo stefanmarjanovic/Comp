@@ -34,7 +34,7 @@ void DivisionSelector::on_cancel_clicked()
 
 void DivisionSelector::on_submit_clicked()
 {
-    QModelIndexList selection = ui->divisionTable->selectionModel()->selectedIndexes();
+    QModelIndexList selection = ui->searchTable->selectionModel()->selectedIndexes();
     if(!selection.isEmpty())
     {
         emit sendID(selection.at(IDIndex).data().toString());
@@ -45,7 +45,7 @@ void DivisionSelector::on_submit_clicked()
 void DivisionSelector::on_pushButton_clicked()
 {
     adddivsiondiag = new addDivisionDiag(this);
-    adddivsiondiag->show();
+    adddivsiondiag->open();
 
 
 }

@@ -61,7 +61,7 @@ void addDivisionDiag::on_buttonBox_accepted()
 void addDivisionDiag::on_compSearch_clicked()
 {
     compselect = new CompSelector(this);
-    compselect->show();
+    compselect->open();
 
 
     QObject::connect(compselect, SIGNAL(sendID(QString)),this,SLOT(getCompID(QString)));

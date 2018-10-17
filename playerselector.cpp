@@ -6,7 +6,7 @@ PlayerSelector::PlayerSelector(QWidget *parent) :
     ui(new Ui::PlayerSelector)
 {
     ui->setupUi(this);
-    ui->searchTable->setModel(Database::search("players",""));
+    ui->searchTable->setModel(Database::search("PLAYER",""));
     ui->searchTable->setSelectionBehavior(QAbstractItemView::SelectRows);
 
 

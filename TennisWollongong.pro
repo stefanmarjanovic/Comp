@@ -49,7 +49,6 @@ SOURCES += \
     database.cpp \
     settings.cpp \
     addcompdiag.cpp \
-    competition.cpp \
     viewdraw.cpp \
     adddivisiondiag.cpp \
     division.cpp \
@@ -82,7 +81,6 @@ HEADERS += \
     addcompdiag.h \
     adddivisiondiag.h \
     division.h \
-    competition.h \
     viewdraw.h \
     venueselector.h \
     payment.h \

@@ -20,19 +20,18 @@ public:
 private slots:
     void on_cal_clicked();
 
-    void on_buttonBox_accepted();
-
-    void on_buttonBox_rejected();
-
-    void on_divisionSearch_clicked();
-
-    void getDivID(QString id);
     void getDate(QString);
+
+    void on_apply_clicked();
+
+    void on_cancel_clicked();
+
+signals:
+    void sendRefresh(QString);
 
 private:
     Ui::AddCompDiag *ui;
     DatePick * datepick;
-    DivisionSelector *divisionselector;
 
 };
 

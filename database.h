@@ -24,6 +24,7 @@ public slots:
     static QStringList search(QString table, QString select, QString where);
     static QSqlQueryModel* modelSearch(QString table, QString select, QString where);
 
+    static bool rawQuery(QString query);
     static int getIndex(QString column, QAbstractItemModel *model);
     static bool test(QString host, QString name, QString user, QString password);
     static QStringList customSearch(QString query);
