@@ -2,7 +2,8 @@
 
 extern QSqlDatabase tennisTestDB;
 Venue::Venue(QString venueName, QString streetNumber, QString streetName, QString suburb, QString postcode)					//public constructor
-{								//Venue constructor
+{
+    //Venue constructor
     this->venueName = venueName ;
     this->streetNumber = streetNumber;
     this->streetName = streetName;

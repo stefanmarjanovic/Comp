@@ -65,7 +65,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->paymentTable, SIGNAL(customContextMenuRequested(QPoint)),
             SLOT(customTeamMenuRequested(QPoint)));
 
-   ui->paymentEdit->hide();
+   ui->paymentEdit->hide();     //unfinished edit payments button
+   ui->mockInsert->hide();     // hide insert mock data button
 
 }
 MainWindow::~MainWindow()
@@ -86,25 +87,24 @@ void MainWindow::dbRefresh(QString tableChoice)
 {
     if(tableChoice == "PLAYER" || tableChoice == "ALL")
     {
-        ui->playerTable->setModel(Database::modelSearch("PLAYER","ID, first_name as 'First Name', last_name as 'Last Name', dob as 'Date of Birth', Mobile, eMail as 'e-Mail', Type, family_id as 'Family ID', team_id as 'Team ID', case when gender_id = 1 then 'male' when gender_id = 0 then 'female' end as Gender",lastPlayerQuery));
+        ui->playerTable->setModel(Database::modelSearch("player JOIN team ON team.id = player.team_id","player.id AS 'Registration number', player.first_name AS 'First Name', player.last_name AS 'Last Name', player.dob AS 'Date of Birth', case when gender_id = 1 then 'Male' when gender_id = 0 then 'Female' end as 'Gender', player.mobile AS 'Mobile', player.email AS 'Email', player.family_id AS 'Family', team.name AS 'Team'",lastPlayerQuery));
         proxyModel = new QSortFilterProxyModel();
         proxyModel->setSourceModel(ui->playerTable->model());
         ui->playerTable->setModel(proxyModel);
         ui->playerTable->setSortingEnabled(true);
-        ui->playerTable->sortByColumn(0, Qt::AscendingOrder);
+        ui->playerTable->sortByColumn(2, Qt::AscendingOrder);
         ui->playerTable->resizeColumnsToContents();
     }
 
     if(tableChoice == "VENUE" || tableChoice == "ALL")
     {
-        ui->venueTable->setModel(Database::modelSearch("VENUE INNER JOIN SUBURB ON VENUE.SUBURB_ID = SUBURB.ID","VENUE.ID as ID,Name,Street_Number as 'Street Number',Street,SUBURB.SUBURB_NAME as Suburb, Postcode, Vacancy_Count as 'Vacant Courts'",lastVenueQuery));
+        ui->venueTable->setModel(Database::modelSearch("VENUE INNER JOIN SUBURB ON VENUE.SUBURB_ID = SUBURB.ID","Name,Street_Number as 'Street Number',Street,SUBURB.SUBURB_NAME as Suburb, Postcode, Vacancy_Count as 'Vacant Courts'",lastVenueQuery));
         proxyModel = new QSortFilterProxyModel();
         proxyModel->setSourceModel(ui->venueTable->model());
         ui->venueTable->setModel(proxyModel);
         ui->venueTable->setSortingEnabled(true);
         ui->venueTable->sortByColumn(0, Qt::AscendingOrder);
         ui->venueTable->resizeColumnsToContents();
-
     }
 
     if(tableChoice == "TEAM" || tableChoice == "ALL")
@@ -121,14 +121,14 @@ void MainWindow::dbRefresh(QString tableChoice)
 
     if(tableChoice == "COMP" || tableChoice == "ALL")
     {
-        ui->compTable->setModel(Database::search("COMPETITION",lastCompQuery));
+        ui->compTable->setModel(Database::search("COMPETITION",lastCompQuery)); //original select * query
+        //ui->compTable->setModel(Database::modelSearch("COMPETITION","name AS Name, rounds AS Rounds, year as Year, start_date AS Start, finish_date AS Finish", lastCompQuery));
         proxyModel = new QSortFilterProxyModel();
         proxyModel->setSourceModel(ui->compTable->model());
         ui->compTable->setModel(proxyModel);
         ui->compTable->setSortingEnabled(true);
         ui->compTable->sortByColumn(0, Qt::AscendingOrder);
         ui->compTable->resizeColumnsToContents();
-
     }
 
     if(tableChoice == "PAYMENT" || tableChoice == "ALL")

@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT += core gui
 QT += sql
 QT += printsupport
 
@@ -13,7 +13,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = TennisWollongong
 TEMPLATE = app
 
-VERSION = 0.1.321
+VERSION = 1.1.321
 DEFINES += VERSION_STRING=\\\"$${VERSION}\\\"
 
 # The following define makes your compiler emit warnings if you use
@@ -114,5 +114,3 @@ FORMS += \
 
 RESOURCES += \
     resources.qrc
-
-

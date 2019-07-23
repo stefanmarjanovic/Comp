@@ -2,12 +2,14 @@
 #define DATABASE_H
 
 #include <QObject>
+#include <QtSql>
 #include <QSqlDatabase>
 #include <QSqlQueryModel>
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QDebug>
 #include <QMessageBox>
+#include <QCoreApplication>
 
 #include "settings.h"
 namespace Ui {

@@ -1,9 +1,11 @@
 #include "mainwindow.h"
+#include <QtSql>
 #include <qtsql/QtSql>
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlQuery>
 #include <QApplication>
 #include <QStyleFactory>
+#include <QCoreApplication>
 
 #include <QSplashScreen>
 #include <qthread.h>
@@ -26,7 +28,7 @@ int main(int argc, char *argv[])
     QSplashScreen splash(pixmap);
     splash.show();
 
-    splashTimer::sleep(5); // splash is shown for 5 seconds
+    splashTimer::sleep(3); // splash is shown for 5 seconds
 
     MainWindow w;
     w.show();
