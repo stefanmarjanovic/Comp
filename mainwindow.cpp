@@ -87,7 +87,7 @@ void MainWindow::dbRefresh(QString tableChoice)
 {
     if(tableChoice == "PLAYER" || tableChoice == "ALL")
     {
-        ui->playerTable->setModel(Database::modelSearch("player JOIN team ON team.id = player.team_id","player.id AS 'Registration number', player.first_name AS 'First Name', player.last_name AS 'Last Name', player.dob AS 'Date of Birth', case when gender_id = 1 then 'Male' when gender_id = 0 then 'Female' end as 'Gender', player.mobile AS 'Mobile', player.email AS 'Email', player.family_id AS 'Family', team.name AS 'Team'",lastPlayerQuery));
+        ui->playerTable->setModel(Database::modelSearch("player JOIN team ON team.id = player.team_id","player.first_name AS 'First Name', player.last_name AS 'Last Name', player.dob AS 'Date of Birth', case when gender_id = 1 then 'Male' when gender_id = 0 then 'Female' end as 'Gender', player.id AS 'Registration number', player.mobile AS 'Mobile', player.email AS 'Email', player.last_name AS 'Family', team.name AS 'Team'",lastPlayerQuery));
         proxyModel = new QSortFilterProxyModel();
         proxyModel->setSourceModel(ui->playerTable->model());
         ui->playerTable->setModel(proxyModel);
@@ -180,7 +180,7 @@ void MainWindow::on_PlayerEditButton_clicked()
     if(!selection.isEmpty())
         for(int i = 0; i < ui->playerTable->model()->columnCount(); i++)
         {
-            if(ui->playerTable->model()->headerData(i, Qt::Horizontal).toString() == "ID")
+            if(ui->playerTable->model()->headerData(i, Qt::Horizontal).toString() == "Registration number")
             {
                 id = ui->playerTable->model()->index(selection.first().row(),i).data().toString();
                 break;
@@ -302,7 +302,7 @@ void MainWindow::getWhereQuery(QString where)
 void MainWindow::customPlayerMenuRequested(QPoint pos)
 {
     QModelIndex index=ui->playerTable->indexAt(pos);
-    QString playerID = ui->playerTable->model()->index(index.row(),0).data().toString();
+    QString playerID = ui->playerTable->model()->index(index.row(),4).data().toString();
     QMenu *menu=new QMenu(this);
 
     menu->addAction("Delete Player",this, std::bind(&MainWindow::getDeletePlayerAction,this,playerID));
