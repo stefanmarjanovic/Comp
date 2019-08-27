@@ -19,7 +19,7 @@ public:
     ~EditCompDiag();
 
 public slots:
-    void search(QString id);
+    void search(QString id, QString n);
 private slots:
     void on_search_clicked();
 

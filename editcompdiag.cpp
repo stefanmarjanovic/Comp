@@ -14,12 +14,13 @@ EditCompDiag::~EditCompDiag()
     emit sendRefresh("COMP");
 }
 
-void EditCompDiag::search(QString id)
+void EditCompDiag::search(QString id, QString n)
 {
 
     if(!id.isEmpty())
     {
-        globalID=id;
+        //Search DB on id
+        globalID = id;
         ui->id->setText(id);
         if(!Database::search("COMPETITION","name","id = " + id).isEmpty())
         {
@@ -30,18 +31,30 @@ void EditCompDiag::search(QString id)
             ui->roundSelector->setCurrentIndex(Database::search("COMPETITION","rounds","id = " + id).first().toInt()-1);
             ui->sDate->setText(dob);
         }
-        else
-        {
-            ui->compName->setText("");
-            ui->roundSelector->setCurrentIndex(0);
-            ui->sDate->setText("");
-        }
+    }
+    else if(!n.isEmpty()){
+         //Search DB on name
+         name = n;
+         dob = QDate::fromString(Database::search("COMPETITION","start_date", "name = '" + name + "'").first(),"yyyy-MM-dd").toString("dd/MM/yyyy");
+         globalID = Database::search("COMPETITION","id","name = '" + name + "'").first();
+
+         ui->compName->setText(name);
+         ui->roundSelector->setCurrentIndex(Database::search("COMPETITION","rounds", "name = '" + name + "'").first().toInt()-1);
+         ui->sDate->setText(dob);
+         ui->id->setText(globalID);
+    }
+    else
+    {
+        //Competition not found
+        ui->compName->setText("");
+        ui->roundSelector->setCurrentIndex(0);
+        ui->sDate->setText("");
     }
 }
 
 void EditCompDiag::on_search_clicked()
 {
-    EditCompDiag::search(ui->id->text());
+    EditCompDiag::search(ui->id->text(),ui->compName->text());
 }
 
 void EditCompDiag::on_apply_clicked()

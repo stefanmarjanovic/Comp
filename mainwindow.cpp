@@ -121,8 +121,8 @@ void MainWindow::dbRefresh(QString tableChoice)
 
     if(tableChoice == "COMP" || tableChoice == "ALL")
     {
-        ui->compTable->setModel(Database::search("COMPETITION",lastCompQuery)); //original select * query
-        //ui->compTable->setModel(Database::modelSearch("COMPETITION","name AS Name, rounds AS Rounds, year as Year, start_date AS Start, finish_date AS Finish", lastCompQuery));
+        //ui->compTable->setModel(Database::search("COMPETITION",lastCompQuery)); //original select  query
+        ui->compTable->setModel(Database::modelSearch("COMPETITION","name AS Name, rounds AS Rounds, year as Year, start_date AS Start, finish_date AS Finish", lastCompQuery));
         proxyModel = new QSortFilterProxyModel();
         proxyModel->setSourceModel(ui->compTable->model());
         ui->compTable->setModel(proxyModel);
@@ -316,7 +316,7 @@ void MainWindow::customCompMenuRequested(QPoint pos)
     QMenu *menu=new QMenu(this);
 
     menu->addAction("View Schedule",this, std::bind(&MainWindow::on_compViewDraw_clicked,this));
-    // menu->addAction("Edit Player",this, std::bind(&MainWindow::getEditPlayerAction,this, playerID));
+    //menu->addAction("Edit Comp",this, std::bind(&MainWindow::getEditCompAction,this, compID));
     menu->popup(ui->playerTable->viewport()->mapToGlobal(pos));
 }
 void MainWindow::customVenueMenuRequested(QPoint pos)
@@ -346,8 +346,8 @@ void MainWindow::customPaymentMenuRequested(QPoint pos){
     QString paymentID = ui->paymentTable->model()->index(paymentIndex.row(),0).data().toString();
     QMenu *paymentMenu=new QMenu(this);
 
-    //paymentMenu->addAction("Delete Team",this, std::bind(&MainWindow::getDeletePaymentAction,this,paymentID));
-    //paymentMenu->addAction("Edit Team",this, std::bind(&MainWindow::getEditPaymentAction,this, paymentID));
+    //paymentMenu->addAction("Delete Payment",this, std::bind(&MainWindow::getDeletePaymentAction,this,paymentID));
+    //paymentMenu->addAction("Edit Payment",this, std::bind(&MainWindow::getEditPaymentAction,this, paymentID));
     paymentMenu->popup(ui->paymentTable->viewport()->mapToGlobal(pos));
 }
 
@@ -529,7 +529,7 @@ void MainWindow::on_compEdit_clicked()
 {
     QModelIndexList selection = ui->compTable->selectionModel()->selectedRows();
     editcompdiag = new EditCompDiag(this);
-    QString id = "";
+    QString id, compName = "";
 
     if(!selection.isEmpty())
         for(int i = 0; i < ui->compTable->model()->columnCount(); i++)
@@ -537,7 +537,13 @@ void MainWindow::on_compEdit_clicked()
             if(ui->compTable->model()->headerData(i, Qt::Horizontal).toString() == "id")
             {
                 id = ui->compTable->model()->index(selection.first().row(),i).data().toString();
-                editcompdiag->search(id);
+                editcompdiag->search(id,compName);
+                break;
+            }
+            else if(ui->compTable->model()->headerData(i, Qt::Horizontal).toString() == "Name")
+            {
+                compName = ui->compTable->model()->index(selection.first().row(),i).data().toString();
+                editcompdiag->search(id,compName);
                 break;
             }
         }
@@ -558,7 +564,25 @@ void MainWindow::on_compAdd_clicked()
 
 void MainWindow::on_compViewDraw_clicked()
 {
-    QModelIndexList selection = ui->compTable->selectionModel()->selectedRows();
+    QModelIndexList selection = ui->compTable->selectionModel()->selectedRows();    //Comp table model
+    QString teamName;                                                               //team name used to match against database to return id
+
+    for(int i = 0; i < ui->compTable->model()->columnCount(); i++)                  //loop through model and return the team name of select team
+    {
+        if(ui->compTable->model()->headerData(i, Qt::Horizontal).toString() == "Name")  //Search only in column 'Name'
+        {
+            teamName = ui->compTable->model()->index(selection.first().row(),i).data().toString();
+            qDebug() << teamName;
+            break;
+        }
+    }
+
+    //SQL query - return comp table with id's
+
+    //QString id = ""
+    //match row clicked with id
+    //Set QString id = sql.id
+
 
     QString id = "";
     if(!selection.isEmpty())
